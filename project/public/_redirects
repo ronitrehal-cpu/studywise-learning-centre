@@ -1,24 +1,27 @@
-# --- Old Google sitelinks / old URLs -> new site ---
-/about-us            /about            301
-/about               /about            301
-/faq                 /faqs             301
-/faqs                /faqs             301
-/student-portal      /student-portal   301
+# -----------------------------
+# Old Google sitelinks -> new routes
+# -----------------------------
+/about-us        /about           301!
+/faqs            /faq             301!
+/faq             /faq             301!
+/student-portal  /student-portal  200
 
-# --- Old “section” style links -> new homepage sections ---
-/subjects-offered    /#programs        301
-/online-tutoring     /#programs        301
-/programs            /#programs        301
+# -----------------------------
+# Old "page" style links -> homepage sections (hash)
+# -----------------------------
+/subjects-offered   /#programs       301!
+/online-tutoring    /#programs       301!
+/programs           /#programs       301!
+/locations          /#locations      301!
+/contact            /#contact        301!
+/why-us             /#why-studywise  301!
+/why-studywise      /#why-studywise  301!
+/enrol-now          /#enrollment     301!
+/enrolment          /#enrollment     301!
+/enrollment-form    /#enrollment     301!
+/enrollment         /#enrollment     301!
 
-/locations           /#locations       301
-/contact             /#contact         301
-/why-us              /#why-studywise   301
-/why-studywise       /#why-studywise   301
-/enrolment-form      /#enrollment      301
-/enrollment          /#enrollment      301
-/enrol-now           /#enrollment      301
-
-# --- Keep this LAST (SPA fallback) ---
-/*                   /index.html       200
-
-/*    /index.html   200
+# -----------------------------
+# SPA fallback (KEEP THIS LAST)
+# -----------------------------
+/*  /index.html  200
