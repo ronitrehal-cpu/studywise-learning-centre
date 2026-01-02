@@ -14,7 +14,7 @@ function HashScroll() {
   useEffect(() => {
     if (!location.hash) return;
 
-    const id = decodeURIComponent(location.hash.slice(1));
+    const id = decodeURIComponent(location.hash.replace("#", ""));
     let tries = 0;
 
     const scrollToHash = () => {
@@ -36,7 +36,7 @@ function HashScroll() {
   return null;
 }
 
-function App() {
+export default function App() {
   return (
     <Router>
       <ScrollToTop />
@@ -44,14 +44,18 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+
+        {/* Support BOTH versions so Google/old links never break */}
         <Route path="/about" element={<About />} />
+        <Route path="/about-us" element={<About />} />
+
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/faqs" element={<FAQ />} />
+
         <Route path="/student-portal" element={<StudentPortal />} />
+
         <Route path="/programs/:slug" element={<ProgramDetail />} />
       </Routes>
     </Router>
   );
 }
-
-export default App;
-
