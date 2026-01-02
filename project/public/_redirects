@@ -1,23 +1,18 @@
 # --- Old Google sitelinks / old URLs -> new URLs ---
 /about-us      /about       301
-/about         /about       301
-
-/faq           /faq         301
 /faqs          /faq         301
 
 # --- Old "section" sitelinks -> homepage hash sections ---
-/subjects-offered   /#programs     301
-/online-tutoring    /#programs     301
-/programs           /#programs     301
-
-/locations          /#locations    301
-/contact            /#contact      301
-/why-us             /#why-us       301
+/subjects-offered   /#programs      301
+/online-tutoring    /#programs      301
+/programs           /#programs      301
+/locations          /#locations     301
+/contact            /#contact       301
+/why-us             /#why-us        301
 /why-studywise      /#why-studywise 301
-
-/enrolment-form     /#enrollment   301
-/enrollment         /#enrollment   301
-/enrol-now          /#enrollment   301
+/enrolment-form     /#enrollment    301
+/enrollment         /#enrollment    301
+/enrol-now          /#enrollment    301
 
 # --- IMPORTANT: SPA fallback (keep this LAST) ---
 /*   /index.html   200
