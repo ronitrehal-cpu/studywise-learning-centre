@@ -154,7 +154,7 @@ export function Locations({ id }: { id?: string }) {
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-5 h-5 text-blue-700" />
-              <span className="text-gray-700 font-medium">admin@studywiselearning.com.au</span>
+              <span className="text-gray-700 font-medium">admin@studywise.com.au</span>
             </div>
           </div>
 
@@ -174,7 +174,7 @@ export function Locations({ id }: { id?: string }) {
               Text
             </a>
             <a
-              href="mailto:admin@studywiselearning.com.au"
+              href="mailto:admin@studywise.com.au"
               className="inline-flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 shadow-sm hover:shadow-md"
             >
               <Mail className="w-4 h-4" />

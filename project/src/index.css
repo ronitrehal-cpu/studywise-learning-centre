@@ -63,20 +63,3 @@ body {
     border-left-width: 3px;
   }
 }
-
-/* =========================================
-   Scroll Reveal Animations
-   ========================================= */
-.reveal-visible {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal-visible {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}

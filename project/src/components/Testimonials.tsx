@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Section } from './Section';
 import { Card } from './Card';
-import { Reveal } from './Reveal';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { testimonials } from '../data/testimonialData';
 
@@ -54,14 +53,12 @@ export function Testimonials() {
 
   return (
     <Section background="white">
-      <Reveal>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            What Our Customers Are Saying
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto rounded-full"></div>
-        </div>
-      </Reveal>
+      <div className="text-center mb-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+          What Our Customers Are Saying
+        </h2>
+        <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto rounded-full"></div>
+      </div>
 
       <div className="max-w-7xl mx-auto relative">
         <div

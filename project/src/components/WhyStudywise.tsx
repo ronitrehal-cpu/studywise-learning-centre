@@ -1,8 +1,6 @@
 import { Section } from './Section';
 import { Card } from './Card';
 import { Button } from './Button';
-import { Reveal } from './Reveal';
-import { StaggerGroup } from './StaggerGroup';
 import { GraduationCap, Heart, BookOpen, Target, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,24 +39,22 @@ export function WhyStudywise() {
     <Section background="light">
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <Reveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Why Choose Studywise?
-            </h2>
-            <p className="text-lg text-gray-600 mb-6">
-              At Studywise Learning Centre, we're committed to helping every student reach their full potential through expert guidance, proven teaching methods, and a supportive learning environment.
-            </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Why Choose Studywise?
+          </h2>
+          <p className="text-lg text-gray-600 mb-6">
+            At Studywise Learning Centre, we're committed to helping every student reach their full potential through expert guidance, proven teaching methods, and a supportive learning environment.
+          </p>
 
-            <Button
-              variant="outline"
-              className="mb-8 w-full sm:w-auto"
-              onClick={() => navigate('/about?from=whyus')}
-            >
-              Learn More About Studywise
-            </Button>
-          </Reveal>
+          <Button
+            variant="outline"
+            className="mb-8 w-full sm:w-auto"
+            onClick={() => navigate('/about?from=whyus')}
+          >
+            Learn More About Studywise
+          </Button>
 
-          <StaggerGroup className="space-y-6" staggerDelay={0.1}>
+          <div className="space-y-6">
             {reasons.map((reason, index) => {
               const Icon = reason.icon;
               return (
@@ -73,34 +69,32 @@ export function WhyStudywise() {
                 </div>
               );
             })}
-          </StaggerGroup>
+          </div>
         </div>
 
-        <Reveal direction="left">
-          <div className="relative">
-            <Card className="bg-gradient-to-br from-sky-50 to-white">
-              <img
-                src="https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                alt="Students learning together"
-                className="w-full h-auto rounded-lg mb-6"
-              />
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
-                <div className="bg-white rounded-lg p-2 sm:p-4 shadow-sm">
-                  <p className="text-xl leading-tight sm:text-3xl sm:leading-normal font-bold text-blue-700">20+</p>
-                  <p className="text-xs sm:text-sm text-gray-600">Years Experience</p>
-                </div>
-                <div className="bg-white rounded-lg p-2 sm:p-4 shadow-sm">
-                  <p className="text-xl leading-tight sm:text-3xl sm:leading-normal font-bold text-blue-700">2,000+</p>
-                  <p className="text-xs sm:text-sm text-gray-600">Students Taught</p>
-                </div>
-                <div className="bg-white rounded-lg p-2 sm:p-4 shadow-sm">
-                  <p className="text-xl leading-tight sm:text-3xl sm:leading-normal font-bold text-blue-700">10,000+</p>
-                  <p className="text-xs sm:text-sm text-gray-600">Hours of Teaching</p>
-                </div>
+        <div className="relative">
+          <Card className="bg-gradient-to-br from-sky-50 to-white">
+            <img
+              src="https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="Students learning together"
+              className="w-full h-auto rounded-lg mb-6"
+            />
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-3xl font-bold text-blue-700">20+</p>
+                <p className="text-sm text-gray-600">Years Experience</p>
               </div>
-            </Card>
-          </div>
-        </Reveal>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-3xl font-bold text-blue-700">2,000+</p>
+                <p className="text-sm text-gray-600">Students Taught</p>
+              </div>
+              <div className="bg-white rounded-lg p-4 shadow-sm">
+                <p className="text-3xl font-bold text-blue-700">10,000+</p>
+                <p className="text-sm text-gray-600">Hours of Teaching</p>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
     </Section>
   );

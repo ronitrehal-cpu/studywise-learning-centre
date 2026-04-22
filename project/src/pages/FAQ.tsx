@@ -3,7 +3,6 @@ import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Section } from '../components/Section';
 import { Button } from '../components/Button';
-import { Reveal } from '../components/Reveal';
 import { ChevronDown, Search, Phone, Mail } from 'lucide-react';
 
 interface FAQItem {
@@ -66,7 +65,7 @@ const faqs: FAQItem[] = [
   {
     category: 'Fees & Payments',
     question: 'How much does it cost?',
-    answer: `Our fees vary depending on the program, year level, and session length. We offer competitive rates and flexible payment options. Please contact us at 03 8774 7303 or admin@studywiselearning.com.au for detailed pricing information.`
+    answer: `Our fees vary depending on the program, year level, and session length. We offer competitive rates and flexible payment options. Please contact us at 03 8774 7303 or admin@studywise.com.au for detailed pricing information.`
   },
   {
     category: 'Fees & Payments',
@@ -111,7 +110,7 @@ const faqs: FAQItem[] = [
   {
     category: 'Contact & Locations',
     question: 'How can I contact Studywise?',
-    answer: `You can call us at 03 8774 7303 or 0430 095 076, email us at admin@studywiselearning.com.au, or visit one of our centres. We're here to answer your questions and help you find the right program for your child.`
+    answer: `You can call us at 03 8774 7303 or 0430 095 076, email us at admin@studywise.com.au, or visit one of our centres. We're here to answer your questions and help you find the right program for your child.`
   }
 ];
 
@@ -166,31 +165,27 @@ export function FAQ() {
       <main className="pt-20">
       <Section background="gray">
         <div className="max-w-4xl mx-auto">
-          <Reveal delay={0.1}>
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Frequently Asked Questions
-              </h1>
-              <p className="text-lg text-gray-600">
-                Quick answers about enrolment, programs, fees, and Studywise Online.
-              </p>
-            </div>
-          </Reveal>
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Frequently Asked Questions
+            </h1>
+            <p className="text-lg text-gray-600">
+              Quick answers about enrolment, programs, fees, and Studywise Online.
+            </p>
+          </div>
 
-          <Reveal delay={0.2}>
-            <div className="mb-8">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search questions..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                />
-              </div>
+          <div className="mb-8">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search questions..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              />
             </div>
-          </Reveal>
+          </div>
 
           {groupedFaqs.length === 0 ? (
             <div className="text-center py-12">
@@ -224,48 +219,46 @@ export function FAQ() {
       </Section>
 
       <Section background="white">
-        <Reveal>
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl shadow-md p-8">
-              <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
-                Still have questions?
-              </h3>
-              <p className="text-gray-700 text-center mb-6">
-                Call, text, or email us and we'll help you choose the right program.
-              </p>
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl shadow-md p-8">
+            <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
+              Still have questions?
+            </h3>
+            <p className="text-gray-700 text-center mb-6">
+              Call, text, or email us and we'll help you choose the right program.
+            </p>
 
-              <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-6">
-                <div className="flex items-center gap-2">
-                  <Phone className="w-5 h-5 text-blue-700" />
-                  <span className="text-gray-700 font-medium">03 8774 7303</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone className="w-5 h-5 text-blue-700" />
-                  <span className="text-gray-700 font-medium">0430 095 076</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Mail className="w-5 h-5 text-blue-700" />
-                  <span className="text-gray-700 font-medium">admin@studywiselearning.com.au</span>
-                </div>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-6">
+              <div className="flex items-center gap-2">
+                <Phone className="w-5 h-5 text-blue-700" />
+                <span className="text-gray-700 font-medium">03 8774 7303</span>
               </div>
-
-              <div className="flex flex-wrap justify-center gap-4">
-                <Button variant="primary" onClick={() => window.location.href = 'tel:0387747303'}>
-                  <Phone className="w-4 h-4 mr-2" />
-                  Call
-                </Button>
-                <Button variant="primary" onClick={() => window.location.href = 'sms:0430095076'}>
-                  <Phone className="w-4 h-4 mr-2" />
-                  Text
-                </Button>
-                <Button variant="primary" onClick={() => window.location.href = 'mailto:admin@studywiselearning.com.au'}>
-                  <Mail className="w-4 h-4 mr-2" />
-                  Email
-                </Button>
+              <div className="flex items-center gap-2">
+                <Phone className="w-5 h-5 text-blue-700" />
+                <span className="text-gray-700 font-medium">0430 095 076</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-5 h-5 text-blue-700" />
+                <span className="text-gray-700 font-medium">admin@studywise.com.au</span>
               </div>
             </div>
+
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button variant="primary" onClick={() => window.location.href = 'tel:0387747303'}>
+                <Phone className="w-4 h-4 mr-2" />
+                Call
+              </Button>
+              <Button variant="primary" onClick={() => window.location.href = 'sms:0430095076'}>
+                <Phone className="w-4 h-4 mr-2" />
+                Text
+              </Button>
+              <Button variant="primary" onClick={() => window.location.href = 'mailto:admin@studywise.com.au'}>
+                <Mail className="w-4 h-4 mr-2" />
+                Email
+              </Button>
+            </div>
           </div>
-        </Reveal>
+        </div>
       </Section>
       </main>
       <Footer />

@@ -100,8 +100,8 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-sky-400 flex-shrink-0" />
-                <a href="mailto:admin@studywiselearning.com.au" className="text-sm text-gray-400 hover:text-sky-400 transition-colors">
-                  admin@studywiselearning.com.au
+                <a href="mailto:admin@studywise.com.au" className="text-sm text-gray-400 hover:text-sky-400 transition-colors">
+                  admin@studywise.com.au
                 </a>
               </li>
             </ul>

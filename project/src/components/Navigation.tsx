@@ -47,13 +47,6 @@ export function Navigation() {
     { label: 'Contact', id: 'contact-studywise' }
   ];
 
-  const isLinkActive = (link: { label: string; path?: string; id?: string }) => {
-    if (link.path && (link.path === '/about' || link.path === '/faq')) {
-      return location.pathname === link.path;
-    }
-    return false;
-  };
-
   return (
     <nav className="bg-white shadow-md fixed w-full top-0 z-50">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
@@ -77,22 +70,15 @@ export function Navigation() {
           </div>
 
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link, index) => {
-              const isActive = isLinkActive(link);
-              return (
-                <button
-                  key={link.path || link.id || index}
-                  onClick={() => handleNavClick(link)}
-                  className={`font-medium transition-colors ${
-                    isActive
-                      ? 'text-blue-700 font-semibold'
-                      : 'text-gray-700 hover:text-blue-700'
-                  }`}
-                >
-                  {link.label}
-                </button>
-              );
-            })}
+            {navLinks.map((link, index) => (
+              <button
+                key={link.path || link.id || index}
+                onClick={() => handleNavClick(link)}
+                className="text-gray-700 hover:text-blue-700 font-medium transition-colors"
+              >
+                {link.label}
+              </button>
+            ))}
             <Button
               variant="outline"
               size="md"
@@ -123,22 +109,15 @@ export function Navigation() {
 
         {mobileMenuOpen && (
           <div className="md:hidden pb-6 space-y-4">
-            {navLinks.map((link, index) => {
-              const isActive = isLinkActive(link);
-              return (
-                <button
-                  key={link.path || link.id || index}
-                  onClick={() => handleNavClick(link)}
-                  className={`block w-full text-left font-medium py-2 ${
-                    isActive
-                      ? 'text-blue-700 font-semibold'
-                      : 'text-gray-700 hover:text-blue-700'
-                  }`}
-                >
-                  {link.label}
-                </button>
-              );
-            })}
+            {navLinks.map((link, index) => (
+              <button
+                key={link.path || link.id || index}
+                onClick={() => handleNavClick(link)}
+                className="block w-full text-left text-gray-700 hover:text-blue-700 font-medium py-2"
+              >
+                {link.label}
+              </button>
+            ))}
             <Button
               variant="outline"
               onClick={() => {

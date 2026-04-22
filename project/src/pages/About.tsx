@@ -5,8 +5,6 @@ import { EnrollmentForm } from '../components/EnrollmentForm';
 import { Section } from '../components/Section';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
-import { Reveal } from '../components/Reveal';
-import { StaggerGroup } from '../components/StaggerGroup';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   GraduationCap,
@@ -140,29 +138,22 @@ export function About() {
             </button>
           )}
 
-          <Reveal delay={0.1}>
-            <div className="text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-                About Studywise
-              </h1>
-              <div className="flex justify-center mb-6">
-                <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-700 text-sm font-medium rounded-full border border-blue-200">
-                  Est. 2012
-                </span>
-              </div>
-              <p className="text-xl text-gray-600 mb-8">
-                Supporting students to reach their full potential through quality teaching, personalised learning, and a commitment to academic excellence.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="primary" onClick={() => scrollToSection('enrollment')}>
-                  Enrol Now
-                </Button>
-                <Button variant="outline" onClick={handleViewPrograms}>
-                  View Programs
-                </Button>
-              </div>
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              About Studywise
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              Supporting students to reach their full potential through quality teaching, personalised learning, and a commitment to academic excellence.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="primary" onClick={() => scrollToSection('enrollment')}>
+                Enrol Now
+              </Button>
+              <Button variant="outline" onClick={handleViewPrograms}>
+                View Programs
+              </Button>
             </div>
-          </Reveal>
+          </div>
         </div>
       </Section>
 
@@ -173,7 +164,7 @@ export function About() {
           </h2>
           <div className="space-y-4 text-lg text-gray-600">
             <p>
-              Founded in 2012, Studywise Learning Centre was built on a simple yet powerful belief: every student has the potential to excel when given the right support, guidance, and learning environment.
+              Studywise Learning Centre was founded with a simple yet powerful belief: every student has the potential to excel when given the right support, guidance, and learning environment.
             </p>
             <p>
               What began as a small tutoring service has grown into a trusted learning centre serving students across multiple locations. Over the years, we've helped thousands of students build confidence, master challenging concepts, and achieve their academic goals.
@@ -238,18 +229,16 @@ export function About() {
       </Section>
 
       <Section background="light">
-        <Reveal>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              The Studywise Difference
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              What sets us apart and makes Studywise the right choice for your child's learning journey.
-            </p>
-          </div>
-        </Reveal>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            The Studywise Difference
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            What sets us apart and makes Studywise the right choice for your child's learning journey.
+          </p>
+        </div>
 
-        <StaggerGroup className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.12}>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {differences.map((item, index) => {
             const Icon = item.icon;
             return (
@@ -262,7 +251,7 @@ export function About() {
               </Card>
             );
           })}
-        </StaggerGroup>
+        </div>
       </Section>
 
       <Section>
@@ -322,18 +311,16 @@ export function About() {
       </Section>
 
       <Section>
-        <Reveal>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Values
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              The principles that guide everything we do at Studywise.
-            </p>
-          </div>
-        </Reveal>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Our Values
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            The principles that guide everything we do at Studywise.
+          </p>
+        </div>
 
-        <StaggerGroup className="grid md:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.12}>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {values.map((value, index) => {
             const Icon = value.icon;
             return (
@@ -346,7 +333,7 @@ export function About() {
               </Card>
             );
           })}
-        </StaggerGroup>
+        </div>
       </Section>
 
       <Section background="gradient">
@@ -384,7 +371,7 @@ export function About() {
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-5 h-5 text-blue-700" />
-                <span className="text-gray-700 font-medium">admin@studywiselearning.com.au</span>
+                <span className="text-gray-700 font-medium">admin@studywise.com.au</span>
               </div>
             </div>
 
@@ -404,7 +391,7 @@ export function About() {
                 Text
               </a>
               <a
-                href="mailto:admin@studywiselearning.com.au"
+                href="mailto:admin@studywise.com.au"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 shadow-sm hover:shadow-md"
               >
                 <Mail className="w-4 h-4" />

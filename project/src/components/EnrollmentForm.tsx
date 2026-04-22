@@ -11,7 +11,9 @@ export function EnrollmentForm() {
     phone: '',
     studentName: '',
     yearLevel: '',
-    programType: '',
+    school: '',
+    subjects: [] as string[],
+    learningMode: '',
     location: '',
     additionalInfo: '',
     honeypot: ''
@@ -38,9 +40,9 @@ export function EnrollmentForm() {
         parent_phone: formData.phone,
         student_name: formData.studentName,
         student_year_level: formData.yearLevel,
-        student_school: '',
-        subjects: [formData.programType],
-        learning_mode: '',
+        student_school: formData.school,
+        subjects: formData.subjects,
+        learning_mode: formData.learningMode,
         preferred_location: formData.location,
         additional_info: formData.additionalInfo,
         source_page: window.location.href
@@ -55,10 +57,12 @@ export function EnrollmentForm() {
       }
 
       try {
-        await fetch('/.netlify/functions/send-enrolment-notification', {
+        const notificationUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-enrolment-notification`;
+        await fetch(notificationUrl, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
           },
           body: JSON.stringify(submissionData)
         });
@@ -73,7 +77,9 @@ export function EnrollmentForm() {
         phone: '',
         studentName: '',
         yearLevel: '',
-        programType: '',
+        school: '',
+        subjects: [],
+        learningMode: '',
         location: '',
         additionalInfo: '',
         honeypot: ''
@@ -92,28 +98,31 @@ export function EnrollmentForm() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleSubjectChange = (subject: string) => {
+    setFormData(prev => ({
+      ...prev,
+      subjects: prev.subjects.includes(subject)
+        ? prev.subjects.filter(s => s !== subject)
+        : [...prev.subjects, subject]
+    }));
+  };
+
   const yearLevels = [
     'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6',
     'Year 7', 'Year 8', 'Year 9', 'Year 10', 'Year 11', 'Year 12'
   ];
 
-  const programTypes = [
-    'Primary (Years 1–6)',
-    'Secondary (Years 7–10)',
-    'VCE (Years 11–12)',
-    'Selective Entry Preparation',
-    'Scholarship Preparation'
-  ];
+  const subjects = ['Maths', 'English', 'Science', 'Selective Entry', 'VCE', 'Scholarship Prep'];
 
   return (
     <Section background="light" id="enrollment">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Enrolment Enquiry
+            Enrolment Form
           </h2>
           <p className="text-lg text-gray-600">
-            Complete this short form and we'll email you the official enrolment form to fill out and return.
+            Complete the form below and we'll be in touch to discuss your child's learning journey
           </p>
         </div>
 
@@ -127,7 +136,7 @@ export function EnrollmentForm() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
               <p className="text-gray-600">
-                Thank you — we've received your enquiry. Please check your email for the official enrolment form to complete and return.
+                We've received your enrolment form. Our team will contact you within 24 hours.
               </p>
             </div>
           ) : (
@@ -244,23 +253,63 @@ export function EnrollmentForm() {
 
                     <div className="md:col-span-2">
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
-                        Program Type *
+                        Current School *
+                      </label>
+                      <input
+                        type="text"
+                        name="school"
+                        required
+                        value={formData.school}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                        placeholder="School name"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t pt-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">Program Preferences</h3>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                      Subjects of Interest *
+                    </label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {subjects.map(subject => (
+                        <label key={subject} className="flex items-center gap-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={formData.subjects.includes(subject)}
+                            onChange={() => handleSubjectChange(subject)}
+                            className="w-5 h-5 text-blue-700 rounded focus:ring-2 focus:ring-blue-500"
+                          />
+                          <span className="text-gray-700">{subject}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-gray-700 mb-2">
+                        Learning Mode *
                       </label>
                       <select
-                        name="programType"
+                        name="learningMode"
                         required
-                        value={formData.programType}
+                        value={formData.learningMode}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                       >
-                        <option value="">Select program type</option>
-                        {programTypes.map(program => (
-                          <option key={program} value={program}>{program}</option>
-                        ))}
+                        <option value="">Select mode</option>
+                        <option value="online">Online</option>
+                        <option value="in-person">In-Person</option>
+                        <option value="both">Both</option>
                       </select>
                     </div>
 
-                    <div className="md:col-span-2">
+                    <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">
                         Preferred Location
                       </label>
@@ -270,7 +319,7 @@ export function EnrollmentForm() {
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                       >
-                        <option value="">Select location (optional)</option>
+                        <option value="">Select location</option>
                         <option value="cranbourne">Cranbourne West</option>
                         <option value="clyde">Clyde North</option>
                         <option value="either">Either Location</option>
@@ -294,27 +343,16 @@ export function EnrollmentForm() {
                 </div>
               </div>
 
-              <div className="mt-6 text-center space-y-4">
-                <div className="max-w-md mx-auto">
-                  <p className="text-sm font-medium text-gray-600 mb-2">
-                    Next step
-                  </p>
-                  <p className="text-sm text-gray-500 leading-relaxed">
-                    After submitting, you'll receive a fillable enrolment form by email.<br />
-                    Please complete it and reply to the email with the form attached.
-                  </p>
-                </div>
-                <div className="flex justify-center pt-2">
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="lg"
-                    className="px-12"
-                    disabled={submitting}
-                  >
-                    {submitting ? 'Submitting...' : 'Submit Enrolment'}
-                  </Button>
-                </div>
+              <div className="flex justify-center pt-4">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  className="px-12"
+                  disabled={submitting}
+                >
+                  {submitting ? 'Submitting...' : 'Submit Enrolment'}
+                </Button>
               </div>
             </form>
           )}

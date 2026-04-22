@@ -1,5 +1,4 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
-import { Resend } from "npm:resend@4.0.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -29,12 +28,6 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    const resendApiKey = Deno.env.get("RESEND_API_KEY");
-    if (!resendApiKey) {
-      throw new Error("RESEND_API_KEY is not configured");
-    }
-
-    const resend = new Resend(resendApiKey);
     const enrolmentData: EnrolmentData = await req.json();
 
     const adminEmailBody = `
@@ -87,26 +80,25 @@ Best regards,
 Studywise Learning Centre Team
     `;
 
-    const adminEmailResult = await resend.emails.send({
-      from: "Studywise Learning Centre <noreply@studywiselearning.com.au>",
-      to: "admin@studywiselearning.com.au",
-      subject: `New Enrolment: ${enrolmentData.student_name} - ${enrolmentData.student_year_level}`,
-      text: adminEmailBody,
-    });
-
-    const parentEmailResult = await resend.emails.send({
-      from: "Studywise Learning Centre <noreply@studywiselearning.com.au>",
-      to: enrolmentData.parent_email,
-      subject: "We received your enrolment enquiry – Studywise Learning Centre",
-      text: parentEmailBody,
-    });
+    console.log("Admin Email Preview:");
+    console.log(adminEmailBody);
+    console.log("\n\nParent Email Preview:");
+    console.log(parentEmailBody);
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: "Email notifications sent successfully",
-        adminEmailId: adminEmailResult.data?.id,
-        parentEmailId: parentEmailResult.data?.id,
+        message: "Email notifications prepared",
+        adminEmail: {
+          to: "admin@studywise.com.au",
+          subject: `New Enrolment: ${enrolmentData.student_name} - ${enrolmentData.student_year_level}`,
+          body: adminEmailBody,
+        },
+        parentEmail: {
+          to: enrolmentData.parent_email,
+          subject: "We received your enrolment enquiry – Studywise Learning Centre",
+          body: parentEmailBody,
+        },
       }),
       {
         headers: {
