@@ -11,6 +11,22 @@ body {
   min-height: 100vh;
 }
 
+/* =========================================
+   Brand base typography
+   ========================================= */
+@layer base {
+  body {
+    @apply font-sans text-brand-slate bg-white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-brand-navy font-medium tracking-tight;
+  }
+}
+
 #root {
   min-height: 100vh;
 }

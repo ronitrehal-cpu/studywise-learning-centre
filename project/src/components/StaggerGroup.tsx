@@ -52,7 +52,7 @@ export function StaggerGroup({
 
   return (
     <div ref={ref} className={className}>
-      {Children.map(children, (child, index) => {
+      {Children.map(children, (child) => {
         if (isValidElement(child)) {
           return cloneElement(child, {
             style: {

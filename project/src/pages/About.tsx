@@ -17,7 +17,6 @@ import {
   Award,
   Heart,
   Lightbulb,
-  CheckCircle2,
   ArrowRight,
   ArrowLeft,
   Phone,

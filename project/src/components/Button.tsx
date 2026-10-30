@@ -13,18 +13,19 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'font-semibold rounded-lg transition-all duration-200 inline-flex items-center justify-center';
+  const baseStyles = 'font-sans font-semibold transition-colors duration-200 inline-flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed';
 
   const variants = {
-    primary: 'bg-blue-700 text-white hover:bg-blue-800 shadow-md hover:shadow-lg',
-    secondary: 'bg-amber-500 text-white hover:bg-amber-600 shadow-md hover:shadow-lg',
-    outline: 'border-2 border-blue-700 text-blue-700 hover:bg-blue-50'
+    primary: 'bg-brand-navy text-white rounded hover:bg-brand-navyDark',
+    secondary: 'bg-transparent text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark',
+    outline: 'border border-brand-navy text-brand-navy rounded hover:bg-brand-mist'
   };
 
+  // The secondary variant is a text link, so it gets no box padding
   const sizes = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3 text-base',
-    lg: 'px-8 py-4 text-lg'
+    sm: variant === 'secondary' ? 'text-sm' : 'px-5 py-3 text-sm',
+    md: variant === 'secondary' ? 'text-base' : 'px-7 py-4 text-base',
+    lg: variant === 'secondary' ? 'text-lg' : 'px-7 py-4 text-lg'
   };
 
   return (

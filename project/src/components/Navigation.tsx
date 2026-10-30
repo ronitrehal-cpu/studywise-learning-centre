@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './Button';
+import { Logo } from './Logo';
 import { Menu, X } from 'lucide-react';
 
 interface NavLink {
@@ -70,25 +71,7 @@ export function Navigation() {
     <nav className="bg-white shadow-md fixed w-full top-0 z-50">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
         <div className="flex items-center justify-between h-[5.5rem]">
-          <a
-            href="/"
-            className="flex items-center gap-4"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate('/');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-          >
-            <img
-              src="/560d161f-ee6e-4de0-819e-db29e949995a.png"
-              alt="Studywise Learning Centre"
-              className="h-[3.8rem] w-[3.8rem] object-contain"
-            />
-            <div className="flex flex-col justify-center leading-none">
-              <span className="text-[1.3rem] md:text-[1.625rem] font-bold text-gray-900">Studywise</span>
-              <span className="text-[10px] md:text-xs font-normal tracking-[0.2em] text-gray-500 uppercase mt-0.5">Learning Centre</span>
-            </div>
-          </a>
+          <Logo variant="light" size={42} />
 
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {

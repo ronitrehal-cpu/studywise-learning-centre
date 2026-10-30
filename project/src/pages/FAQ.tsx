@@ -184,7 +184,7 @@ export function FAQ() {
                     {group.category}
                   </h2>
                   <div className="space-y-3">
-                    {group.items.map((faq, itemIndex) => {
+                    {group.items.map((faq) => {
                       const globalIndex = faqs.indexOf(faq);
                       return (
                         <AccordionItem

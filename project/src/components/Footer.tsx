@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import { Logo } from './Logo';
 
 export function Footer() {
   const location = useLocation();
@@ -15,20 +16,12 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-brand-navy text-gray-300">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <img
-                src="/image copy.png"
-                alt="Studywise Learning Centre"
-                className="h-12 w-12 object-contain"
-              />
-              <div>
-                <span className="text-lg font-bold text-white block leading-tight">Studywise</span>
-                <span className="text-xs text-gray-400">Learning Centre</span>
-              </div>
+            <div className="mb-4">
+              <Logo variant="dark" size={40} />
             </div>
             <p className="text-sm text-gray-400">
               Empowering students to achieve their academic goals through expert tutoring and personalized learning.
