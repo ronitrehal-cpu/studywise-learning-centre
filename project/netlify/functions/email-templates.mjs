@@ -88,10 +88,9 @@ export function createParentEmailHTML(data) {
                       How to Complete Your Enrolment:
                     </p>
                     <ol style="margin: 0; padding-left: 20px; color: #3E4A5B; font-size: 15px; line-height: 1.7;">
-                      <li style="margin-bottom: 8px;">Click the button above to download the fillable PDF form</li>
-                      <li style="margin-bottom: 8px;">Complete all required fields (no printing needed — it's a fillable PDF)</li>
-                      <li style="margin-bottom: 8px;">Save the completed form</li>
-                      <li>Email the completed form to: <strong style="color: #17325C;">${adminEmail}</strong></li>
+                      <li style="margin-bottom: 8px;">Click the button above to download the enrolment form (PDF)</li>
+                      <li style="margin-bottom: 8px;">Print it and fill it in by hand, or fill it in on your device</li>
+                      <li>Email the completed form to: <strong style="color: #17325C;">${adminEmail}</strong> (a photo or scan is fine)</li>
                     </ol>
                   </td>
                 </tr>
