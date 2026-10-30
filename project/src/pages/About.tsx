@@ -249,9 +249,8 @@ export function About() {
         <Testimonials
           featuredName="Shehbaaz Sandhu"
           supportingNames={[]}
-          image="/2.jpeg"
-          imageAlt="The hall at the Studywise Clyde North centre"
-          imagePosition="object-center"
+          imageBase="/images/tutor-pointing-workbook"
+          imageAlt="A tutor pointing to a workbook while a student takes notes"
         />
 
         <AssessmentCTA />

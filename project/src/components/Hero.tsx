@@ -38,14 +38,17 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={0.3}>
-          <figure className="mt-10 md:mt-20">
+          {/* Stock photo (see src/data/photoCredits.ts), so no caption */}
+          <picture className="block mt-10 md:mt-20">
+            <source srcSet="/images/hero-exercise-books.webp" type="image/webp" />
             <img
-              src="/1.jpeg"
-              alt="The Studywise Clyde North centre at Balla Balla Community Centre"
+              src="/images/hero-exercise-books.jpg"
+              alt="Two students writing in exercise books at a wooden table"
+              width={1600}
+              height={700}
               className="w-full h-[230px] md:h-[420px] lg:h-[560px] object-cover rounded-t-[999px] border-[5px] border-brand-sky bg-brand-photo"
             />
-            <figcaption className="mt-4 text-sm text-brand-muted">Our Clyde North centre.</figcaption>
-          </figure>
+          </picture>
         </Reveal>
       </div>
     </section>

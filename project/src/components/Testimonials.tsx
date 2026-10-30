@@ -5,7 +5,8 @@ import { testimonials, Testimonial } from '../data/testimonialData';
 interface TestimonialsProps {
   featuredName?: string;
   supportingNames?: string[];
-  image?: string;
+  /** Photo path without extension; expects a .webp and a .jpg fallback (see public/images/) */
+  imageBase?: string;
   imageAlt?: string;
   imagePosition?: string;
 }
@@ -89,9 +90,9 @@ function SupportingQuotes({ items }: { items: Testimonial[] }) {
 export function Testimonials({
   featuredName = 'Nitin Patel',
   supportingNames = ['Shehbaaz Sandhu', 'Himani Desai', 'Roop Brar'],
-  image = '/11.webp',
-  imageAlt = 'A classroom at the Studywise Cranbourne West centre',
-  imagePosition = 'object-right'
+  imageBase = '/images/maths-worksheet',
+  imageAlt = 'A child working through a maths worksheet with a pencil',
+  imagePosition = 'object-center'
 }: TestimonialsProps) {
   const featured = byName(featuredName) ?? testimonials[0];
   const supporting = supportingNames.map(byName).filter((t): t is Testimonial => !!t && t !== featured).slice(0, 3);
@@ -101,11 +102,16 @@ export function Testimonials({
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-6 lg:items-center">
           <Reveal className="lg:col-span-4">
-            <img
-              src={image}
-              alt={imageAlt}
-              className={`w-full h-[220px] md:h-[440px] object-cover ${imagePosition} rounded-t-[999px] bg-brand-photo`}
-            />
+            <picture className="block">
+              <source srcSet={`${imageBase}.webp`} type="image/webp" />
+              <img
+                src={`${imageBase}.jpg`}
+                alt={imageAlt}
+                width={900}
+                height={1125}
+                className={`w-full h-[220px] md:h-[440px] object-cover ${imagePosition} rounded-t-[999px] bg-brand-photo`}
+              />
+            </picture>
           </Reveal>
 
           <Reveal className="lg:col-start-6 lg:col-span-7" delay={0.1}>
