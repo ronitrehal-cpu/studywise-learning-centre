@@ -57,7 +57,7 @@ export function ProgramDetail() {
     <div className="min-h-screen bg-white">
       <Navigation />
 
-      <main className="pt-[5.5rem]">
+      <main className="pt-[var(--header-full)]">
         <section className="pt-16 pb-14 md:pt-24 md:pb-20">
           <div className={container}>
             <Reveal delay={0.1}>
@@ -112,7 +112,7 @@ export function ProgramDetail() {
             </div>
 
             <aside className="lg:col-start-9 lg:col-span-4">
-              <div className="lg:sticky lg:top-[calc(5.5rem+32px)] bg-brand-mist p-6 md:p-8">
+              <div className="lg:sticky lg:top-[calc(var(--header-compact)+32px)] bg-brand-mist p-6 md:p-8">
                 <h2 className="font-serif font-medium text-brand-navy text-[22px] leading-snug tracking-tight mb-5">
                   At a glance
                 </h2>

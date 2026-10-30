@@ -104,7 +104,7 @@ export function EnrollmentForm() {
   ];
 
   return (
-    <section id="enrollment" className="bg-white py-20 md:py-28 scroll-mt-[5.5rem]">
+    <section id="enrollment" className="bg-white py-20 md:py-28 scroll-mt-[var(--header-anchor)]">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
         <div className="max-w-[880px]">
           <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">

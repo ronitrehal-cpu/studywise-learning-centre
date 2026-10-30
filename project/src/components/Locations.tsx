@@ -88,7 +88,7 @@ function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
 
 export function Locations({ id }: { id?: string }) {
   return (
-    <section id={id} className="bg-white py-20 md:py-28 scroll-mt-[5.5rem]">
+    <section id={id} className="bg-white py-20 md:py-28 scroll-mt-[var(--header-anchor)]">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
         <Reveal>
           <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
@@ -97,7 +97,7 @@ export function Locations({ id }: { id?: string }) {
           <p className="mt-4 text-lg leading-[1.6] text-brand-slate">Visit us in Cranbourne West or Clyde North.</p>
         </Reveal>
 
-        <div id="contact" className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-10 lg:gap-16 mt-12 md:mt-16 scroll-mt-24">
+        <div id="contact" className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-10 lg:gap-16 mt-12 md:mt-16 scroll-mt-[var(--header-anchor)]">
           {locations.map((location, index) => (
             <Reveal key={location.name} delay={0.1 * (index + 1)}>
               <ImageSlideshow images={location.images} name={location.name} />

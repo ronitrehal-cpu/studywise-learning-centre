@@ -115,7 +115,7 @@ export function About() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      <main className="pt-[5.5rem]">
+      <main className="pt-[var(--header-full)]">
         <section className="pt-16 md:pt-24 pb-4">
           <div className={container}>
             <Reveal delay={0.1}>

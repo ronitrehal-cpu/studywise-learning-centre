@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './Button';
 import { Logo } from './Logo';
@@ -21,6 +21,9 @@ const linkStyles = (active: boolean) =>
     active ? 'underline decoration-2 decoration-brand-orange' : 'decoration-1 hover:underline'
   }`;
 
+// Past this scroll position the header switches to its compact size
+const COMPACT_AFTER = 40;
+
 function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (el) {
@@ -30,7 +33,15 @@ function scrollToId(id: string) {
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [compact, setCompact] = useState(() => typeof window !== 'undefined' && window.scrollY > COMPACT_AFTER);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const update = () => setCompact(window.scrollY > COMPACT_AFTER);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
   const location = useLocation();
 
   const handleNavClick = (link: NavLink, e: React.MouseEvent) => {
@@ -80,10 +91,14 @@ export function Navigation() {
   };
 
   return (
-    // Total height stays 5.5rem (5px sky bar + row + 1px rule) so the scroll-margin offsets still line up
-    <nav className="bg-white border-t-[5px] border-t-brand-sky border-b border-b-brand-ink fixed w-full top-0 z-50">
+    // Total height = 5px sky bar + row + 1px rule = --header-full, or --header-compact once scrolled (see index.css)
+    <nav className="bg-white border-t-[5px] border-t-brand-sky border-b border-b-brand-ink fixed w-full top-0 z-50" data-compact={compact}>
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
-        <div className="grid grid-cols-[1fr_auto] xl:grid-cols-[1fr_auto_1fr] items-center gap-6 h-[calc(5.5rem-6px)]">
+        <div
+          className={`grid grid-cols-[1fr_auto] xl:grid-cols-[1fr_auto_1fr] items-center gap-6 transition-[height] duration-200 ease-out motion-reduce:transition-none ${
+            compact ? 'h-[calc(var(--header-compact)-6px)]' : 'h-[calc(var(--header-full)-6px)]'
+          }`}
+        >
           <div className="hidden xl:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -97,8 +112,12 @@ export function Navigation() {
             ))}
           </div>
 
-          <div className="justify-self-start xl:justify-self-center">
-            <Logo variant="light" size={64} subline="Learning Centre · Est. 2010" />
+          <div className="flex items-center justify-self-start xl:justify-self-center">
+            <Logo
+              variant="light"
+              size={68}
+              crestHeight={compact ? 'var(--crest-compact)' : 'var(--crest-full)'}
+              subline="Learning Centre · Est. 2010" />
           </div>
 
           <div className="hidden xl:flex items-center justify-end gap-8">

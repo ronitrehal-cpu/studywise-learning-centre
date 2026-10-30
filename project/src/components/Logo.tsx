@@ -4,6 +4,8 @@ interface LogoProps {
   variant?: 'light' | 'dark';
   /** Crest height in px */
   size?: number;
+  /** CSS height for the crest (e.g. a CSS variable); overrides size for display, size still sets the intrinsic dimensions */
+  crestHeight?: string;
   subline?: string;
   className?: string;
 }
@@ -12,7 +14,7 @@ interface LogoProps {
 const CREST_SRC = '/studywise-crest.png';
 const CREST_RATIO = 509 / 540;
 
-export function Crest({ size, className = '' }: { size: number; className?: string }) {
+export function Crest({ size, cssHeight, className = '' }: { size: number; cssHeight?: string; className?: string }) {
   const width = Math.round(size * CREST_RATIO);
   return (
     <img
@@ -21,12 +23,12 @@ export function Crest({ size, className = '' }: { size: number; className?: stri
       width={width}
       height={size}
       className={`block flex-shrink-0 ${className}`}
-      style={{ width, height: size }}
+      style={cssHeight ? { height: cssHeight, width: 'auto' } : { width, height: size }}
     />
   );
 }
 
-export function Logo({ variant = 'light', size = 64, subline = 'Learning Centre', className = '' }: LogoProps) {
+export function Logo({ variant = 'light', size = 64, crestHeight, subline = 'Learning Centre', className = '' }: LogoProps) {
   const navigate = useNavigate();
   const isDark = variant === 'dark';
 
@@ -41,7 +43,7 @@ export function Logo({ variant = 'light', size = 64, subline = 'Learning Centre'
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }}
     >
-      <Crest size={size} />
+      <Crest size={size} cssHeight={crestHeight} className="transition-[height] duration-200 ease-out motion-reduce:transition-none" />
       <span className="flex flex-col justify-center leading-none">
         <span className={`font-serif font-semibold text-2xl tracking-tight ${isDark ? 'text-white' : 'text-brand-navy'}`}>
           Studywise

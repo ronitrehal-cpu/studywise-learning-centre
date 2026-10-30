@@ -29,7 +29,7 @@ export function FAQ() {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      <main className="pt-[5.5rem]">
+      <main className="pt-[var(--header-full)]">
         <section className="pt-16 md:pt-24 pb-20 md:pb-28">
           <div className={container}>
             <Reveal delay={0.1}>

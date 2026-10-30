@@ -5,7 +5,7 @@ import { programSummaries } from '../data/programData';
 
 export function Programs() {
   return (
-    <section id="programs" className="bg-white py-20 md:py-28 scroll-mt-[5.5rem]">
+    <section id="programs" className="bg-white py-20 md:py-28 scroll-mt-[var(--header-anchor)]">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
         <Reveal>
           <div className="flex items-end justify-between gap-6 mb-10 md:mb-14">

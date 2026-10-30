@@ -10,9 +10,9 @@ export function Hero() {
     document.getElementById('programs')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Top padding sits below the fixed 5.5rem header
+  // Top padding sits below the full-size fixed header
   return (
-    <section className="bg-white pt-[calc(5.5rem+48px)] md:pt-[calc(5.5rem+96px)]">
+    <section className="bg-white pt-[calc(var(--header-full)+48px)] md:pt-[calc(var(--header-full)+96px)]">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
         <Reveal delay={0.1}>
           <h1 className="font-serif font-medium text-brand-navy text-[clamp(3rem,8.6vw,7.75rem)] leading-[0.98] tracking-[-0.025em] max-w-[1220px]">

@@ -18,11 +18,11 @@ export function Home() {
         <Hero />
         <Programs />
         <HowWeTeach />
-        <div id="why-us" className="scroll-mt-[5.5rem]">
+        <div id="why-us" className="scroll-mt-[var(--header-anchor)]">
           <WhyStudywise />
         </div>
         <Testimonials />
-        <div id="faqs" className="scroll-mt-[5.5rem]">
+        <div id="faqs" className="scroll-mt-[var(--header-anchor)]">
           <FAQPreview />
         </div>
         <Locations id="locations" />
