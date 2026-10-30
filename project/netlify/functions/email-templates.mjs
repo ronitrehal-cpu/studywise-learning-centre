@@ -1,7 +1,19 @@
-export function createParentEmailHTML(data) {
-  const { parent_name, student_name, student_year_level, pdfDownloadUrl, adminEmail } = data;
+// Escapes text for safe use in HTML content and attribute values
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
-  const studentFirstName = student_name.split(' ')[0];
+export function createParentEmailHTML(data) {
+  const parent_name = escapeHtml(data.parent_name);
+  const studentFirstName = escapeHtml(String(data.student_name ?? '').split(' ')[0]);
+  const student_year_level = escapeHtml(data.student_year_level);
+  const pdfDownloadUrl = escapeHtml(data.pdfDownloadUrl);
+  const adminEmail = escapeHtml(data.adminEmail);
 
   // Brand: navy #17325C, rules #C9D3DD; Georgia for headings because web fonts don't load reliably in email
   const serif = "Georgia, 'Times New Roman', serif";
@@ -37,11 +49,8 @@ export function createParentEmailHTML(data) {
           <tr>
             <td style="padding: 32px 0 8px;">
               <h1 style="margin: 0; font-family: ${serif}; font-size: 28px; font-weight: normal; color: #17325C; letter-spacing: -0.3px; line-height: 1.2;">
-                Studywise Learning Centre
-              </h1>
-              <p style="margin: 8px 0 0; font-family: ${sans}; font-size: 14px; color: #5A6575;">
                 Enrolment Form Ready
-              </p>
+              </h1>
             </td>
           </tr>
 
@@ -76,7 +85,7 @@ export function createParentEmailHTML(data) {
                 <tr>
                   <td style="padding: 20px 0;">
                     <p style="margin: 0 0 12px; font-family: ${serif}; color: #17325C; font-size: 18px;">
-                      📋 How to Complete Your Enrolment:
+                      How to Complete Your Enrolment:
                     </p>
                     <ol style="margin: 0; padding-left: 20px; color: #3E4A5B; font-size: 15px; line-height: 1.7;">
                       <li style="margin-bottom: 8px;">Click the button above to download the fillable PDF form</li>
@@ -89,7 +98,7 @@ export function createParentEmailHTML(data) {
               </table>
 
               <p style="margin: 24px 0 0; color: #3E4A5B; font-size: 15px; line-height: 1.6;">
-                <strong style="color: #16202E;">Questions?</strong> Please email us at <a href="mailto:${adminEmail}" style="color: #17325C; text-decoration: underline;">${adminEmail}</a> and we'll be happy to help.
+                <strong style="color: #16202E;">Questions?</strong> Please email us at <a href="mailto:${adminEmail}" style="color: #17325C; text-decoration: underline;">${adminEmail}</a> or call <a href="tel:0387747303" style="color: #17325C; text-decoration: underline;">03&nbsp;8774&nbsp;7303</a> or <a href="tel:0430095076" style="color: #17325C; text-decoration: underline;">0430&nbsp;095&nbsp;076</a>, and we'll be happy to help.
               </p>
 
               <p style="margin: 16px 0 0; color: #5A6575; font-size: 14px; line-height: 1.6; font-style: italic;">
@@ -108,7 +117,7 @@ export function createParentEmailHTML(data) {
                       Studywise Learning Centre
                     </p>
                     <p style="margin: 0; color: #5A6575; font-size: 13px; line-height: 1.6;">
-                      Empowering students to achieve their full potential<br>
+                      Helping students grow since 2010.<br>
                       <a href="mailto:${adminEmail}" style="color: #17325C; text-decoration: underline;">${adminEmail}</a>
                     </p>
                   </td>

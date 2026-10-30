@@ -1,6 +1,5 @@
 import { useState, FormEvent } from 'react';
 import { Button } from './Button';
-import { supabase } from '../lib/supabase';
 
 const labelClass = 'block text-[15px] font-semibold text-brand-ink mb-2';
 const fieldClass =
@@ -49,24 +48,18 @@ export function EnrollmentForm() {
         source_page: window.location.href
       };
 
-      const { error: insertError } = await supabase
-        .from('enrolment_submissions')
-        .insert(submissionData);
+      // The Netlify function is the only writer: it saves the enquiry, then sends the emails
+      const response = await fetch('/.netlify/functions/send-enrolment-notification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...submissionData, honeypot: formData.honeypot })
+      });
 
-      if (insertError) {
-        throw new Error(insertError.message);
-      }
-
-      try {
-        await fetch('/.netlify/functions/send-enrolment-notification', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(submissionData)
-        });
-      } catch (emailError) {
-        console.error('Email notification failed:', emailError);
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.success) {
+        throw new Error(result?.error || `Enquiry not saved (status ${response.status})`);
       }
 
       setSubmitted(true);
@@ -84,7 +77,9 @@ export function EnrollmentForm() {
 
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to submit form. Please try again.');
+      // Nothing was saved; keep the parent's input so they can try again
+      console.error('Enquiry submission failed:', err);
+      setError("We couldn't send your enquiry just now, so it hasn't been received. Your answers are still in the form — please try again in a moment, or contact us directly.");
     } finally {
       setSubmitting(false);
     }
@@ -131,8 +126,16 @@ export function EnrollmentForm() {
               <form onSubmit={handleSubmit} className="space-y-10">
                 {error && (
                   <div className="bg-brand-mist border-t-2 border-brand-orange px-5 py-4" role="alert">
-                    <p className="font-semibold text-brand-orange mb-1">Submission error</p>
-                    <p className="text-brand-slate text-[15px]">{error}</p>
+                    <p className="font-semibold text-brand-orange mb-1">Your enquiry wasn't sent</p>
+                    <p className="text-brand-slate text-[15px] leading-[1.6]">{error}</p>
+                    <p className="text-brand-slate text-[15px] leading-[1.6] mt-2">
+                      Call <a href="tel:0387747303" className="text-brand-navy underline underline-offset-4">03 8774 7303</a> or{' '}
+                      <a href="tel:0430095076" className="text-brand-navy underline underline-offset-4">0430 095 076</a>, or email{' '}
+                      <a href="mailto:admin@studywiselearning.com.au" className="text-brand-navy underline underline-offset-4 break-all">
+                        admin@studywiselearning.com.au
+                      </a>
+                      .
+                    </p>
                   </div>
                 )}
 
