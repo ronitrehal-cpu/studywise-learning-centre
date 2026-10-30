@@ -36,6 +36,17 @@ export function EnrollmentForm() {
     messageHeadingRef.current?.focus({ preventScroll: true });
   }, [submitted, error]);
 
+  // "Send another enquiry": back to the (already cleared) form, with focus on its first field
+  const [resetCount, setResetCount] = useState(0);
+  useEffect(() => {
+    if (resetCount) document.getElementById('enrol-parentName')?.focus();
+  }, [resetCount]);
+
+  const handleSendAnother = () => {
+    setSubmitted(false);
+    setResetCount((count) => count + 1);
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -88,7 +99,6 @@ export function EnrollmentForm() {
         honeypot: ''
       });
 
-      setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
       // Nothing was saved; keep the parent's input so they can try again
       console.error('Enquiry submission failed:', err);
@@ -140,6 +150,9 @@ export function EnrollmentForm() {
                 <p className="text-[17px] leading-[1.6] text-brand-slate">
                   Thank you. We've received your enquiry. Please check your email for the official enrolment form to complete and return.
                 </p>
+                <Button type="button" variant="secondary" onClick={handleSendAnother} className="mt-5">
+                  Send another enquiry
+                </Button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">

@@ -83,7 +83,7 @@ export function createParentEmailHTML(data) {
                 <tr>
                   <td style="background-color: #16496A;">
                     <a href="${pdfDownloadUrl}" style="display: inline-block; background-color: #16496A; color: #ffffff; text-decoration: none; padding: 16px 28px; font-family: ${sans}; font-size: 16px; font-weight: 600;">
-                      Download Enrolment Form (PDF)
+                      Download enrolment form (PDF)
                     </a>
                   </td>
                 </tr>
@@ -94,7 +94,7 @@ export function createParentEmailHTML(data) {
                 <tr>
                   <td style="padding: 20px 0;">
                     <p style="margin: 0 0 12px; font-family: ${serif}; color: #16496A; font-size: 18px;">
-                      How to Complete Your Enrolment:
+                      How to complete your enrolment
                     </p>
                     <ol style="margin: 0; padding-left: 20px; color: #3A4A58; font-size: 15px; line-height: 1.7;">
                       <li style="margin-bottom: 8px;">Click the button above to download the enrolment form (PDF)</li>
