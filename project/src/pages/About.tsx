@@ -1,412 +1,259 @@
-import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
-import { EnrollmentForm } from '../components/EnrollmentForm';
-import { Section } from '../components/Section';
-import { Card } from '../components/Card';
-import { Button } from '../components/Button';
 import { Reveal } from '../components/Reveal';
-import { StaggerGroup } from '../components/StaggerGroup';
-import {
-  GraduationCap,
-  Users,
-  Target,
-  BookOpen,
-  TrendingUp,
-  Award,
-  Heart,
-  Lightbulb,
-  CheckCircle2,
-  ArrowRight,
-  ArrowLeft,
-  Phone,
-  Mail
-} from 'lucide-react';
+import { WhyStudywise } from '../components/WhyStudywise';
+import { Testimonials } from '../components/Testimonials';
+import { AssessmentCTA } from '../components/AssessmentCTA';
+import { Crest } from '../components/Logo';
+
+const container = 'max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20';
+const bodyText = 'text-lg leading-[1.6] text-brand-slate';
+
+const differences = [
+  {
+    title: 'Personalised learning',
+    description: 'Every student learns differently. Our approach adapts to individual needs, strengths, and learning styles.'
+  },
+  {
+    title: 'Curriculum-aligned teaching',
+    description: 'Our programs are carefully aligned with the Australian curriculum to complement school learning.'
+  },
+  {
+    title: 'Experienced educators',
+    description: 'Our qualified teachers bring deep subject knowledge and a passion for helping students succeed.'
+  },
+  {
+    title: 'Small group focus',
+    description: 'Small class sizes ensure every student receives the attention and support they need.'
+  },
+  {
+    title: 'Progress tracking',
+    description: 'Clear feedback and regular progress updates keep students and parents informed.'
+  },
+  {
+    title: 'Exam readiness',
+    description: 'Building both knowledge and confidence to help students perform their best when it matters.'
+  }
+];
+
+const steps = [
+  {
+    title: 'Understanding goals',
+    description: 'We start by understanding each student\'s current level, challenges, and academic goals.'
+  },
+  {
+    title: 'Program placement',
+    description: 'Students are placed in the right program with the right support for their needs.'
+  },
+  {
+    title: 'Consistent learning',
+    description: 'Regular weekly sessions build knowledge, skills, and confidence over time.'
+  },
+  {
+    title: 'Feedback and improvement',
+    description: 'Ongoing assessment and feedback help students understand their progress and areas for growth.'
+  },
+  {
+    title: 'Confidence and results',
+    description: 'Students develop both academic skills and the confidence to tackle new challenges.'
+  }
+];
+
+const numbers = [
+  { figure: '2010', text: 'The year we opened our doors.' },
+  { figure: 'Thousands', text: 'Of students taught since then.' },
+  { figure: 'Year 1 to VCE', text: 'Every stage of school, under one roof.' }
+];
+
+const values = [
+  { title: 'Growth', description: 'Every student can improve with the right support.' },
+  { title: 'Consistency', description: 'Regular practice builds lasting understanding.' },
+  { title: 'Clarity', description: 'Clear explanations make learning accessible.' },
+  { title: 'Confidence', description: 'Success builds the confidence to achieve more.' }
+];
+
+// Heading on the left, content at reading width on the right, thin rule above
+function StorySection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="py-16 md:py-20">
+      <div className={container}>
+        <Reveal>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 pt-10 border-t border-brand-rule">
+            <h2 className="lg:col-span-4 font-serif font-medium text-brand-navy text-[28px] md:text-[34px] leading-tight tracking-tight">
+              {title}
+            </h2>
+            <div className="lg:col-start-6 lg:col-span-7 max-w-[680px]">{children}</div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function LabelledList({ items, numbered = false }: { items: { title: string; description: string }[]; numbered?: boolean }) {
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li
+          key={item.title}
+          className={`grid grid-cols-1 md:grid-cols-[200px_1fr] gap-2 md:gap-8 py-6 border-t ${
+            index === 0 ? 'border-brand-ink' : 'border-brand-rule'
+          } ${index === items.length - 1 ? 'border-b border-b-brand-rule' : ''}`}
+        >
+          <h3 className="font-serif font-semibold text-brand-navy text-xl md:text-[22px] leading-snug tracking-tight">
+            {numbered && <span className="text-brand-muted font-normal mr-2">{index + 1}.</span>}
+            {item.title}
+          </h3>
+          <p className={bodyText}>{item.description}</p>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export function About() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const navState = location.state as { fromHome?: boolean; anchor?: string } | null;
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleViewPrograms = () => {
-    window.location.href = '/#programs';
-  };
-
-  const differences = [
-    {
-      icon: Users,
-      title: 'Personalised Learning',
-      description: 'Every student learns differently. Our approach adapts to individual needs, strengths, and learning styles.'
-    },
-    {
-      icon: BookOpen,
-      title: 'Curriculum-Aligned Teaching',
-      description: 'Our programs are carefully aligned with the Australian curriculum to complement school learning.'
-    },
-    {
-      icon: GraduationCap,
-      title: 'Experienced Educators',
-      description: 'Our qualified teachers bring deep subject knowledge and a passion for helping students succeed.'
-    },
-    {
-      icon: Target,
-      title: 'Small Group Focus',
-      description: 'Small class sizes ensure every student receives the attention and support they need.'
-    },
-    {
-      icon: TrendingUp,
-      title: 'Progress Tracking',
-      description: 'Clear feedback and regular progress updates keep students and parents informed.'
-    },
-    {
-      icon: Award,
-      title: 'Exam Readiness',
-      description: 'Building both knowledge and confidence to help students perform their best when it matters.'
-    }
-  ];
-
-  const steps = [
-    {
-      number: 1,
-      title: 'Understanding Goals',
-      description: 'We start by understanding each student\'s current level, challenges, and academic goals.'
-    },
-    {
-      number: 2,
-      title: 'Program Placement',
-      description: 'Students are placed in the right program with the right support for their needs.'
-    },
-    {
-      number: 3,
-      title: 'Consistent Learning',
-      description: 'Regular weekly sessions build knowledge, skills, and confidence over time.'
-    },
-    {
-      number: 4,
-      title: 'Feedback & Improvement',
-      description: 'Ongoing assessment and feedback help students understand their progress and areas for growth.'
-    },
-    {
-      number: 5,
-      title: 'Confidence & Results',
-      description: 'Students develop both academic skills and the confidence to tackle new challenges.'
-    }
-  ];
-
-  const values = [
-    { icon: TrendingUp, title: 'Growth', description: 'Every student can improve with the right support' },
-    { icon: Heart, title: 'Consistency', description: 'Regular practice builds lasting understanding' },
-    { icon: Lightbulb, title: 'Clarity', description: 'Clear explanations make learning accessible' },
-    { icon: Award, title: 'Confidence', description: 'Success builds the confidence to achieve more' }
-  ];
-
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      <main className="pt-[5.5rem]">
-      <Section background="gradient">
-        <div className="max-w-4xl mx-auto">
-          {navState?.fromHome && (
-            <button
-              onClick={() => {
-                const anchor = navState.anchor || '/';
-                navigate('/' + anchor);
-              }}
-              className="flex items-center gap-2 text-gray-600 hover:text-blue-700 transition-colors mb-8 group"
-            >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              <span className="text-sm font-medium">Back to Home</span>
-            </button>
-          )}
-
-          <Reveal delay={0.1}>
-            <div className="text-center">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-                About Studywise
+      <main className="pt-[var(--header-full)]">
+        <section className="pt-16 md:pt-24 pb-4">
+          <div className={container}>
+            <Reveal delay={0.1}>
+              <h1 className="font-serif font-medium text-brand-navy text-[clamp(2.75rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.025em]">
+                Our story
               </h1>
-              <div className="flex justify-center mb-6">
-                <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-700 text-sm font-medium rounded-full border border-blue-200">
-                  Est. 2012
-                </span>
-              </div>
-              <p className="text-xl text-gray-600 mb-8">
-                Supporting students to reach their full potential through quality teaching, personalised learning, and a commitment to academic excellence.
+              <p className="mt-8 text-lg md:text-[22px] leading-[1.6] text-brand-slate max-w-[720px]">
+                Studywise has been teaching small groups of students in Melbourne's south-east since 2010. Many of our
+                families have been with us for years, some for every stage of school.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="primary" onClick={() => scrollToSection('enrollment')}>
-                  Enrol Now
-                </Button>
-                <Button variant="outline" onClick={handleViewPrograms}>
-                  View Programs
-                </Button>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </Section>
-
-      <Section>
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">
-            Our Story
-          </h2>
-          <div className="space-y-4 text-lg text-gray-600">
-            <p>
-              Founded in 2012, Studywise Learning Centre was built on a simple yet powerful belief: every student has the potential to excel when given the right support, guidance, and learning environment.
-            </p>
-            <p>
-              What began as a small tutoring service has grown into a trusted learning centre serving students across multiple locations. Over the years, we've helped thousands of students build confidence, master challenging concepts, and achieve their academic goals.
-            </p>
-            <p>
-              Our success comes from maintaining a student-first approach. We take the time to understand each learner's unique needs, adapt our teaching methods accordingly, and create a supportive environment where students feel comfortable asking questions and taking on new challenges.
-            </p>
-            <p>
-              Today, Studywise continues to evolve, incorporating the latest educational research and teaching practices while staying true to our core values of personalised learning, academic excellence, and genuine care for every student's success.
-            </p>
+            </Reveal>
           </div>
-        </div>
-      </Section>
+        </section>
 
-      <Section background="light">
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <Card className="bg-white">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="bg-blue-100 rounded-lg p-3">
-                <Target className="w-8 h-8 text-blue-700" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Our Mission</h3>
-            </div>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              To provide high-quality, personalised education that empowers students to achieve academic success, build confidence, and develop a genuine love for learning.
-            </p>
-          </Card>
-
-          <Card className="bg-white">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="bg-amber-100 rounded-lg p-3">
-                <Lightbulb className="w-8 h-8 text-amber-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Our Vision</h3>
-            </div>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              To be the leading learning centre known for transforming students' academic journeys, fostering lifelong learners, and making quality education accessible to all.
-            </p>
-          </Card>
-        </div>
-      </Section>
-
-      <Section>
-        <div className="max-w-4xl mx-auto">
-          <Card className="bg-gradient-to-br from-sky-50 to-blue-50 border-l-4 border-blue-700">
-            <div className="flex items-start gap-6">
-              <div className="text-6xl text-blue-700 leading-none">"</div>
-              <div className="flex-1">
-                <blockquote className="text-2xl md:text-3xl font-serif text-gray-800 mb-4 leading-relaxed">
-                  Education is not the filling of a pail, but the lighting of a fire.
-                </blockquote>
-                <p className="text-lg text-gray-600 font-semibold mb-6">
-                  — William Butler Yeats
-                </p>
-                <p className="text-lg text-gray-600 leading-relaxed">
-                  At Studywise, we believe this quote captures the essence of meaningful education. Our goal isn't simply to fill students with facts and formulas, but to ignite curiosity, build genuine understanding, and inspire a passion for learning. We focus on helping students develop confidence and critical thinking skills that extend far beyond the classroom, empowering them to become independent, enthusiastic learners.
-                </p>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </Section>
-
-      <Section background="light">
-        <Reveal>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              The Studywise Difference
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              What sets us apart and makes Studywise the right choice for your child's learning journey.
-            </p>
-          </div>
-        </Reveal>
-
-        <StaggerGroup className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.12}>
-          {differences.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <Card key={index} className="bg-white hover:shadow-lg transition-shadow">
-                <div className="bg-sky-100 rounded-lg p-3 w-fit mb-4">
-                  <Icon className="w-6 h-6 text-blue-700" />
+        <section className="bg-brand-mist py-20 md:py-28 mt-12 md:mt-16">
+          <div className={container}>
+            <Reveal>
+              <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] items-center gap-10 md:gap-16 lg:gap-24 max-w-[1100px]">
+                <Crest size={180} />
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.15em] text-brand-muted">Our story</p>
+                  <h2 className="mt-4 font-serif font-medium text-brand-navy text-[32px] md:text-[46px] leading-[1.08] tracking-tight max-w-[640px]">
+                    The same crest on our door since 2010.
+                  </h2>
+                  <p className={`mt-5 ${bodyText} max-w-[600px]`}>
+                    Many of the families who first walked past it are still with us, now with their younger children.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.description}</p>
-              </Card>
-            );
-          })}
-        </StaggerGroup>
-      </Section>
+              </div>
+            </Reveal>
+          </div>
+        </section>
 
-      <Section>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            The Studywise Experience
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            A clear, structured approach to helping students achieve their academic goals.
+        <StorySection title="How it began">
+          <div className={`space-y-5 ${bodyText}`}>
+            <p>
+              Studywise Learning Centre was built on a simple yet powerful belief: every student has the potential to
+              excel when given the right support, guidance, and learning environment.
+            </p>
+            <p>
+              What began as a small tutoring service has grown into a trusted learning centre serving students across
+              multiple locations. Over the years, we've helped thousands of students build confidence, master
+              challenging concepts, and achieve their academic goals.
+            </p>
+            <p>
+              Our success comes from maintaining a student-first approach. We take the time to understand each
+              learner's unique needs, adapt our teaching methods accordingly, and create a supportive environment where
+              students feel comfortable asking questions and taking on new challenges.
+            </p>
+            <p>
+              Today, Studywise continues to evolve, incorporating the latest educational research and teaching
+              practices while staying true to our core values of personalised learning, academic excellence, and
+              genuine care for every student's success.
+            </p>
+          </div>
+        </StorySection>
+
+        <section className="bg-brand-mist py-20 md:py-28 my-4">
+          <div className={container}>
+            <Reveal>
+              <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight mb-10 md:mb-14">
+                By the numbers
+              </h2>
+              <dl className="grid grid-cols-1 md:grid-cols-3 border-t border-brand-ink divide-y md:divide-y-0 md:divide-x divide-brand-rule">
+                {numbers.map((item) => (
+                  <div key={item.figure} className="flex flex-col-reverse py-8 md:py-10 md:px-8 first:md:pl-0 last:md:pr-0">
+                    <dd className="mt-3 text-[17px] leading-[1.6] text-brand-slate">{item.text}</dd>
+                    <dt className="font-serif font-medium text-brand-navy text-[clamp(2.75rem,4.4vw,4rem)] leading-[1.02] tracking-[-0.02em]">
+                      {item.figure}
+                    </dt>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
+        </section>
+
+        <StorySection title="Mission and vision">
+          <div className="space-y-8">
+            <div>
+              <h3 className="font-serif font-semibold text-brand-navy text-[22px] leading-snug tracking-tight mb-2">Our mission</h3>
+              <p className={bodyText}>
+                To provide high-quality, personalised education that empowers students to achieve academic success,
+                build confidence, and develop a genuine love for learning.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-serif font-semibold text-brand-navy text-[22px] leading-snug tracking-tight mb-2">Our vision</h3>
+              <p className={bodyText}>
+                To be the leading learning centre known for transforming students' academic journeys, fostering lifelong
+                learners, and making quality education accessible to all.
+              </p>
+            </div>
+          </div>
+        </StorySection>
+
+        <StorySection title="Lighting a fire">
+          <figure>
+            <blockquote className="font-serif italic text-brand-navy text-[26px] md:text-[32px] leading-[1.3] tracking-tight">
+              “Education is not the filling of a pail, but the lighting of a fire.”
+            </blockquote>
+            <figcaption className="mt-4 text-base text-brand-muted">William Butler Yeats</figcaption>
+          </figure>
+          <p className={`mt-8 ${bodyText}`}>
+            At Studywise, we believe this quote captures the essence of meaningful education. Our goal isn't simply to
+            fill students with facts and formulas, but to ignite curiosity, build genuine understanding, and inspire a
+            passion for learning. We focus on helping students develop confidence and critical thinking skills that
+            extend far beyond the classroom, empowering them to become independent, enthusiastic learners.
           </p>
-        </div>
+        </StorySection>
 
-        <div className="max-w-4xl mx-auto space-y-6">
-          {steps.map((step, index) => (
-            <Card key={index} className="bg-white">
-              <div className="flex items-start gap-6">
-                <div className="bg-blue-700 text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-xl flex-shrink-0">
-                  {step.number}
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
-                </div>
-                {index < steps.length - 1 && (
-                  <ArrowRight className="w-6 h-6 text-gray-300 flex-shrink-0 hidden sm:block" />
-                )}
-              </div>
-            </Card>
-          ))}
-        </div>
-      </Section>
+        <StorySection title="The Studywise difference">
+          <LabelledList items={differences} />
+        </StorySection>
 
-      <Section background="light">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Proven Results
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Our commitment to excellence is reflected in our track record of student success.
-          </p>
-        </div>
+        <StorySection title="How we work with each student">
+          <LabelledList items={steps} numbered />
+        </StorySection>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <Card className="bg-white text-center">
-            <p className="text-5xl font-bold text-blue-700 mb-2">20+</p>
-            <p className="text-lg text-gray-600 font-medium">Years Experience</p>
-          </Card>
-          <Card className="bg-white text-center">
-            <p className="text-5xl font-bold text-blue-700 mb-2">2,000+</p>
-            <p className="text-lg text-gray-600 font-medium">Students Taught</p>
-          </Card>
-          <Card className="bg-white text-center">
-            <p className="text-5xl font-bold text-blue-700 mb-2">10,000+</p>
-            <p className="text-lg text-gray-600 font-medium">Hours of Teaching</p>
-          </Card>
-        </div>
-      </Section>
+        <StorySection title="Our values">
+          <LabelledList items={values} />
+        </StorySection>
 
-      <Section>
-        <Reveal>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Values
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              The principles that guide everything we do at Studywise.
-            </p>
-          </div>
-        </Reveal>
+        <WhyStudywise />
 
-        <StaggerGroup className="grid md:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.12}>
-          {values.map((value, index) => {
-            const Icon = value.icon;
-            return (
-              <Card key={index} className="bg-gradient-to-br from-white to-sky-50 text-center">
-                <div className="bg-blue-700 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
-              </Card>
-            );
-          })}
-        </StaggerGroup>
-      </Section>
+        <Testimonials
+          featuredName="Shehbaaz Sandhu"
+          supportingNames={[]}
+          imageBase="/images/tutor-pointing-workbook"
+          imageAlt="A tutor pointing to a workbook while a student takes notes"
+        />
 
-      <Section background="gradient">
-        <div className="text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Ready to Get Started?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Join the Studywise community and give your child the support they need to excel.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="primary" onClick={() => scrollToSection('enrollment')}>
-              Enrol Now
-            </Button>
-            <Button variant="secondary" onClick={() => scrollToSection('about-contact-studywise')}>
-              Contact Us
-            </Button>
-          </div>
-        </div>
-      </Section>
-
-      <Section background="white">
-        <div id="about-contact-studywise" className="max-w-4xl mx-auto scroll-mt-24">
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl shadow-md p-8">
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-6">Contact Studywise</h3>
-
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-6">
-              <div className="flex items-center gap-2">
-                <Phone className="w-5 h-5 text-blue-700" />
-                <span className="text-gray-700 font-medium">03 8774 7303</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-5 h-5 text-blue-700" />
-                <span className="text-gray-700 font-medium">0430 095 076</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-5 h-5 text-blue-700" />
-                <span className="text-gray-700 font-medium">admin@studywiselearning.com.au</span>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href="tel:0387747303"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 shadow-sm hover:shadow-md"
-              >
-                <Phone className="w-4 h-4" />
-                Call
-              </a>
-              <a
-                href="sms:0430095076"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 shadow-sm hover:shadow-md"
-              >
-                <Phone className="w-4 h-4" />
-                Text
-              </a>
-              <a
-                href="mailto:admin@studywiselearning.com.au"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 shadow-sm hover:shadow-md"
-              >
-                <Mail className="w-4 h-4" />
-                Email
-              </a>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <EnrollmentForm />
+        <AssessmentCTA />
       </main>
       <Footer />
     </div>

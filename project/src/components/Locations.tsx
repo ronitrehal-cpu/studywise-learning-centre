@@ -1,7 +1,5 @@
-import { Section } from './Section';
-import { Card } from './Card';
-import { MapPin, Phone, Mail } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { Reveal } from './Reveal';
 
 interface Location {
   name: string;
@@ -9,24 +7,33 @@ interface Location {
   images: string[];
 }
 
+const PHONES = [
+  { display: '03 8774 7303', tel: '0387747303' },
+  { display: '0430 095 076', tel: '0430095076' }
+];
+const EMAIL = 'admin@studywiselearning.com.au';
+const SMS = '0430095076';
+
 const locations: Location[] = [
   {
     name: 'Cranbourne West',
     address: '5 Biara Court, Cranbourne West VIC 3977',
+    // Opens on an interior without the old signage; 6 and 11 show the old logo
     images: [
-      '/6.webp',
       '/7.webp',
       '/12.webp',
-      '/11.webp',
-      '/8.webp'
+      '/8.webp',
+      '/6.webp',
+      '/11.webp'
     ]
   },
   {
     name: 'Clyde North',
     address: 'Balla Balla Community Centre, Clyde North VIC 3978',
+    // Opens on the hall rather than the exterior, which already leads the hero
     images: [
-      '/1.jpeg',
       '/2.jpeg',
+      '/1.jpeg',
       '/3.jpg',
       '/actual_4.jpg',
       '/4.jpg'
@@ -34,7 +41,9 @@ const locations: Location[] = [
   }
 ];
 
-function ImageSlideshow({ images }: { images: string[] }) {
+const actionLink = 'text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark';
+
+function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -46,25 +55,29 @@ function ImageSlideshow({ images }: { images: string[] }) {
   }, [images.length]);
 
   return (
-    <div className="-mx-6 -mt-6 mb-6">
-      <div className="w-full h-56 rounded-t-2xl overflow-hidden relative">
+    <div>
+      <div className="w-full aspect-[16/10] md:aspect-[4/3] rounded overflow-hidden relative bg-brand-photo">
         {images.map((image, index) => (
           <img
-            key={index}
+            key={image}
             src={image}
-            alt={`Slide ${index + 1}`}
+            alt={`${name} centre, photo ${index + 1}`}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               index === currentIndex ? 'opacity-100' : 'opacity-0'
             }`}
           />
         ))}
       </div>
-      <div className="flex justify-center gap-1.5 mt-3 px-6">
+      <div className="flex gap-2 mt-3 md:mt-4">
         {images.map((_, index) => (
-          <div
+          <button
             key={index}
+            type="button"
+            onClick={() => setCurrentIndex(index)}
+            aria-label={`Show ${name} photo ${index + 1}`}
+            aria-current={index === currentIndex}
             className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-              index === currentIndex ? 'bg-blue-700' : 'bg-gray-300'
+              index === currentIndex ? 'bg-brand-navy' : 'bg-brand-rule'
             }`}
           />
         ))}
@@ -73,77 +86,101 @@ function ImageSlideshow({ images }: { images: string[] }) {
   );
 }
 
+const mutedLink = 'hover:text-brand-navy hover:underline underline-offset-4';
+
 export function Locations({ id }: { id?: string }) {
+  // Phones show one centre at a time (tab switcher); md and up show both side by side
+  const [selected, setSelected] = useState(0);
+
   return (
-    <Section background="white" id={id}>
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Our Locations
-        </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Visit us at one of our convenient locations in Melbourne's south-east
-        </p>
-      </div>
+    <section id={id} className="bg-white py-14 md:py-28 scroll-mt-[var(--header-anchor)]">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
+        <Reveal>
+          <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
+            Our centres
+          </h2>
+          <p className="mt-3 md:mt-4 text-lg leading-[1.6] text-brand-slate">Visit us in Cranbourne West or Clyde North.</p>
+        </Reveal>
 
-      <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-        {locations.map((location, index) => (
-          <Card key={index} hover>
-            <ImageSlideshow images={location.images} />
-
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">{location.name}</h3>
-
-            <div className="flex items-start gap-3">
-              <MapPin className="w-5 h-5 text-blue-700 mt-1 flex-shrink-0" />
-              <p className="text-gray-700">{location.address}</p>
-            </div>
-          </Card>
-        ))}
-      </div>
-
-      <div id="contact" className="mt-12 max-w-5xl mx-auto scroll-mt-24">
-        <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl shadow-md p-8">
-          <h3 className="text-2xl font-bold text-gray-900 text-center mb-6">Contact Studywise</h3>
-
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-6">
-            <div className="flex items-center gap-2">
-              <Phone className="w-5 h-5 text-blue-700" />
-              <span className="text-gray-700 font-medium">03 8774 7303</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-5 h-5 text-blue-700" />
-              <span className="text-gray-700 font-medium">0430 095 076</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Mail className="w-5 h-5 text-blue-700" />
-              <span className="text-gray-700 font-medium">admin@studywiselearning.com.au</span>
-            </div>
+        <div id="contact" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-16 mt-8 md:mt-16 scroll-mt-[var(--header-anchor)]">
+          <div className="grid grid-cols-2 md:hidden" role="group" aria-label="Choose a centre">
+            {locations.map((location, index) => (
+              <button
+                key={location.name}
+                type="button"
+                onClick={() => setSelected(index)}
+                aria-pressed={selected === index}
+                aria-controls={`centre-${index}`}
+                className={`h-12 px-3 text-base font-semibold border border-brand-navy ${
+                  index === 0 ? 'rounded-l' : 'rounded-r -ml-px'
+                } ${selected === index ? 'bg-brand-navy text-white' : 'bg-white text-brand-navy'}`}
+              >
+                {location.name}
+              </button>
+            ))}
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="tel:0387747303"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 shadow-sm hover:shadow-md"
-            >
-              <Phone className="w-4 h-4" />
-              Call
-            </a>
-            <a
-              href="sms:0430095076"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 shadow-sm hover:shadow-md"
-            >
-              <Phone className="w-4 h-4" />
-              Text
-            </a>
-            <a
-              href="mailto:admin@studywiselearning.com.au"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors duration-200 shadow-sm hover:shadow-md"
-            >
-              <Mail className="w-4 h-4" />
-              Email
-            </a>
-          </div>
+          {locations.map((location, index) => (
+            <div key={location.name} id={`centre-${index}`} className={selected === index ? '' : 'hidden md:block'}>
+              <Reveal delay={0.1 * (index + 1)}>
+                <ImageSlideshow images={location.images} name={location.name} />
+
+                <h3 className="mt-5 md:mt-8 font-serif font-medium text-brand-navy text-[26px] md:text-[30px] leading-tight tracking-tight">
+                  {location.name}
+                </h3>
+
+                {/* Phones: compact rows */}
+                <ul className="md:hidden mt-3 text-[17px] leading-[1.5] text-brand-slate">
+                  <li className="py-2.5 border-t border-brand-ink">{location.address}</li>
+                  <li className="py-2.5 border-t border-brand-rule flex flex-wrap gap-x-6 gap-y-1">
+                    {PHONES.map((phone) => (
+                      <a key={phone.tel} href={`tel:${phone.tel}`} className={`whitespace-nowrap ${mutedLink}`}>
+                        {phone.display}
+                      </a>
+                    ))}
+                  </li>
+                  <li className="py-2.5 border-y border-brand-rule">
+                    <a href={`mailto:${EMAIL}`} className={`${mutedLink} break-all`}>
+                      {EMAIL}
+                    </a>
+                  </li>
+                </ul>
+
+                {/* md and up: one row per line */}
+                <ul className="hidden md:block mt-5 text-[17px] leading-[1.6] text-brand-slate">
+                  <li className="py-3 border-t border-brand-ink">{location.address}</li>
+                  {PHONES.map((phone) => (
+                    <li key={phone.tel} className="py-3 border-t border-brand-rule">
+                      <a href={`tel:${phone.tel}`} className={`whitespace-nowrap ${mutedLink}`}>
+                        {phone.display}
+                      </a>
+                    </li>
+                  ))}
+                  <li className="py-3 border-y border-brand-rule">
+                    <a href={`mailto:${EMAIL}`} className={`${mutedLink} break-all`}>
+                      {EMAIL}
+                    </a>
+                  </li>
+                </ul>
+
+                <div className="mt-4 md:mt-6 flex flex-wrap gap-x-6 md:gap-x-8 gap-y-3">
+                  <a href={`tel:${PHONES[0].tel}`} className={actionLink}>Call</a>
+                  <a href={`sms:${SMS}`} className={actionLink}>Text</a>
+                  <a href={`mailto:${EMAIL}`} className={actionLink}>Email</a>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={actionLink}
+                  >
+                    Directions
+                  </a>
+                </div>
+              </Reveal>
+            </div>
+          ))}
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

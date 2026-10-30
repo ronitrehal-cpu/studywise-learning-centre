@@ -1,8 +1,6 @@
 import { Navigation } from '../components/Navigation';
 import { Hero } from '../components/Hero';
-import { TrustStrip } from '../components/TrustStrip';
 import { Programs } from '../components/Programs';
-import { Subjects } from '../components/Subjects';
 import { HowWeTeach } from '../components/HowWeTeach';
 import { WhyStudywise } from '../components/WhyStudywise';
 import { Testimonials } from '../components/Testimonials';
@@ -18,15 +16,13 @@ export function Home() {
       <Navigation />
       <main>
         <Hero />
-        <TrustStrip />
         <Programs />
-        <Subjects />
         <HowWeTeach />
-        <div id="why-us" className="scroll-mt-[5.5rem]">
+        <div id="why-us" className="scroll-mt-[var(--header-anchor)]">
           <WhyStudywise />
         </div>
         <Testimonials />
-        <div id="faqs" className="scroll-mt-[5.5rem]">
+        <div id="faqs" className="scroll-mt-[var(--header-anchor)]">
           <FAQPreview />
         </div>
         <Locations id="locations" />

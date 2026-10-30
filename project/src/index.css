@@ -2,13 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Enable smooth scrolling */
+/* Enable smooth scrolling, except for visitors who prefer reduced motion */
 html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   min-height: 100vh;
+}
+
+/* =========================================
+   Brand base typography
+   ========================================= */
+@layer base {
+  body {
+    @apply font-sans text-brand-slate bg-white;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-brand-navy font-medium tracking-tight;
+  }
 }
 
 #root {
@@ -16,11 +38,38 @@ body {
 }
 
 /* =========================================
-   FIX: Hash (#programs, #contact, etc) scroll
-   Adjust 96px if your header height changes
+   Header sizes (fixed header, totals include the 5px sky bar and 1px rule).
+   Full size at the top of the page, compact once scrolled.
+   Pages pad by --header-full; anchors land just below the compact header,
+   because the header is compact after a jump.
    ========================================= */
+:root {
+  --header-full: 5rem;
+  --header-compact: 4.25rem;
+  --crest-full: 50px;
+  --crest-compact: 42px;
+  --header-anchor: calc(var(--header-compact) + 8px);
+  --footer-crest: 48px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --footer-crest: 80px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --header-full: 6.75rem;
+    --header-compact: 5rem;
+    --crest-full: 68px;
+    --crest-compact: 52px;
+  }
+}
+
+/* Hash (#programs, #contact, etc) scroll */
 [id] {
-  scroll-margin-top: 96px;
+  scroll-margin-top: var(--header-anchor);
 }
 
 /* =========================================

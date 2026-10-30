@@ -1,136 +1,137 @@
-import { useState, useEffect } from 'react';
-import { Section } from './Section';
-import { Card } from './Card';
+import { useEffect, useRef, useState } from 'react';
 import { Reveal } from './Reveal';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import { testimonials } from '../data/testimonialData';
+import { testimonials, Testimonial } from '../data/testimonialData';
 
-export function Testimonials() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [cardsPerView, setCardsPerView] = useState(3);
+interface TestimonialsProps {
+  featuredName?: string;
+  supportingNames?: string[];
+  /** Photo path without extension; expects a .webp and a .jpg fallback (see public/images/) */
+  imageBase?: string;
+  imageAlt?: string;
+  imagePosition?: string;
+}
+
+const byName = (name: string) => testimonials.find((t) => t.name === name);
+
+function attribution(testimonial: Testimonial) {
+  return testimonial.descriptor ? `${testimonial.name}, ${testimonial.descriptor.toLowerCase()}` : `${testimonial.name}, parent`;
+}
+
+// Below md: a native scroll-snap row (next card peeks in) with dots; md and up: the 3-column grid
+function SupportingQuotes({ items }: { items: Testimonial[] }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
-    const updateCardsPerView = () => {
-      if (window.innerWidth >= 1024) {
-        setCardsPerView(3);
-      } else if (window.innerWidth >= 640) {
-        setCardsPerView(2);
-      } else {
-        setCardsPerView(1);
-      }
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+    // The scroller is the cards' offsetParent, so card.offsetLeft - padding is the card's snap position
+    const update = () => {
+      const padding = parseFloat(getComputedStyle(scroller).paddingLeft) || 0;
+      const distances = cardRefs.current.map((card) => (card ? Math.abs(card.offsetLeft - padding - scroller.scrollLeft) : Infinity));
+      setActive(distances.indexOf(Math.min(...distances)));
     };
-
-    updateCardsPerView();
-    window.addEventListener('resize', updateCardsPerView);
-    return () => window.removeEventListener('resize', updateCardsPerView);
+    scroller.addEventListener('scroll', update, { passive: true });
+    return () => scroller.removeEventListener('scroll', update);
   }, []);
 
-  const totalSlides = Math.ceil(testimonials.length / cardsPerView);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  const scrollToCard = (index: number) => {
+    const scroller = scrollerRef.current;
+    const card = cardRefs.current[index];
+    if (!scroller || !card) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const padding = parseFloat(getComputedStyle(scroller).paddingLeft) || 0;
+    scroller.scrollTo({ left: card.offsetLeft - padding, behavior: reduceMotion ? 'auto' : 'smooth' });
   };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
-
-  useEffect(() => {
-    if (!isPaused) {
-      const interval = setInterval(() => {
-        nextSlide();
-      }, 7000);
-      return () => clearInterval(interval);
-    }
-  }, [currentSlide, isPaused, totalSlides]);
-
-  const startIndex = currentSlide * cardsPerView;
-
-  const visibleTestimonials = Array.from({ length: cardsPerView }, (_, i) => {
-    const testimonialIndex = (startIndex + i) % testimonials.length;
-    return testimonials[testimonialIndex];
-  });
 
   return (
-    <Section background="white">
-      <Reveal>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            What Our Customers Are Saying
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-sky-400 mx-auto rounded-full"></div>
-        </div>
-      </Reveal>
-
-      <div className="max-w-7xl mx-auto relative">
-        <div
-          className="relative"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {visibleTestimonials.map((testimonial, index) => (
-              <Card key={startIndex + index} className="flex flex-col h-full">
-                <div className="flex gap-0.5 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-4 h-4 fill-amber-400 text-amber-400"
-                    />
-                  ))}
-                </div>
-
-                <p className="text-gray-700 text-sm leading-relaxed mb-4 flex-grow line-clamp-6">
-                  "{testimonial.text}"
-                </p>
-
-                <div className="border-t border-gray-200 pt-3 mt-auto">
-                  <p className="font-bold text-gray-900 text-sm">
-                    {testimonial.name}
-                  </p>
-                  {testimonial.descriptor && (
-                    <p className="text-xs text-gray-600 mt-1">
-                      {testimonial.descriptor}
-                    </p>
-                  )}
-                </div>
-              </Card>
-            ))}
-          </div>
-
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-6 bg-white hover:bg-gray-50 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 border border-gray-200"
-            aria-label="Previous testimonials"
+    <>
+      <div
+        ref={scrollerRef}
+        tabIndex={0}
+        role="region"
+        aria-label="More from Studywise families"
+        className="relative flex md:grid md:grid-cols-3 gap-4 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none scrollbar-hide -mx-6 px-6 scroll-px-6 md:mx-0 md:px-0 md:scroll-px-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-navy"
+      >
+        {items.map((testimonial, index) => (
+          <figure
+            key={testimonial.name}
+            ref={(el) => {
+              cardRefs.current[index] = el;
+            }}
+            className="snap-start shrink-0 w-[85vw] md:w-auto border-t border-brand-rule pt-6"
           >
-            <ChevronLeft className="w-5 h-5 text-gray-700" />
-          </button>
-
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-6 bg-white hover:bg-gray-50 rounded-full p-2 shadow-lg transition-all duration-200 hover:scale-110 border border-gray-200"
-            aria-label="Next testimonials"
-          >
-            <ChevronRight className="w-5 h-5 text-gray-700" />
-          </button>
-        </div>
-
-        <div className="flex justify-center gap-2">
-          {Array.from({ length: totalSlides }).map((_, index) => (
+            <blockquote className="font-serif text-brand-navy text-lg md:text-xl leading-[1.45] md:leading-[1.45]">“{testimonial.text}”</blockquote>
+            <figcaption className="mt-4 text-sm text-brand-muted">{testimonial.name}</figcaption>
+          </figure>
+        ))}
+      </div>
+      {items.length > 1 && (
+        <div className="flex justify-center gap-1 mt-5 md:hidden">
+          {items.map((testimonial, index) => (
             <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide
-                  ? 'bg-blue-600 w-8'
-                  : 'bg-gray-300 w-2 hover:bg-gray-400'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
+              key={testimonial.name}
+              type="button"
+              onClick={() => scrollToCard(index)}
+              aria-label={`Show quote ${index + 1} of ${items.length}`}
+              aria-current={index === active}
+              className="p-2"
+            >
+              <span className={`block w-2 h-2 rounded-full transition-colors duration-300 ${index === active ? 'bg-brand-navy' : 'bg-brand-rule'}`} />
+            </button>
           ))}
         </div>
+      )}
+    </>
+  );
+}
+
+export function Testimonials({
+  featuredName = 'Nitin Patel',
+  supportingNames = ['Shehbaaz Sandhu', 'Himani Desai', 'Roop Brar'],
+  imageBase = '/images/maths-worksheet',
+  imageAlt = 'A child working through a maths worksheet with a pencil',
+  imagePosition = 'object-center'
+}: TestimonialsProps) {
+  const featured = byName(featuredName) ?? testimonials[0];
+  const supporting = supportingNames.map(byName).filter((t): t is Testimonial => !!t && t !== featured).slice(0, 3);
+
+  return (
+    <section className="bg-white py-14 md:py-28">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-6 lg:items-center">
+          <Reveal className="lg:col-span-4">
+            <picture className="block">
+              <source srcSet={`${imageBase}.webp`} type="image/webp" />
+              <img
+                src={`${imageBase}.jpg`}
+                alt={imageAlt}
+                width={900}
+                height={1125}
+                className={`w-full h-[220px] md:h-[440px] object-cover ${imagePosition} rounded-t-[999px] bg-brand-photo`}
+              />
+            </picture>
+          </Reveal>
+
+          <Reveal className="lg:col-start-6 lg:col-span-7" delay={0.1}>
+            <figure>
+              <blockquote className="font-serif italic font-normal text-brand-navy text-[22px] md:text-[30px] xl:text-[36px] leading-[1.3] md:leading-[1.25] tracking-tight">
+                “{featured.text}”
+              </blockquote>
+              <figcaption className="mt-6 md:mt-8 text-base text-brand-slate">{attribution(featured)}</figcaption>
+            </figure>
+          </Reveal>
+        </div>
+
+        {supporting.length > 0 && (
+          <Reveal delay={0.1}>
+            <div className="mt-12 md:mt-24">
+              <SupportingQuotes items={supporting} />
+            </div>
+          </Reveal>
+        )}
       </div>
-    </Section>
+    </section>
   );
 }

@@ -1,155 +1,153 @@
 import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, CheckCircle } from 'lucide-react';
-import { getProgramBySlug } from '../data/programData';
+import { Link, useParams } from 'react-router-dom';
+import { getProgramBySlug, getProgramSummary } from '../data/programData';
 import { Navigation } from '../components/Navigation';
+import { Footer } from '../components/Footer';
 import { Button } from '../components/Button';
-import { Section } from '../components/Section';
-import { Card } from '../components/Card';
+import { Reveal } from '../components/Reveal';
+import { AssessmentCTA } from '../components/AssessmentCTA';
+import { ProgramList } from '../components/ProgramList';
+import { NotFound } from './NotFound';
+
+const container = 'max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20';
+const h2Class = 'font-serif font-medium text-brand-navy text-[28px] md:text-[34px] leading-tight tracking-tight mb-6';
+
+function RuledList({ items }: { items: string[] }) {
+  return (
+    <ul className="text-lg leading-[1.6] text-brand-slate">
+      {items.map((item, index) => (
+        <li
+          key={item}
+          className={`py-4 border-t ${index === 0 ? 'border-brand-ink' : 'border-brand-rule'} ${
+            index === items.length - 1 ? 'border-b border-b-brand-rule' : ''
+          }`}
+        >
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export function ProgramDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const navigate = useNavigate();
   const program = getProgramBySlug(slug || '');
+  const summary = getProgramSummary(slug || '');
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
 
   if (!program) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-50">
-        <Card className="text-center max-w-md">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Program Not Found</h1>
-          <p className="text-gray-600 mb-6">The program you're looking for doesn't exist.</p>
-          <Button variant="primary" onClick={() => navigate('/')}>
-            Return Home
-          </Button>
-        </Card>
-      </div>
-    );
+    return <NotFound />;
   }
 
-  const Icon = program.icon;
-
-  const scrollToEnrollment = () => {
+  const bookAssessment = () => {
     window.location.href = '/#enrollment';
   };
 
-  const scrollToLocations = () => {
-    window.location.href = '/#locations';
-  };
+  const facts = [
+    { label: 'Year levels', value: summary?.years ?? program.title },
+    { label: 'Focus areas', value: program.focusAreas.join(', ') },
+    { label: 'Class format', value: 'Small groups, in person' },
+    { label: 'Locations', value: 'Cranbourne West and Clyde North' }
+  ];
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-white">
       <Navigation />
 
-      <div className="pt-[5.5rem]">
-        <section className="bg-gradient-to-br from-stone-50 to-stone-100 py-16">
-          <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-4xl">
-            <a
-              href="/#programs"
-              className="flex items-center gap-2 text-blue-700 hover:text-blue-800 font-medium mb-6 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Programs
-            </a>
-
-            <div className="flex items-start gap-6 mb-6">
-              <div className="bg-sky-100 rounded-xl p-4">
-                <Icon className="w-12 h-12 text-blue-700" />
-              </div>
-              <div className="flex-1">
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-                  {program.title}
-                </h1>
-                <p className="text-xl text-gray-600">
-                  {program.fullDescription}
-                </p>
-              </div>
-            </div>
+      <main className="pt-[var(--header-full)]">
+        <section className="pt-16 pb-14 md:pt-24 md:pb-20">
+          <div className={container}>
+            <Reveal delay={0.1}>
+              <Link
+                to="/#programs"
+                className="inline-block text-base text-brand-muted underline-offset-4 hover:underline hover:text-brand-navy mb-8"
+              >
+                ← All programs
+              </Link>
+              <p className="text-base text-brand-muted">{summary?.years}</p>
+              <h1 className="mt-3 font-serif font-medium text-brand-navy text-[clamp(2.75rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.025em]">
+                {summary?.name ?? program.title}
+              </h1>
+              <p className="mt-8 text-lg md:text-[22px] leading-[1.6] text-brand-slate max-w-[720px]">
+                {program.fullDescription}
+              </p>
+            </Reveal>
           </div>
         </section>
 
-        <Section background="white">
-          <div className="max-w-4xl mx-auto space-y-12">
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Who It's For</h2>
-              <ul className="space-y-3">
-                {program.whoItsFor.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
+        <section className="pb-20 md:pb-28">
+          <div className={`${container} grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-6`}>
+            <div className="lg:col-span-7 space-y-16">
+              <Reveal>
+                <h2 className={h2Class}>Who it's for</h2>
+                <RuledList items={program.whoItsFor} />
+              </Reveal>
 
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Focus Areas</h2>
-              <div className="flex flex-wrap gap-3">
-                {program.focusAreas.map((area, index) => (
-                  <span
-                    key={index}
-                    className="bg-sky-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold"
-                  >
-                    {area}
-                  </span>
-                ))}
-              </div>
-            </Card>
+              <Reveal>
+                <h2 className={h2Class}>What's covered</h2>
+                <RuledList items={program.focusAreas} />
+              </Reveal>
 
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">How It Works</h2>
-              <ul className="space-y-3">
-                {program.howItWorks.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
+              <Reveal>
+                <h2 className={h2Class}>How it works</h2>
+                <RuledList items={program.howItWorks} />
+              </Reveal>
 
-            <Card>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Locations & Times</h2>
-              <p className="text-gray-700 mb-4">
-                We offer this program at both our Cranbourne West and Clyde North locations.
-                Class times vary by location and age group.
-              </p>
-              <Button variant="outline" onClick={scrollToLocations}>
-                View Locations & Contact Details
-              </Button>
-            </Card>
-          </div>
-        </Section>
-
-        <Section background="accent">
-          <div className="max-w-4xl mx-auto">
-            <Card className="bg-gradient-to-br from-blue-700 to-blue-800 text-white text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Ready to Get Started?
-              </h2>
-              <p className="text-sky-50 text-lg mb-8 max-w-2xl mx-auto">
-                Enrol now to secure your place, or book a free assessment to discover your child's learning potential.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="secondary" size="lg" onClick={scrollToEnrollment}>
-                  Enrol Now
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={scrollToLocations}
-                  className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-700"
+              <Reveal>
+                <h2 className={h2Class}>Locations and times</h2>
+                <p className="text-lg leading-[1.6] text-brand-slate max-w-[680px]">
+                  We offer this program at both our Cranbourne West and Clyde North locations. Class times vary by
+                  location and age group.
+                </p>
+                <Link
+                  to="/#locations"
+                  className="inline-block mt-6 text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark"
                 >
-                  Contact Us
+                  See locations and contact details
+                </Link>
+              </Reveal>
+            </div>
+
+            <aside className="lg:col-start-9 lg:col-span-4">
+              <div className="lg:sticky lg:top-[calc(var(--header-compact)+32px)] bg-brand-mist p-6 md:p-8">
+                <h2 className="font-serif font-medium text-brand-navy text-[22px] leading-snug tracking-tight mb-5">
+                  At a glance
+                </h2>
+                <dl className="text-base leading-[1.6]">
+                  {facts.map((fact, index) => (
+                    <div
+                      key={fact.label}
+                      className={`py-3 border-t ${index === 0 ? 'border-brand-ink' : 'border-brand-rule'}`}
+                    >
+                      <dt className="text-sm text-brand-muted">{fact.label}</dt>
+                      <dd className="text-brand-ink">{fact.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <Button variant="primary" onClick={bookAssessment} className="w-full mt-6">
+                  Book a free assessment
                 </Button>
               </div>
-            </Card>
+            </aside>
           </div>
-        </Section>
-      </div>
+        </section>
+
+        <AssessmentCTA />
+
+        <section className="py-20 md:py-28">
+          <div className={container}>
+            <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight mb-10 md:mb-14">
+              Other programs
+            </h2>
+            <ProgramList exclude={program.slug} />
+          </div>
+        </section>
+      </main>
+
+      <Footer />
     </div>
   );
 }

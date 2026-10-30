@@ -5,23 +5,23 @@ const subjects = [
   {
     icon: Calculator,
     name: 'Maths',
-    color: 'bg-blue-100 text-blue-600'
+    color: 'text-brand-navy'
   },
   {
     icon: BookText,
     name: 'English',
-    color: 'bg-green-100 text-green-600'
+    color: 'text-brand-navy'
   },
   {
     icon: FlaskConical,
     name: 'Science',
-    color: 'bg-purple-100 text-purple-600'
+    color: 'text-brand-navy'
   },
   {
     icon: Brain,
     name: 'Reasoning',
     description: 'Verbal & Numerical',
-    color: 'bg-amber-100 text-amber-600'
+    color: 'text-brand-navy'
   }
 ];
 
@@ -29,10 +29,10 @@ export function Subjects() {
   return (
     <Section background="white">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] tracking-tight mb-4">
           Our Subjects
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-lg text-brand-slate max-w-2xl mx-auto">
           Expert instruction across core curriculum subjects
         </p>
       </div>
@@ -42,13 +42,13 @@ export function Subjects() {
           const Icon = subject.icon;
           return (
             <div key={index} className="flex flex-col items-center text-center gap-4">
-              <div className={`${subject.color} rounded-2xl p-6 w-24 h-24 flex items-center justify-center`}>
+              <div className={`${subject.color} w-16 h-16 flex items-center justify-center`}>
                 <Icon className="w-10 h-10" />
               </div>
               <div>
-                <p className="font-bold text-gray-900 text-lg">{subject.name}</p>
+                <p className="font-serif font-semibold text-brand-navy text-xl">{subject.name}</p>
                 {subject.description && (
-                  <p className="text-sm text-gray-600">{subject.description}</p>
+                  <p className="text-sm text-brand-muted">{subject.description}</p>
                 )}
               </div>
             </div>

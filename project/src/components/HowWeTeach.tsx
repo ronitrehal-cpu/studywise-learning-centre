@@ -1,68 +1,57 @@
-import { Section } from './Section';
-import { Card } from './Card';
-import { Target, Users, UserCheck, Building, GraduationCap, CalendarCheck } from 'lucide-react';
+import { Reveal } from './Reveal';
+
+const points = [
+  {
+    label: 'Small groups',
+    text: 'Individual attention in every session, with support tailored to each student.'
+  },
+  {
+    label: 'Face to face',
+    text: 'Experienced tutors teach in person, in a distraction-free classroom.'
+  },
+  {
+    label: 'Consistent routines',
+    text: 'Regular, structured sessions. Consistent routines lead to better results.'
+  },
+  {
+    label: 'Accountability',
+    text: 'A small class keeps every student engaged and accountable.'
+  }
+];
 
 export function HowWeTeach() {
   return (
-    <Section background="accent">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          How We Teach
-        </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          A structured, in-centre approach designed to maximise student success
-        </p>
+    <section className="bg-brand-mist py-14 md:py-28">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-6">
+          <Reveal className="lg:col-span-4">
+            <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
+              How we teach.
+            </h2>
+            <p className="mt-4 md:mt-6 text-lg leading-[1.6] text-brand-slate max-w-sm">
+              A structured, in-centre approach designed to help every student succeed.
+            </p>
+          </Reveal>
+
+          <Reveal className="lg:col-start-6 lg:col-span-7" delay={0.1}>
+            <ul>
+              {points.map((point, index) => (
+                <li
+                  key={point.label}
+                  className={`grid grid-cols-1 md:grid-cols-[200px_1fr] gap-2 md:gap-8 py-5 md:py-7 border-t ${
+                    index === 0 ? 'border-brand-ink' : 'border-brand-rule'
+                  } ${index === points.length - 1 ? 'border-b border-b-brand-rule' : ''}`}
+                >
+                  <h3 className="font-serif font-semibold text-brand-navy text-[22px] leading-snug tracking-tight">
+                    {point.label}
+                  </h3>
+                  <p className="text-lg leading-[1.6] text-brand-slate">{point.text}</p>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
       </div>
-
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        <Card className="bg-gradient-to-br from-white to-stone-50">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-sky-100 rounded-xl p-3">
-              <Target className="w-8 h-8 text-blue-700" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900">Small Group Learning</h3>
-          </div>
-
-          <ul className="space-y-4">
-            <li className="flex items-start gap-3">
-              <UserCheck className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
-              <span className="text-gray-700">Individual attention in every session</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Users className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
-              <span className="text-gray-700">Strong engagement and accountability</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <Target className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
-              <span className="text-gray-700">Tailored support for each student</span>
-            </li>
-          </ul>
-        </Card>
-
-        <Card className="bg-gradient-to-br from-white to-stone-50">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="bg-amber-100 rounded-xl p-3">
-              <Building className="w-8 h-8 text-amber-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900">Structured, In-Centre Learning</h3>
-          </div>
-
-          <ul className="space-y-4">
-            <li className="flex items-start gap-3">
-              <Building className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
-              <span className="text-gray-700">Distraction-free classroom environment</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <GraduationCap className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
-              <span className="text-gray-700">Face-to-face support from experienced tutors</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <CalendarCheck className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
-              <span className="text-gray-700">Consistent routines for better results</span>
-            </li>
-          </ul>
-        </Card>
-      </div>
-    </Section>
+    </section>
   );
 }
