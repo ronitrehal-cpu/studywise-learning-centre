@@ -43,6 +43,13 @@ body {
   --crest-full: 50px;
   --crest-compact: 42px;
   --header-anchor: calc(var(--header-compact) + 8px);
+  --footer-crest: 48px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --footer-crest: 80px;
+  }
 }
 
 @media (min-width: 1280px) {
