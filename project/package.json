@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "upload-pdf": "node scripts/upload-pdf-to-supabase.mjs"
+    "upload-pdf": "node scripts/upload-pdf-to-supabase.mjs",
+    "brand-assets": "node scripts/generate-brand-assets.mjs",
+    "build-pdf": "node scripts/build-enrolment-pdf.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
@@ -30,6 +32,7 @@
     "eslint-plugin-react-refresh": "^0.4.11",
     "globals": "^15.9.0",
     "postcss": "^8.4.35",
+    "sharp": "^0.33.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",

@@ -5,215 +5,261 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Studywise Enrolment Form</title>
   <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm;
+    }
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      max-width: 800px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      max-width: 780px;
       margin: 0 auto;
-      line-height: 1.6;
-      color: #333;
-    }
-    h1 {
-      color: #2563eb;
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 28px;
-    }
-    .subtitle {
-      text-align: center;
-      color: #666;
-      margin-bottom: 30px;
-      font-size: 14px;
-    }
-    .section {
-      margin-bottom: 25px;
-    }
-    .section-title {
-      background-color: #2563eb;
-      color: white;
-      padding: 8px 12px;
-      margin-bottom: 15px;
-      font-size: 16px;
-      font-weight: bold;
-    }
-    .field {
-      margin-bottom: 15px;
-    }
-    .field-label {
-      font-weight: bold;
-      margin-bottom: 5px;
-      font-size: 14px;
-    }
-    .field-line {
-      border-bottom: 1px solid #333;
-      min-height: 30px;
-      margin-top: 5px;
-    }
-    .field-box {
-      border: 1px solid #333;
-      min-height: 80px;
-      margin-top: 5px;
-      padding: 5px;
-    }
-    .checkbox-group {
-      margin-top: 5px;
-    }
-    .checkbox-item {
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-    }
-    .checkbox {
-      width: 18px;
-      height: 18px;
-      border: 2px solid #333;
-      display: inline-block;
-      margin-right: 10px;
-    }
-    .instructions {
-      background-color: #f0f9ff;
-      border-left: 4px solid #2563eb;
-      padding: 15px;
-      margin: 20px 0;
+      line-height: 1.55;
+      color: #3E4A5B;
       font-size: 13px;
     }
+    h1, h2, .serif {
+      font-family: Georgia, 'Times New Roman', serif;
+      color: #17325C;
+      font-weight: normal;
+    }
+    .masthead {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #17325C;
+    }
+    .masthead svg {
+      width: 40px;
+      height: 46px;
+      flex-shrink: 0;
+    }
+    .wordmark-name {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 24px;
+      font-weight: bold;
+      color: #17325C;
+      line-height: 1.05;
+      letter-spacing: -0.3px;
+    }
+    .wordmark-sub {
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #5A6575;
+      margin-top: 3px;
+    }
+    h1 {
+      font-size: 30px;
+      letter-spacing: -0.4px;
+      margin: 26px 0 6px;
+    }
+    .subtitle {
+      color: #5A6575;
+      margin-bottom: 20px;
+    }
+    .instructions {
+      border-top: 1px solid #C9D3DD;
+      border-bottom: 1px solid #C9D3DD;
+      padding: 12px 0;
+      margin-bottom: 26px;
+    }
+    .instructions strong {
+      color: #16202E;
+    }
+    .section {
+      margin-bottom: 26px;
+      break-inside: avoid;
+    }
+    h2 {
+      font-size: 19px;
+      padding-top: 10px;
+      border-top: 1px solid #16202E;
+      margin-bottom: 14px;
+    }
+    .field {
+      margin-bottom: 14px;
+    }
+    .field-label {
+      font-weight: 600;
+      color: #16202E;
+      font-size: 12.5px;
+    }
+    .field-line {
+      border-bottom: 1px solid #C9D3DD;
+      min-height: 26px;
+    }
+    .field-box {
+      border: 1px solid #C9D3DD;
+      min-height: 80px;
+      margin-top: 6px;
+    }
+    .checkbox-group {
+      margin-top: 6px;
+      columns: 2;
+      column-gap: 24px;
+    }
+    .checkbox-item {
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      break-inside: avoid;
+    }
+    .checkbox {
+      width: 14px;
+      height: 14px;
+      border: 1px solid #17325C;
+      display: inline-block;
+      margin-right: 9px;
+      flex-shrink: 0;
+    }
+    .terms ul {
+      margin: 8px 0 0 18px;
+    }
+    .terms li {
+      margin-bottom: 4px;
+    }
+    .signature-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 26px;
+    }
+    .signature-row .field {
+      flex: 1;
+    }
+    .signature-row .field-line {
+      min-height: 36px;
+    }
     .footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 12px;
-      color: #666;
+      margin-top: 34px;
+      padding-top: 14px;
+      border-top: 1px solid #C9D3DD;
+      font-size: 11.5px;
+      color: #5A6575;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    td {
-      padding: 8px;
-      vertical-align: top;
-    }
-    .signature-section {
-      margin-top: 30px;
-    }
-    .signature-line {
-      border-bottom: 1px solid #333;
-      margin-top: 30px;
-      width: 300px;
+    .footer .serif {
+      font-size: 14px;
+      margin-bottom: 4px;
     }
   </style>
 </head>
 <body>
-  <h1>STUDYWISE LEARNING CENTRE</h1>
-  <div class="subtitle">Official Enrolment Form</div>
+  <div class="masthead">
+    <svg viewBox="0 0 100 116" aria-hidden="true"><path d="M50 4 L92 16 V58 C92 86 72 104 50 112 C28 104 8 86 8 58 V16 Z" fill="#17325C"/><circle cx="50" cy="44" r="19" fill="#6FB3E0"/><circle cx="50" cy="44" r="7" fill="#E8692C"/><path d="M50 96 V68 M50 75 L41 65 M50 73 L59 63" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" fill="none"/></svg>
+    <div>
+      <div class="wordmark-name">Studywise</div>
+      <div class="wordmark-sub">Learning Centre</div>
+    </div>
+  </div>
+
+  <h1>Enrolment form</h1>
+  <div class="subtitle">Official enrolment form</div>
 
   <div class="instructions">
     <strong>Instructions:</strong> Please complete all sections of this form and return it to admin@studywiselearning.com.au.
-    If you have any questions, please contact us at the email above or call our office.
+    If you have any questions, please contact us at the email above or call us on 03 8774 7303 or 0430 095 076.
   </div>
 
   <div class="section">
-    <div class="section-title">1. PARENT/GUARDIAN INFORMATION</div>
+    <h2>1. Parent / guardian information</h2>
     <div class="field">
-      <div class="field-label">Full Name:</div>
+      <div class="field-label">Full name</div>
       <div class="field-line"></div>
     </div>
     <div class="field">
-      <div class="field-label">Email Address:</div>
+      <div class="field-label">Email address</div>
       <div class="field-line"></div>
     </div>
     <div class="field">
-      <div class="field-label">Phone Number:</div>
+      <div class="field-label">Phone number</div>
       <div class="field-line"></div>
     </div>
     <div class="field">
-      <div class="field-label">Postal Address:</div>
+      <div class="field-label">Postal address</div>
       <div class="field-line"></div>
       <div class="field-line"></div>
     </div>
     <div class="field">
-      <div class="field-label">Emergency Contact Name & Phone:</div>
-      <div class="field-line"></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">2. STUDENT INFORMATION</div>
-    <div class="field">
-      <div class="field-label">Student Full Name:</div>
-      <div class="field-line"></div>
-    </div>
-    <div class="field">
-      <div class="field-label">Date of Birth:</div>
-      <div class="field-line"></div>
-    </div>
-    <div class="field">
-      <div class="field-label">Current Year Level:</div>
-      <div class="field-line"></div>
-    </div>
-    <div class="field">
-      <div class="field-label">Current School:</div>
-      <div class="field-line"></div>
-    </div>
-    <div class="field">
-      <div class="field-label">Student Email (if applicable):</div>
+      <div class="field-label">Emergency contact name and phone</div>
       <div class="field-line"></div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">3. PROGRAM SELECTION</div>
+    <h2>2. Student information</h2>
     <div class="field">
-      <div class="field-label">Subjects (Please select all that apply):</div>
+      <div class="field-label">Student full name</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field">
+      <div class="field-label">Date of birth</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field">
+      <div class="field-label">Current year level</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field">
+      <div class="field-label">Current school</div>
+      <div class="field-line"></div>
+    </div>
+    <div class="field">
+      <div class="field-label">Student email (if applicable)</div>
+      <div class="field-line"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>3. Program selection</h2>
+    <div class="field">
+      <div class="field-label">Program (please select all that apply)</div>
       <div class="checkbox-group">
-        <div class="checkbox-item"><span class="checkbox"></span> Mathematics</div>
+        <div class="checkbox-item"><span class="checkbox"></span> Primary (Years 1–6)</div>
+        <div class="checkbox-item"><span class="checkbox"></span> Secondary (Years 7–10)</div>
+        <div class="checkbox-item"><span class="checkbox"></span> Selective Entry</div>
+        <div class="checkbox-item"><span class="checkbox"></span> Scholarship Preparation</div>
+        <div class="checkbox-item"><span class="checkbox"></span> John Monash Science School</div>
+        <div class="checkbox-item"><span class="checkbox"></span> VCE (Years 11–12)</div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="field-label">Subjects (please select all that apply)</div>
+      <div class="checkbox-group">
+        <div class="checkbox-item"><span class="checkbox"></span> Maths</div>
         <div class="checkbox-item"><span class="checkbox"></span> English</div>
         <div class="checkbox-item"><span class="checkbox"></span> Science</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Physics</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Chemistry</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Biology</div>
-        <div class="checkbox-item"><span class="checkbox"></span> History</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Geography</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Economics</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Business Studies</div>
         <div class="checkbox-item"><span class="checkbox"></span> Other: _______________________</div>
       </div>
     </div>
     <div class="field">
-      <div class="field-label">Preferred Learning Mode:</div>
+      <div class="field-label">Preferred location</div>
       <div class="checkbox-group">
-        <div class="checkbox-item"><span class="checkbox"></span> In-Person Tutoring</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Online Tutoring</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Flexible (Both)</div>
+        <div class="checkbox-item"><span class="checkbox"></span> Cranbourne West</div>
+        <div class="checkbox-item"><span class="checkbox"></span> Clyde North</div>
+        <div class="checkbox-item"><span class="checkbox"></span> Either location</div>
       </div>
     </div>
     <div class="field">
-      <div class="field-label">Preferred Location (for in-person tutoring):</div>
-      <div class="checkbox-group">
-        <div class="checkbox-item"><span class="checkbox"></span> Toowoomba</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Gold Coast</div>
-        <div class="checkbox-item"><span class="checkbox"></span> Brisbane</div>
-      </div>
-    </div>
-    <div class="field">
-      <div class="field-label">Preferred Session Days & Times:</div>
+      <div class="field-label">Preferred session days and times</div>
       <div class="field-line"></div>
       <div class="field-line"></div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">4. ADDITIONAL INFORMATION</div>
+    <h2>4. Additional information</h2>
     <div class="field">
-      <div class="field-label">Learning Goals & Objectives:</div>
+      <div class="field-label">Learning goals and objectives</div>
       <div class="field-box"></div>
     </div>
     <div class="field">
-      <div class="field-label">Any Learning Difficulties or Special Needs:</div>
+      <div class="field-label">Any learning difficulties or special needs</div>
       <div class="field-box"></div>
     </div>
     <div class="field">
@@ -222,34 +268,33 @@
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-title">5. TERMS & CONDITIONS</div>
-    <div style="font-size: 13px; margin-top: 10px;">
-      <p style="margin-bottom: 10px;">By signing this enrolment form, I acknowledge and agree to:</p>
-      <ul style="margin-left: 20px; margin-bottom: 15px;">
-        <li>Pay all tuition fees as per the agreed schedule</li>
-        <li>Provide 48 hours notice for session cancellations or reschedules</li>
-        <li>Studywise Learning Centre's policies regarding attendance, conduct, and payment terms</li>
-        <li>Allow my child to participate in learning programs and activities</li>
-        <li>The collection and use of personal information in accordance with privacy laws</li>
-      </ul>
-    </div>
+  <div class="section terms">
+    <h2>5. Terms and conditions</h2>
+    <p>By signing this enrolment form, I acknowledge and agree to:</p>
+    <ul>
+      <li>Pay all tuition fees as per the agreed schedule</li>
+      <li>Provide 48 hours notice for session cancellations or reschedules</li>
+      <li>Studywise Learning Centre's policies regarding attendance, conduct, and payment terms</li>
+      <li>Allow my child to participate in learning programs and activities</li>
+      <li>The collection and use of personal information in accordance with privacy laws</li>
+    </ul>
 
-    <div class="signature-section">
+    <div class="signature-row">
       <div class="field">
-        <div class="field-label">Parent/Guardian Signature:</div>
-        <div class="signature-line"></div>
+        <div class="field-label">Parent / guardian signature</div>
+        <div class="field-line"></div>
       </div>
-      <div class="field">
-        <div class="field-label">Date:</div>
-        <div class="field-line" style="width: 200px;"></div>
+      <div class="field" style="flex: 0 0 200px;">
+        <div class="field-label">Date</div>
+        <div class="field-line"></div>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    <strong>Studywise Learning Centre</strong><br>
-    Email: admin@studywiselearning.com.au<br>
+    <div class="serif">Studywise Learning Centre</div>
+    5 Biara Court, Cranbourne West VIC 3977 · Balla Balla Community Centre, Clyde North VIC 3978<br>
+    03 8774 7303 · 0430 095 076 · admin@studywiselearning.com.au<br>
     Thank you for choosing Studywise Learning Centre. We look forward to supporting your child's educational journey!
   </div>
 </body>
