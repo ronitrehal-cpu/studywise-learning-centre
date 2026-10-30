@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Section } from './Section';
-import { Button } from './Button';
+import { Link } from 'react-router-dom';
 import { Reveal } from './Reveal';
-import { ChevronDown } from 'lucide-react';
 
 const previewFaqs = [
   {
@@ -20,33 +17,51 @@ const previewFaqs = [
   }
 ];
 
-function AccordionItem({ question, answer, isOpen, onToggle }: {
+function PlusMinus({ open }: { open: boolean }) {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true" className="w-5 h-5 flex-shrink-0 text-brand-navy">
+      <path d="M2 10 H18" stroke="currentColor" strokeWidth="1.5" />
+      {!open && <path d="M10 2 V18" stroke="currentColor" strokeWidth="1.5" />}
+    </svg>
+  );
+}
+
+function AccordionItem({ id, question, answer, isOpen, onToggle, isFirst, isLast }: {
+  id: string;
   question: string;
   answer: string;
   isOpen: boolean;
   onToggle: () => void;
+  isFirst: boolean;
+  isLast: boolean;
 }) {
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden bg-white">
-      <button
-        onClick={onToggle}
-        className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
-      >
-        <span className="font-semibold text-gray-900 pr-4">{question}</span>
-        <ChevronDown
-          className={`w-5 h-5 text-blue-700 flex-shrink-0 transition-transform duration-200 ${
-            isOpen ? 'rotate-180' : ''
-          }`}
-        />
-      </button>
+    <div
+      className={`border-t ${isFirst ? 'border-brand-ink' : 'border-brand-rule'} ${
+        isLast ? 'border-b border-b-brand-rule' : ''
+      }`}
+    >
+      <h3 className="m-0">
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          aria-controls={`${id}-panel`}
+          id={`${id}-button`}
+          className="w-full py-6 flex items-center justify-between gap-6 text-left font-serif font-medium text-brand-navy text-xl md:text-[22px] leading-snug tracking-tight"
+        >
+          <span>{question}</span>
+          <PlusMinus open={isOpen} />
+        </button>
+      </h3>
       <div
-        className={`overflow-hidden transition-all duration-300 ${
-          isOpen ? 'max-h-96' : 'max-h-0'
-        }`}
+        id={`${id}-panel`}
+        role="region"
+        aria-labelledby={`${id}-button`}
+        hidden={!isOpen}
+        className="pb-7"
       >
-        <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-          <p className="text-gray-700 leading-relaxed">{answer}</p>
-        </div>
+        <p className="text-[17px] leading-[1.6] text-brand-slate max-w-[640px]">{answer}</p>
       </div>
     </div>
   );
@@ -54,46 +69,39 @@ function AccordionItem({ question, answer, isOpen, onToggle }: {
 
 export function FAQPreview() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const navigate = useNavigate();
 
   return (
-    <Section background="light">
-      <div className="max-w-3xl mx-auto">
-        <Reveal>
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions
+    <section className="bg-white py-20 md:py-28">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6">
+          <Reveal className="lg:col-span-4">
+            <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
+              Questions parents ask.
             </h2>
-            <p className="text-lg text-gray-600">
-              Quick answers to the most common questions from parents.
-            </p>
-          </div>
-        </Reveal>
+            <Link
+              to="/faq"
+              className="inline-block mt-6 text-base font-semibold text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark"
+            >
+              All FAQs
+            </Link>
+          </Reveal>
 
-        <div className="space-y-3 mb-8">
-          {previewFaqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              question={faq.question}
-              answer={faq.answer}
-              isOpen={openIndex === index}
-              onToggle={() => setOpenIndex(openIndex === index ? null : index)}
-            />
-          ))}
-        </div>
-
-        <div className="text-center">
-          <Button
-            variant="outline"
-            onClick={() => {
-              navigate('/faq');
-              window.scrollTo(0, 0);
-            }}
-          >
-            View All FAQs
-          </Button>
+          <Reveal className="lg:col-start-6 lg:col-span-7" delay={0.1}>
+            {previewFaqs.slice(0, 5).map((faq, index) => (
+              <AccordionItem
+                key={faq.question}
+                id={`faq-preview-${index}`}
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={openIndex === index}
+                onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+                isFirst={index === 0}
+                isLast={index === Math.min(previewFaqs.length, 5) - 1}
+              />
+            ))}
+          </Reveal>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

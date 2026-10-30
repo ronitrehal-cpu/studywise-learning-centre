@@ -1,7 +1,5 @@
-import { Section } from './Section';
 import { Button } from './Button';
 import { Reveal } from './Reveal';
-import { CheckCircle } from 'lucide-react';
 
 const benefits = [
   'Comprehensive Maths & English assessment',
@@ -16,48 +14,35 @@ export function AssessmentCTA() {
   };
 
   return (
-    <Section background="accent">
-      <Reveal>
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-blue-700 to-blue-800 rounded-3xl p-8 md:p-12 text-white shadow-2xl">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  Start with a Free Assessment
-                </h2>
-                <p className="text-sky-50 text-lg mb-6">
-                  Discover your child's learning potential with our complimentary Maths and English assessment.
-                </p>
+    <section className="bg-brand-navy text-white py-20 md:py-24">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6">
+          <Reveal className="lg:col-span-6">
+            <h2 className="font-serif font-medium text-white text-4xl md:text-[52px] leading-[1.05] tracking-tight">
+              Start with a free assessment.
+            </h2>
+            <p className="mt-6 text-lg md:text-xl leading-[1.6] text-[#DCE6EF] max-w-xl">
+              A relaxed Maths and English assessment that shows where your child is now, and where we'd start.
+            </p>
+          </Reveal>
 
-                <ul className="space-y-3 mb-8">
-                  {benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0" />
-                      <span className="text-sky-50">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onClick={scrollToEnrollment}
+          <Reveal className="lg:col-start-8 lg:col-span-5" delay={0.1}>
+            <ul className="text-[17px] leading-[1.6] text-white">
+              {benefits.map((benefit, index) => (
+                <li
+                  key={benefit}
+                  className={`py-4 border-t border-white/15 ${index === benefits.length - 1 ? 'border-b' : ''}`}
                 >
-                  Book Your Free Assessment
-                </Button>
-              </div>
-
-              <div className="hidden md:block">
-                <img
-                  src="https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Student taking assessment"
-                  className="rounded-2xl shadow-xl"
-                />
-              </div>
-            </div>
-          </div>
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+            <Button variant="inverse" onClick={scrollToEnrollment} className="mt-8 w-full sm:w-auto">
+              Book a free assessment
+            </Button>
+          </Reveal>
         </div>
-      </Reveal>
-    </Section>
+      </div>
+    </section>
   );
 }

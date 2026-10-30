@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'inverse';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
 }
@@ -18,7 +18,9 @@ export function Button({
   const variants = {
     primary: 'bg-brand-navy text-white rounded hover:bg-brand-navyDark',
     secondary: 'bg-transparent text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark',
-    outline: 'border border-brand-navy text-brand-navy rounded hover:bg-brand-mist'
+    outline: 'border border-brand-navy text-brand-navy rounded hover:bg-brand-mist',
+    // For navy backgrounds
+    inverse: 'bg-white text-brand-navy rounded hover:bg-brand-mist'
   };
 
   // The secondary variant is a text link, so it gets no box padding

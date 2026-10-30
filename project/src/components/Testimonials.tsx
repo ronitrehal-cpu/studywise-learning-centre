@@ -28,7 +28,7 @@ export function Testimonials() {
 
           <Reveal className="lg:col-start-6 lg:col-span-7" delay={0.1}>
             <figure>
-              <blockquote className="font-serif italic font-normal text-brand-navy text-[26px] md:text-[34px] xl:text-[44px] leading-[1.25] tracking-tight">
+              <blockquote className="font-serif italic font-normal text-brand-navy text-[26px] md:text-[30px] xl:text-[36px] leading-[1.25] tracking-tight">
                 “{featured.text}”
               </blockquote>
               <figcaption className="mt-8 text-base text-brand-slate">{attribution(featured)}</figcaption>

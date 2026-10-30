@@ -1,6 +1,19 @@
-import { Mail, Phone, MapPin } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { Button } from './Button';
 import { Logo } from './Logo';
+
+const centres = [
+  { name: 'Cranbourne West', address: '5 Biara Court, Cranbourne West VIC 3977' },
+  { name: 'Clyde North', address: 'Balla Balla Community Centre, Clyde North VIC 3978' }
+];
+
+const phones = [
+  { display: '03 8774 7303', tel: '0387747303' },
+  { display: '0430 095 076', tel: '0430095076' }
+];
+
+const linkClass = 'text-[#DCE6EF] underline-offset-4 decoration-white hover:underline hover:text-white';
+const columnHeading = 'font-sans text-sm font-semibold uppercase tracking-[0.15em] text-[#B9D7EE] mb-4';
 
 export function Footer() {
   const location = useLocation();
@@ -13,98 +26,77 @@ export function Footer() {
     }
   };
 
+  const handleBookClick = () => {
+    if (location.pathname === '/') {
+      document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.replaceState(null, '', '/#enrollment');
+    } else {
+      window.location.href = '/#enrollment';
+    }
+  };
+
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-brand-navy text-gray-300">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+    <footer className="bg-brand-navy text-[#DCE6EF]">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20 pt-20 pb-10 md:pt-24">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 pb-12 md:pb-16">
+          <p className="font-serif font-medium text-white text-3xl md:text-[36px] leading-[1.15] tracking-tight max-w-xl">
+            Helping students grow since 2010.
+          </p>
+          <Button variant="inverse" onClick={handleBookClick} className="w-full sm:w-auto">
+            Book a free assessment
+          </Button>
+        </div>
+
+        <div className="border-t border-white/15 pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           <div>
-            <div className="mb-4">
-              <Logo variant="dark" size={40} />
-            </div>
-            <p className="text-sm text-gray-400">
-              Empowering students to achieve their academic goals through expert tutoring and personalized learning.
+            <Logo variant="dark" size={40} />
+            <p className="mt-5 text-[15px] leading-[1.6] text-[#B9D7EE] max-w-xs">
+              Small-group tutoring from Year 1 to VCE in Melbourne's south-east.
             </p>
           </div>
 
+          {centres.map((centre) => (
+            <div key={centre.name}>
+              <h3 className={columnHeading}>{centre.name}</h3>
+              <address className="not-italic text-[15px] leading-[1.6] space-y-2">
+                <p>{centre.address}</p>
+                {phones.map((phone) => (
+                  <p key={phone.tel}>
+                    <a href={`tel:${phone.tel}`} className={linkClass}>
+                      {phone.display}
+                    </a>
+                  </p>
+                ))}
+              </address>
+            </div>
+          ))}
+
           <div>
-            <h3 className="text-white font-bold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <h3 className={columnHeading}>Studywise</h3>
+            <ul className="text-[15px] leading-[1.6] space-y-2">
               <li>
-                <a
-                  href="/#programs"
-                  onClick={(e) => handleAnchorClick(e, 'programs')}
-                  className="text-gray-400 hover:text-sky-400 transition-colors text-sm"
-                >
+                <a href="/#programs" onClick={(e) => handleAnchorClick(e, 'programs')} className={linkClass}>
                   Programs
                 </a>
               </li>
               <li>
-                <a
-                  href="/#why-us"
-                  onClick={(e) => handleAnchorClick(e, 'why-us')}
-                  className="text-gray-400 hover:text-sky-400 transition-colors text-sm"
-                >
-                  Why Choose Us
+                <Link to="/about" className={linkClass}>Our story</Link>
+              </li>
+              <li>
+                <Link to="/faq" className={linkClass}>FAQs</Link>
+              </li>
+              <li>
+                <Link to="/student-portal" className={linkClass}>Student portal</Link>
+              </li>
+              <li>
+                <a href="/#contact" onClick={(e) => handleAnchorClick(e, 'contact')} className={linkClass}>
+                  Contact
                 </a>
               </li>
               <li>
-                <a
-                  href="/#locations"
-                  onClick={(e) => handleAnchorClick(e, 'locations')}
-                  className="text-gray-400 hover:text-sky-400 transition-colors text-sm"
-                >
-                  Locations
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/#enrollment"
-                  onClick={(e) => handleAnchorClick(e, 'enrollment')}
-                  className="text-gray-400 hover:text-sky-400 transition-colors text-sm"
-                >
-                  Enrol Now
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-white font-bold mb-4">Subjects</h3>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li>Maths</li>
-              <li>English</li>
-              <li>Science</li>
-              <li>VCE Preparation</li>
-              <li>Selective Entry</li>
-              <li>Scholarship Exams</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-white font-bold mb-4">Contact Us</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-sky-400 mt-1 flex-shrink-0" />
-                <span className="text-sm text-gray-400">
-                  5 Biara Court, Cranbourne West VIC 3977
-                </span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-sky-400 flex-shrink-0" />
-                <div className="flex flex-col gap-1">
-                  <a href="tel:0387747303" className="text-sm text-gray-400 hover:text-sky-400 transition-colors">
-                    03 8774 7303
-                  </a>
-                  <a href="tel:0430095076" className="text-sm text-gray-400 hover:text-sky-400 transition-colors">
-                    0430 095 076
-                  </a>
-                </div>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-sky-400 flex-shrink-0" />
-                <a href="mailto:admin@studywiselearning.com.au" className="text-sm text-gray-400 hover:text-sky-400 transition-colors">
+                <a href="mailto:admin@studywiselearning.com.au" className={`${linkClass} break-all`}>
                   admin@studywiselearning.com.au
                 </a>
               </li>
@@ -112,21 +104,9 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-gray-400">
-              {currentYear} Studywise Learning Centre. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              <button className="text-sm text-gray-400 hover:text-sky-400 transition-colors">
-                Privacy Policy
-              </button>
-              <button className="text-sm text-gray-400 hover:text-sky-400 transition-colors">
-                Terms of Service
-              </button>
-            </div>
-          </div>
-        </div>
+        <p className="mt-16 pt-6 border-t border-white/15 text-sm text-[#B9D7EE]">
+          © {currentYear} Studywise Learning Centre Pty Ltd · ABN 27 648 842 773
+        </p>
       </div>
     </footer>
   );
