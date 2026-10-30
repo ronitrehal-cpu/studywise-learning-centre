@@ -12,12 +12,11 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { label: 'Programs', hash: 'programs' },
-  { label: 'About', path: '/about' },
-  { label: 'Why Us', hash: 'why-us' },
-  { label: 'FAQs', hash: 'faqs' },
-  { label: 'Locations', hash: 'locations' },
-  { label: 'Contact', hash: 'contact' }
+  { label: 'Our story', path: '/about' },
+  { label: 'Locations', hash: 'locations' }
 ];
+
+const linkStyles = 'text-base text-brand-ink underline-offset-[6px] decoration-1 hover:underline';
 
 function scrollToId(id: string) {
   const el = document.getElementById(id);
@@ -57,10 +56,20 @@ export function Navigation() {
     setMobileMenuOpen(false);
   };
 
+  const handlePortalClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate('/student-portal');
+    window.scrollTo(0, 0);
+    setMobileMenuOpen(false);
+  };
+
   const isLinkActive = (link: NavLink) => {
+    if (link.path === '/about') return location.pathname === '/about' || location.pathname === '/about-us';
     if (link.path) return location.pathname === link.path;
     return false;
   };
+
+  const isPortalActive = location.pathname === '/student-portal';
 
   const getLinkHref = (link: NavLink) => {
     if (link.path) return link.path;
@@ -68,97 +77,76 @@ export function Navigation() {
   };
 
   return (
-    <nav className="bg-white shadow-md fixed w-full top-0 z-50">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
-        <div className="flex items-center justify-between h-[5.5rem]">
-          <Logo variant="light" size={42} />
+    <nav className="bg-white border-b border-brand-ink fixed w-full top-0 z-50">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
+        <div className="grid grid-cols-[1fr_auto] xl:grid-cols-[1fr_auto_1fr] items-center gap-6 h-[5.5rem]">
+          <div className="hidden xl:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={getLinkHref(link)}
+                onClick={(e) => handleNavClick(link, e)}
+                className={`${linkStyles} ${isLinkActive(link) ? 'underline' : ''}`}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
 
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => {
-              const isActive = isLinkActive(link);
-              return (
-                <a
-                  key={link.label}
-                  href={getLinkHref(link)}
-                  onClick={(e) => handleNavClick(link, e)}
-                  className={`font-medium transition-colors ${
-                    isActive
-                      ? 'text-blue-700 font-semibold'
-                      : 'text-gray-700 hover:text-blue-700'
-                  }`}
-                >
-                  {link.label}
-                </a>
-              );
-            })}
-            <Button
-              variant="outline"
-              size="md"
-              onClick={() => {
-                navigate('/student-portal');
-                window.scrollTo(0, 0);
-                setMobileMenuOpen(false);
-              }}
+          <div className="justify-self-start xl:justify-self-center">
+            <Logo variant="light" size={42} subline="Learning Centre · Est. 2010" />
+          </div>
+
+          <div className="hidden xl:flex items-center justify-end gap-8">
+            <a
+              href="/student-portal"
+              onClick={handlePortalClick}
+              className={`${linkStyles} ${isPortalActive ? 'underline' : ''}`}
             >
-              Student Portal
-            </Button>
+              Student portal
+            </a>
             <Button variant="primary" onClick={handleEnrolClick}>
-              Enrol Now
+              Book a free assessment
             </Button>
           </div>
 
           <button
-            className="md:hidden p-2"
+            className="xl:hidden justify-self-end p-2 -mr-2 text-brand-ink"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6 text-gray-900" />
-            ) : (
-              <Menu className="w-6 h-6 text-gray-900" />
-            )}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+      </div>
 
-        {mobileMenuOpen && (
-          <div className="md:hidden pb-6 space-y-4">
-            {navLinks.map((link) => {
-              const isActive = isLinkActive(link);
-              return (
-                <a
-                  key={link.label}
-                  href={getLinkHref(link)}
-                  onClick={(e) => handleNavClick(link, e)}
-                  className={`block w-full text-left font-medium py-2 ${
-                    isActive
-                      ? 'text-blue-700 font-semibold'
-                      : 'text-gray-700 hover:text-blue-700'
-                  }`}
-                >
-                  {link.label}
-                </a>
-              );
-            })}
-            <Button
-              variant="outline"
-              onClick={() => {
-                navigate('/student-portal');
-                window.scrollTo(0, 0);
-                setMobileMenuOpen(false);
-              }}
-              className="w-full"
+      {mobileMenuOpen && (
+        <div className="xl:hidden bg-white border-t border-brand-rule">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20 pb-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={getLinkHref(link)}
+                onClick={(e) => handleNavClick(link, e)}
+                className={`block py-4 border-b border-brand-rule ${linkStyles} ${isLinkActive(link) ? 'underline' : ''}`}
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="/student-portal"
+              onClick={handlePortalClick}
+              className={`block py-4 border-b border-brand-rule ${linkStyles} ${isPortalActive ? 'underline' : ''}`}
             >
-              Student Portal
-            </Button>
-            <Button
-              variant="primary"
-              onClick={handleEnrolClick}
-              className="w-full"
-            >
-              Enrol Now
+              Student portal
+            </a>
+            <Button variant="primary" onClick={handleEnrolClick} className="w-full mt-6">
+              Book a free assessment
             </Button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </nav>
   );
 }

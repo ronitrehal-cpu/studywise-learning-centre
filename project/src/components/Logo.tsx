@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 interface LogoProps {
   variant?: 'light' | 'dark';
   size?: number;
+  subline?: string;
   className?: string;
 }
 
@@ -28,7 +29,7 @@ function DarkCrest({ size }: { size: number }) {
   );
 }
 
-export function Logo({ variant = 'light', size = 40, className = '' }: LogoProps) {
+export function Logo({ variant = 'light', size = 40, subline = 'Learning Centre', className = '' }: LogoProps) {
   const navigate = useNavigate();
   const isDark = variant === 'dark';
 
@@ -53,7 +54,7 @@ export function Logo({ variant = 'light', size = 40, className = '' }: LogoProps
             isDark ? 'text-[#B9D7EE]' : 'text-brand-muted'
           }`}
         >
-          Learning Centre
+          {subline}
         </span>
       </span>
     </a>

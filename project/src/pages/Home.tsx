@@ -1,6 +1,5 @@
 import { Navigation } from '../components/Navigation';
 import { Hero } from '../components/Hero';
-import { TrustStrip } from '../components/TrustStrip';
 import { Programs } from '../components/Programs';
 import { Subjects } from '../components/Subjects';
 import { HowWeTeach } from '../components/HowWeTeach';
@@ -18,7 +17,6 @@ export function Home() {
       <Navigation />
       <main>
         <Hero />
-        <TrustStrip />
         <Programs />
         <Subjects />
         <HowWeTeach />
