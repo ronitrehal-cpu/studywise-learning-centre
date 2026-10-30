@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { Button } from './Button';
 
 const labelClass = 'block text-[15px] font-semibold text-brand-ink mb-2';
@@ -22,6 +22,19 @@ export function EnrollmentForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // When the confirmation or error message appears, bring it into view just below the compact
+  // header (its scroll-margin is --header-anchor) and move focus to its heading for screen readers.
+  const messageRef = useRef<HTMLDivElement>(null);
+  const messageHeadingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (!submitted && !error) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // 'instant', not 'auto': 'auto' would follow the page's CSS smooth scrolling
+    messageRef.current?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth', block: 'start' });
+    messageHeadingRef.current?.focus({ preventScroll: true });
+  }, [submitted, error]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -79,7 +92,7 @@ export function EnrollmentForm() {
     } catch (err) {
       // Nothing was saved; keep the parent's input so they can try again
       console.error('Enquiry submission failed:', err);
-      setError("We couldn't send your enquiry just now, so it hasn't been received. Your answers are still in the form — please try again in a moment, or contact us directly.");
+      setError("We couldn't send your enquiry just now, so it hasn't been received. Your answers are still in the form. Please try again in a moment, or contact us directly.");
     } finally {
       setSubmitting(false);
     }
@@ -116,17 +129,25 @@ export function EnrollmentForm() {
 
           <div className="mt-8 md:mt-10">
             {submitted ? (
-              <div className="bg-brand-mist border-t border-brand-ink px-6 py-8" role="status">
-                <h3 className="font-serif font-medium text-brand-navy text-[26px] leading-snug tracking-tight mb-2">Thank you.</h3>
+              <div ref={messageRef} className="bg-brand-mist border-t border-brand-ink px-6 py-8 scroll-mt-[var(--header-anchor)]" role="status">
+                <h3
+                  ref={messageHeadingRef}
+                  tabIndex={-1}
+                  className="font-serif font-medium text-brand-navy text-[26px] leading-snug tracking-tight mb-2 focus:outline-none"
+                >
+                  Thank you.
+                </h3>
                 <p className="text-[17px] leading-[1.6] text-brand-slate">
-                  Thank you — we've received your enquiry. Please check your email for the official enrolment form to complete and return.
+                  Thank you. We've received your enquiry. Please check your email for the official enrolment form to complete and return.
                 </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
                 {error && (
-                  <div className="bg-brand-mist border-t-2 border-brand-orange px-5 py-4" role="alert">
-                    <p className="font-semibold text-brand-orangeText mb-1">Your enquiry wasn't sent</p>
+                  <div ref={messageRef} className="bg-brand-mist border-t-2 border-brand-orange px-5 py-4 scroll-mt-[var(--header-anchor)]" role="alert">
+                    <h3 ref={messageHeadingRef} tabIndex={-1} className="font-sans text-base font-semibold text-brand-orangeText mb-1 focus:outline-none">
+                      Your enquiry wasn't sent
+                    </h3>
                     <p className="text-brand-slate text-[15px] leading-[1.6]">{error}</p>
                     <p className="text-brand-slate text-[15px] leading-[1.6] mt-2">
                       Call <a href="tel:0387747303" className="whitespace-nowrap text-brand-navy underline decoration-brand-orange underline-offset-4">03 8774 7303</a> or{' '}

@@ -182,7 +182,7 @@ export const handler = async (event) => {
       const { data, error } = await resend.emails.send({
         from: 'Studywise Learning Centre <noreply@studywiselearning.com.au>',
         to: enrolmentData.parent_email,
-        subject: 'Your Studywise enrolment form — next step',
+        subject: 'Your Studywise enrolment form: next step',
         reply_to: 'admin@studywiselearning.com.au',
         html: createParentEmailHTML({
           parent_name: enrolmentData.parent_name,

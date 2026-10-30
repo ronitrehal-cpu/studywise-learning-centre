@@ -33,15 +33,24 @@ export function createParentEmailHTML(data) {
       <td align="center">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 600px; background-color: #ffffff;">
 
-          <!-- Wordmark -->
+          <!-- Crest and wordmark (crest is 509 x 540, so 48 wide is 51 tall) -->
           <tr>
             <td style="padding: 0 0 20px; border-bottom: 2px solid #16496A;">
-              <p style="margin: 0; font-family: ${serif}; font-size: 26px; font-weight: bold; color: #16496A; letter-spacing: -0.3px; line-height: 1.1;">
-                Studywise
-              </p>
-              <p style="margin: 4px 0 0; font-family: ${sans}; font-size: 10px; font-weight: 600; color: #56636F; letter-spacing: 3px; text-transform: uppercase;">
-                Learning Centre
-              </p>
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td valign="middle" style="padding: 0 14px 0 0;">
+                    <img src="https://studywiselearning.com.au/studywise-crest.png" width="48" height="51" alt="Studywise Learning Centre" border="0" style="display: block; width: 48px; height: 51px; border: 0; outline: none; text-decoration: none;">
+                  </td>
+                  <td valign="middle">
+                    <p style="margin: 0; font-family: ${serif}; font-size: 26px; font-weight: bold; color: #16496A; letter-spacing: -0.3px; line-height: 1.1;">
+                      Studywise
+                    </p>
+                    <p style="margin: 4px 0 0; font-family: ${sans}; font-size: 10px; font-weight: 600; color: #56636F; letter-spacing: 3px; text-transform: uppercase;">
+                      Learning Centre
+                    </p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
@@ -49,7 +58,7 @@ export function createParentEmailHTML(data) {
           <tr>
             <td style="padding: 32px 0 8px;">
               <h1 style="margin: 0; font-family: ${serif}; font-size: 28px; font-weight: normal; color: #16496A; letter-spacing: -0.3px; line-height: 1.2;">
-                Enrolment Form Ready
+                Your enrolment form is ready
               </h1>
             </td>
           </tr>
@@ -66,7 +75,7 @@ export function createParentEmailHTML(data) {
               </p>
 
               <p style="margin: 0 0 20px; color: #3A4A58; font-size: 16px; line-height: 1.6;">
-                <strong style="color: #15222E;">The next step is to complete the official enrolment form.</strong> We've prepared it for you — simply download, fill it out, and send it back to us.
+                <strong style="color: #15222E;">The next step is to complete the official enrolment form.</strong> We've prepared it for you. Simply download it, fill it out and send it back to us.
               </p>
 
               <!-- Download Button -->
