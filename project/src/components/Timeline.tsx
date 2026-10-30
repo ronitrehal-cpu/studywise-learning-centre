@@ -1,11 +1,12 @@
 import React from 'react';
 import { timeline } from '../data/timeline';
 
-const ORANGE = '#C4531B';
-const NAVY = '#17325C';
-const MIST = '#F3F8FC';
+// Crest colours (brand.orange, brand.sky, brand.mist)
+const ORANGE = '#E36531';
+const SKY = '#2988BC';
+const MIST = '#EAF4FA';
 
-// Concentric "growth rings": entry n has n rings; the latest is filled orange with white rings
+// Concentric "growth rings": entry n has n rings; past entries are sky blue, the latest is filled orange with white rings
 function GrowthRings({ rings, latest }: { rings: number; latest: boolean }) {
   const outer = 22;
   const radii = Array.from({ length: rings }, (_, k) => (outer * (k + 1)) / rings);
@@ -22,11 +23,11 @@ function GrowthRings({ rings, latest }: { rings: number; latest: boolean }) {
         </>
       ) : (
         <>
-          <circle cx="24" cy="24" r={outer} fill={MIST} stroke={NAVY} strokeWidth="1.5" />
+          <circle cx="24" cy="24" r={outer} fill={MIST} stroke={SKY} strokeWidth="2" />
           {radii.slice(0, -1).map((r) => (
-            <circle key={r} cx="24" cy="24" r={r} fill="none" stroke={NAVY} strokeWidth="1.5" />
+            <circle key={r} cx="24" cy="24" r={r} fill="none" stroke={SKY} strokeWidth="2" />
           ))}
-          <circle cx="24" cy="24" r="2.5" fill={NAVY} />
+          <circle cx="24" cy="24" r="3" fill={SKY} />
         </>
       )}
     </svg>
@@ -41,7 +42,7 @@ export function Timeline() {
     >
       <span
         aria-hidden="true"
-        className="absolute bg-brand-navy left-6 top-6 bottom-6 w-px md:left-0 md:right-0 md:top-6 md:bottom-auto md:w-auto md:h-px"
+        className="absolute bg-[#8DC3E0] left-[23px] top-6 bottom-6 w-[2px] md:left-0 md:right-0 md:top-[23px] md:bottom-auto md:w-auto md:h-[2px]"
       />
       {timeline.map((entry, index) => (
         <li key={entry.year} className="relative flex md:block gap-6">

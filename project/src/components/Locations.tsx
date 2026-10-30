@@ -41,7 +41,7 @@ const locations: Location[] = [
   }
 ];
 
-const actionLink = 'text-base font-semibold text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark';
+const actionLink = 'text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark';
 
 function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);

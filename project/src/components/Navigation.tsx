@@ -16,7 +16,10 @@ const navLinks: NavLink[] = [
   { label: 'Locations', hash: 'locations' }
 ];
 
-const linkStyles = 'text-base text-brand-ink underline-offset-[6px] decoration-1 hover:underline';
+const linkStyles = (active: boolean) =>
+  `text-base text-brand-ink underline-offset-[6px] ${
+    active ? 'underline decoration-2 decoration-brand-orange' : 'decoration-1 hover:underline'
+  }`;
 
 function scrollToId(id: string) {
   const el = document.getElementById(id);
@@ -77,16 +80,17 @@ export function Navigation() {
   };
 
   return (
-    <nav className="bg-white border-b border-brand-ink fixed w-full top-0 z-50">
+    // Total height stays 5.5rem (5px sky bar + row + 1px rule) so the scroll-margin offsets still line up
+    <nav className="bg-white border-t-[5px] border-t-brand-sky border-b border-b-brand-ink fixed w-full top-0 z-50">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
-        <div className="grid grid-cols-[1fr_auto] xl:grid-cols-[1fr_auto_1fr] items-center gap-6 h-[5.5rem]">
+        <div className="grid grid-cols-[1fr_auto] xl:grid-cols-[1fr_auto_1fr] items-center gap-6 h-[calc(5.5rem-6px)]">
           <div className="hidden xl:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={getLinkHref(link)}
                 onClick={(e) => handleNavClick(link, e)}
-                className={`${linkStyles} ${isLinkActive(link) ? 'underline' : ''}`}
+                className={`${linkStyles(isLinkActive(link))}`}
               >
                 {link.label}
               </a>
@@ -94,14 +98,14 @@ export function Navigation() {
           </div>
 
           <div className="justify-self-start xl:justify-self-center">
-            <Logo variant="light" size={52} subline="Learning Centre · Est. 2010" />
+            <Logo variant="light" size={64} subline="Learning Centre · Est. 2010" />
           </div>
 
           <div className="hidden xl:flex items-center justify-end gap-8">
             <a
               href="/student-portal"
               onClick={handlePortalClick}
-              className={`${linkStyles} ${isPortalActive ? 'underline' : ''}`}
+              className={`${linkStyles(isPortalActive)}`}
             >
               Student portal
             </a>
@@ -129,7 +133,7 @@ export function Navigation() {
                 key={link.label}
                 href={getLinkHref(link)}
                 onClick={(e) => handleNavClick(link, e)}
-                className={`block py-4 border-b border-brand-rule ${linkStyles} ${isLinkActive(link) ? 'underline' : ''}`}
+                className={`block py-4 border-b border-brand-rule ${linkStyles(isLinkActive(link))}`}
               >
                 {link.label}
               </a>
@@ -137,7 +141,7 @@ export function Navigation() {
             <a
               href="/student-portal"
               onClick={handlePortalClick}
-              className={`block py-4 border-b border-brand-rule ${linkStyles} ${isPortalActive ? 'underline' : ''}`}
+              className={`block py-4 border-b border-brand-rule ${linkStyles(isPortalActive)}`}
             >
               Student portal
             </a>

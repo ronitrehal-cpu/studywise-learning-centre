@@ -38,7 +38,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-brand-navy text-[#DCE6EF]">
+    <footer className="bg-brand-navy border-t-[5px] border-brand-orange text-[#DCE6EF]">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20 pt-20 pb-10 md:pt-24">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 pb-12 md:pb-16">
           <p className="font-serif font-medium text-white text-3xl md:text-[36px] leading-[1.15] tracking-tight max-w-xl">
@@ -51,7 +51,7 @@ export function Footer() {
 
         <div className="border-t border-white/15 pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           <div>
-            <Logo variant="dark" size={56} />
+            <Logo variant="dark" size={80} />
             <p className="mt-5 text-[15px] leading-[1.6] text-[#B9D7EE] max-w-xs">
               Small-group tutoring from Year 1 to VCE in Melbourne's south-east.
             </p>

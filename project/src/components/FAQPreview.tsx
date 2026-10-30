@@ -19,7 +19,7 @@ export function FAQPreview() {
             </h2>
             <Link
               to="/faq"
-              className="inline-block mt-6 text-base font-semibold text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark"
+              className="inline-block mt-6 text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark"
             >
               All FAQs
             </Link>

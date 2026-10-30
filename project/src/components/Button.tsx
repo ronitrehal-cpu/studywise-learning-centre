@@ -17,7 +17,7 @@ export function Button({
 
   const variants = {
     primary: 'bg-brand-navy text-white rounded hover:bg-brand-navyDark',
-    secondary: 'bg-transparent text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark',
+    secondary: 'bg-transparent text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark',
     outline: 'border border-brand-navy text-brand-navy rounded hover:bg-brand-mist',
     // For navy backgrounds
     inverse: 'bg-white text-brand-navy rounded hover:bg-brand-mist'

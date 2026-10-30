@@ -6,6 +6,7 @@ import { Timeline } from '../components/Timeline';
 import { WhyStudywise } from '../components/WhyStudywise';
 import { Testimonials } from '../components/Testimonials';
 import { AssessmentCTA } from '../components/AssessmentCTA';
+import { Crest } from '../components/Logo';
 
 const container = 'max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20';
 const bodyText = 'text-lg leading-[1.6] text-brand-slate';
@@ -125,6 +126,25 @@ export function About() {
                 Studywise has been teaching small groups of students in Melbourne's south-east since 2010. Many of our
                 families have been with us for years, some for every stage of school.
               </p>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="bg-brand-mist py-20 md:py-28 mt-12 md:mt-16">
+          <div className={container}>
+            <Reveal>
+              <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] items-center gap-10 md:gap-16 lg:gap-24 max-w-[1100px]">
+                <Crest size={180} />
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.15em] text-brand-muted">Our story</p>
+                  <h2 className="mt-4 font-serif font-medium text-brand-navy text-[32px] md:text-[46px] leading-[1.08] tracking-tight max-w-[640px]">
+                    The same crest on our door since 2010.
+                  </h2>
+                  <p className={`mt-5 ${bodyText} max-w-[600px]`}>
+                    Many of the families who first walked past it are still with us, now with their younger children.
+                  </p>
+                </div>
+              </div>
             </Reveal>
           </div>
         </section>

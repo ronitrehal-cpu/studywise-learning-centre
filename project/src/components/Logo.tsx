@@ -8,27 +8,25 @@ interface LogoProps {
   className?: string;
 }
 
-// Real crest, trimmed from public/final-studywise-logo.jpg by `npm run brand-assets` (211 x 224 px)
+// Real crest with a transparent background, made from public/final-studywise-logo.jpg by `npm run brand-assets` (509 x 540 px)
 const CREST_SRC = '/studywise-crest.png';
-const CREST_RATIO = 211 / 224;
+const CREST_RATIO = 509 / 540;
 
-function Crest({ size, onDark }: { size: number; onDark: boolean }) {
-  const img = (
+export function Crest({ size, className = '' }: { size: number; className?: string }) {
+  const width = Math.round(size * CREST_RATIO);
+  return (
     <img
       src={CREST_SRC}
       alt="Studywise Learning Centre crest"
-      width={Math.round(size * CREST_RATIO)}
+      width={width}
       height={size}
-      className="block flex-shrink-0"
-      style={{ width: Math.round(size * CREST_RATIO), height: size }}
+      className={`block flex-shrink-0 ${className}`}
+      style={{ width, height: size }}
     />
   );
-
-  // The crest has a white background, so on navy it sits on a small white backing
-  return onDark ? <span className="flex-shrink-0 rounded-md bg-white p-1.5">{img}</span> : img;
 }
 
-export function Logo({ variant = 'light', size = 52, subline = 'Learning Centre', className = '' }: LogoProps) {
+export function Logo({ variant = 'light', size = 64, subline = 'Learning Centre', className = '' }: LogoProps) {
   const navigate = useNavigate();
   const isDark = variant === 'dark';
 
@@ -36,14 +34,14 @@ export function Logo({ variant = 'light', size = 52, subline = 'Learning Centre'
     <a
       href="/"
       aria-label="Studywise Learning Centre home"
-      className={`inline-flex items-center gap-3 ${className}`}
+      className={`inline-flex items-center gap-4 ${className}`}
       onClick={(e) => {
         e.preventDefault();
         navigate('/');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }}
     >
-      <Crest size={size} onDark={isDark} />
+      <Crest size={size} />
       <span className="flex flex-col justify-center leading-none">
         <span className={`font-serif font-semibold text-2xl tracking-tight ${isDark ? 'text-white' : 'text-brand-navy'}`}>
           Studywise

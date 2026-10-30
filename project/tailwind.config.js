@@ -5,15 +5,17 @@ export default {
     extend: {
       colors: {
         brand: {
-          navy: '#17325C', // primary: headings, buttons, footer
-          navyDark: '#0E2243', // hover
-          ink: '#16202E', // strong text, top rules
-          slate: '#3E4A5B', // body text
-          muted: '#5A6575', // captions, small labels
-          sky: '#6FB3E0', // logo and illustration only, never text
-          mist: '#F3F8FC', // alternate section background
+          // Colours taken from the Studywise crest
+          navy: '#16496A', // deep crest blue: headings, buttons, footer
+          navyDark: '#0F3550', // hover
+          ink: '#15222E', // strong text, top rules
+          slate: '#3A4A58', // body text
+          muted: '#56636F', // captions, small labels
+          sky: '#2988BC', // crest blue: thin accent lines and timeline markers only, never small text
+          mist: '#EAF4FA', // pale crest-blue section backgrounds
           photo: '#DCE8F2', // image placeholders
-          orange: '#C4531B', // rare accent only
+          orange: '#E36531', // crest orange: fills, lines and markers
+          orangeText: '#B84A1C', // orange for text (passes contrast)
           rule: '#C9D3DD', // light divider lines
         },
       },

@@ -21,7 +21,7 @@ export function ProgramList({ exclude }: { exclude?: string }) {
             } ${index === rows.length - 1 ? 'border-b border-b-brand-rule' : ''}`}
           >
             <span className="col-start-1 md:col-start-auto text-base text-brand-muted">{row.years}</span>
-            <span className="col-start-1 md:col-start-auto font-serif font-medium text-brand-navy text-2xl md:text-[30px] leading-tight tracking-tight underline-offset-[6px] decoration-1 group-hover:underline">
+            <span className="col-start-1 md:col-start-auto font-serif font-medium text-brand-navy text-2xl md:text-[30px] leading-tight tracking-tight underline-offset-[6px] decoration-1 decoration-brand-orange group-hover:underline">
               {row.name}
             </span>
             <span className="col-start-1 md:col-start-auto text-[17px] leading-[1.6] text-brand-slate mt-1 md:mt-0">

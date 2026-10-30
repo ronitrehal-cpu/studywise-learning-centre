@@ -15,7 +15,7 @@ export function createParentEmailHTML(data) {
   const pdfDownloadUrl = escapeHtml(data.pdfDownloadUrl);
   const adminEmail = escapeHtml(data.adminEmail);
 
-  // Brand: navy #17325C, rules #C9D3DD; Georgia for headings because web fonts don't load reliably in email
+  // Brand: navy #16496A, rules #C9D3DD; Georgia for headings because web fonts don't load reliably in email
   const serif = "Georgia, 'Times New Roman', serif";
   const sans = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
 
@@ -35,11 +35,11 @@ export function createParentEmailHTML(data) {
 
           <!-- Wordmark -->
           <tr>
-            <td style="padding: 0 0 20px; border-bottom: 2px solid #17325C;">
-              <p style="margin: 0; font-family: ${serif}; font-size: 26px; font-weight: bold; color: #17325C; letter-spacing: -0.3px; line-height: 1.1;">
+            <td style="padding: 0 0 20px; border-bottom: 2px solid #16496A;">
+              <p style="margin: 0; font-family: ${serif}; font-size: 26px; font-weight: bold; color: #16496A; letter-spacing: -0.3px; line-height: 1.1;">
                 Studywise
               </p>
-              <p style="margin: 4px 0 0; font-family: ${sans}; font-size: 10px; font-weight: 600; color: #5A6575; letter-spacing: 3px; text-transform: uppercase;">
+              <p style="margin: 4px 0 0; font-family: ${sans}; font-size: 10px; font-weight: 600; color: #56636F; letter-spacing: 3px; text-transform: uppercase;">
                 Learning Centre
               </p>
             </td>
@@ -48,7 +48,7 @@ export function createParentEmailHTML(data) {
           <!-- Header -->
           <tr>
             <td style="padding: 32px 0 8px;">
-              <h1 style="margin: 0; font-family: ${serif}; font-size: 28px; font-weight: normal; color: #17325C; letter-spacing: -0.3px; line-height: 1.2;">
+              <h1 style="margin: 0; font-family: ${serif}; font-size: 28px; font-weight: normal; color: #16496A; letter-spacing: -0.3px; line-height: 1.2;">
                 Enrolment Form Ready
               </h1>
             </td>
@@ -57,23 +57,23 @@ export function createParentEmailHTML(data) {
           <!-- Body -->
           <tr>
             <td style="padding: 24px 0 0;">
-              <p style="margin: 0 0 20px; color: #16202E; font-size: 16px; line-height: 1.6;">
+              <p style="margin: 0 0 20px; color: #15222E; font-size: 16px; line-height: 1.6;">
                 Dear ${parent_name},
               </p>
 
-              <p style="margin: 0 0 20px; color: #3E4A5B; font-size: 16px; line-height: 1.6;">
+              <p style="margin: 0 0 20px; color: #3A4A58; font-size: 16px; line-height: 1.6;">
                 Thanks for your enquiry about enrolling ${studentFirstName} (${student_year_level}) at Studywise Learning Centre.
               </p>
 
-              <p style="margin: 0 0 20px; color: #3E4A5B; font-size: 16px; line-height: 1.6;">
-                <strong style="color: #16202E;">The next step is to complete the official enrolment form.</strong> We've prepared it for you — simply download, fill it out, and send it back to us.
+              <p style="margin: 0 0 20px; color: #3A4A58; font-size: 16px; line-height: 1.6;">
+                <strong style="color: #15222E;">The next step is to complete the official enrolment form.</strong> We've prepared it for you — simply download, fill it out, and send it back to us.
               </p>
 
               <!-- Download Button -->
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin: 28px 0;">
                 <tr>
-                  <td style="background-color: #17325C;">
-                    <a href="${pdfDownloadUrl}" style="display: inline-block; background-color: #17325C; color: #ffffff; text-decoration: none; padding: 16px 28px; font-family: ${sans}; font-size: 16px; font-weight: 600;">
+                  <td style="background-color: #16496A;">
+                    <a href="${pdfDownloadUrl}" style="display: inline-block; background-color: #16496A; color: #ffffff; text-decoration: none; padding: 16px 28px; font-family: ${sans}; font-size: 16px; font-weight: 600;">
                       Download Enrolment Form (PDF)
                     </a>
                   </td>
@@ -84,23 +84,23 @@ export function createParentEmailHTML(data) {
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 28px 0; border-top: 1px solid #C9D3DD; border-bottom: 1px solid #C9D3DD;">
                 <tr>
                   <td style="padding: 20px 0;">
-                    <p style="margin: 0 0 12px; font-family: ${serif}; color: #17325C; font-size: 18px;">
+                    <p style="margin: 0 0 12px; font-family: ${serif}; color: #16496A; font-size: 18px;">
                       How to Complete Your Enrolment:
                     </p>
-                    <ol style="margin: 0; padding-left: 20px; color: #3E4A5B; font-size: 15px; line-height: 1.7;">
+                    <ol style="margin: 0; padding-left: 20px; color: #3A4A58; font-size: 15px; line-height: 1.7;">
                       <li style="margin-bottom: 8px;">Click the button above to download the enrolment form (PDF)</li>
                       <li style="margin-bottom: 8px;">Print it and fill it in by hand, or fill it in on your device</li>
-                      <li>Email the completed form to: <strong style="color: #17325C;">${adminEmail}</strong> (a photo or scan is fine)</li>
+                      <li>Email the completed form to: <strong style="color: #16496A;">${adminEmail}</strong> (a photo or scan is fine)</li>
                     </ol>
                   </td>
                 </tr>
               </table>
 
-              <p style="margin: 24px 0 0; color: #3E4A5B; font-size: 15px; line-height: 1.6;">
-                <strong style="color: #16202E;">Questions?</strong> Please email us at <a href="mailto:${adminEmail}" style="color: #17325C; text-decoration: underline;">${adminEmail}</a> or call <a href="tel:0387747303" style="color: #17325C; text-decoration: underline;">03&nbsp;8774&nbsp;7303</a> or <a href="tel:0430095076" style="color: #17325C; text-decoration: underline;">0430&nbsp;095&nbsp;076</a>, and we'll be happy to help.
+              <p style="margin: 24px 0 0; color: #3A4A58; font-size: 15px; line-height: 1.6;">
+                <strong style="color: #15222E;">Questions?</strong> Please email us at <a href="mailto:${adminEmail}" style="color: #16496A; text-decoration: underline;">${adminEmail}</a> or call <a href="tel:0387747303" style="color: #16496A; text-decoration: underline;">03&nbsp;8774&nbsp;7303</a> or <a href="tel:0430095076" style="color: #16496A; text-decoration: underline;">0430&nbsp;095&nbsp;076</a>, and we'll be happy to help.
               </p>
 
-              <p style="margin: 16px 0 0; color: #5A6575; font-size: 14px; line-height: 1.6; font-style: italic;">
+              <p style="margin: 16px 0 0; color: #56636F; font-size: 14px; line-height: 1.6; font-style: italic;">
                 Note: The download link will expire in 7 days. If you need a new link, just let us know.
               </p>
             </td>
@@ -112,12 +112,12 @@ export function createParentEmailHTML(data) {
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top: 1px solid #C9D3DD;">
                 <tr>
                   <td style="padding: 20px 0 0;">
-                    <p style="margin: 0 0 6px; font-family: ${serif}; color: #17325C; font-size: 16px;">
+                    <p style="margin: 0 0 6px; font-family: ${serif}; color: #16496A; font-size: 16px;">
                       Studywise Learning Centre
                     </p>
-                    <p style="margin: 0; color: #5A6575; font-size: 13px; line-height: 1.6;">
+                    <p style="margin: 0; color: #56636F; font-size: 13px; line-height: 1.6;">
                       Helping students grow since 2010.<br>
-                      <a href="mailto:${adminEmail}" style="color: #17325C; text-decoration: underline;">${adminEmail}</a>
+                      <a href="mailto:${adminEmail}" style="color: #16496A; text-decoration: underline;">${adminEmail}</a>
                     </p>
                   </td>
                 </tr>

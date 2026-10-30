@@ -16,7 +16,7 @@ export function StudentPortal() {
           </p>
           <Link
             to="/"
-            className="inline-block mt-10 text-base font-semibold text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark"
+            className="inline-block mt-10 text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark"
           >
             Back to home
           </Link>

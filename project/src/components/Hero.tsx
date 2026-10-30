@@ -42,7 +42,7 @@ export function Hero() {
             <img
               src="/1.jpeg"
               alt="The Studywise Clyde North centre at Balla Balla Community Centre"
-              className="w-full h-[260px] md:h-[420px] lg:h-[560px] object-cover rounded-t-[999px] bg-brand-photo"
+              className="w-full h-[260px] md:h-[420px] lg:h-[560px] object-cover rounded-t-[999px] border-[5px] border-brand-sky bg-brand-photo"
             />
             <figcaption className="mt-4 text-sm text-brand-muted">Our Clyde North centre.</figcaption>
           </figure>

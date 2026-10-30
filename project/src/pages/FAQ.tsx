@@ -7,7 +7,7 @@ import { Accordion } from '../components/Accordion';
 import { faqs } from '../data/faqData';
 
 const container = 'max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20';
-const textLink = 'text-brand-navy underline underline-offset-4 decoration-1 hover:text-brand-navyDark';
+const textLink = 'text-brand-navy underline decoration-brand-orange underline-offset-4 decoration-1 hover:text-brand-navyDark';
 
 export function FAQ() {
   const [searchTerm, setSearchTerm] = useState('');

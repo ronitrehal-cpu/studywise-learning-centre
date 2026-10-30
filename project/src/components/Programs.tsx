@@ -14,7 +14,7 @@ export function Programs() {
             </h2>
             <Link
               to={`/programs/${programSummaries[0].slug}`}
-              className="text-base font-semibold text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark"
+              className="text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark"
             >
               All programs
             </Link>

@@ -104,7 +104,7 @@ export function ProgramDetail() {
                 </p>
                 <Link
                   to="/#locations"
-                  className="inline-block mt-6 text-base font-semibold text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark"
+                  className="inline-block mt-6 text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark"
                 >
                   See locations and contact details
                 </Link>
