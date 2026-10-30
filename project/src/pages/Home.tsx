@@ -1,7 +1,6 @@
 import { Navigation } from '../components/Navigation';
 import { Hero } from '../components/Hero';
 import { Programs } from '../components/Programs';
-import { Subjects } from '../components/Subjects';
 import { HowWeTeach } from '../components/HowWeTeach';
 import { WhyStudywise } from '../components/WhyStudywise';
 import { Testimonials } from '../components/Testimonials';
@@ -18,7 +17,6 @@ export function Home() {
       <main>
         <Hero />
         <Programs />
-        <Subjects />
         <HowWeTeach />
         <div id="why-us" className="scroll-mt-[5.5rem]">
           <WhyStudywise />

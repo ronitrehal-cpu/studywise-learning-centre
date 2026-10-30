@@ -1,60 +1,69 @@
-import { useNavigate } from 'react-router-dom';
-import { Card } from './Card';
-import { Button } from './Button';
-import { Section } from './Section';
+import { Link } from 'react-router-dom';
 import { Reveal } from './Reveal';
-import { StaggerGroup } from './StaggerGroup';
 import { programsData } from '../data/programData';
 
-export function Programs() {
-  const navigate = useNavigate();
-  return (
-    <Section background="light" id="programs">
-      <Reveal>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Programs Offered
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Tailored learning programs designed to meet your child's educational goals
-          </p>
-        </div>
-      </Reveal>
+// Homepage order and display labels; titles in programData keep their year ranges for the detail pages
+const programRows: { slug: string; years: string; name: string }[] = [
+  { slug: 'primary', years: 'Years 1–6', name: 'Primary' },
+  { slug: 'secondary', years: 'Years 7–10', name: 'Secondary' },
+  { slug: 'selective-entry', years: 'Year 8', name: 'Selective Entry' },
+  { slug: 'scholarship-preparation', years: 'Scholarship exams', name: 'Scholarship Preparation' },
+  { slug: 'jmss', years: 'Year 9', name: 'John Monash Science School' },
+  { slug: 'vce', years: 'Years 11–12', name: 'VCE' }
+];
 
-      <StaggerGroup className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.15}>
-        {programsData.map((program) => {
-          const Icon = program.icon;
-          return (
-            <Card key={program.id} hover className="flex flex-col">
-              <div className="bg-sky-100 rounded-xl p-4 w-fit mb-4">
-                <Icon className="w-8 h-8 text-blue-700" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{program.title}</h3>
-              <p className="text-gray-600 mb-4 flex-grow">{program.shortDescription}</p>
-              <div className="mb-4">
-                <p className="text-sm font-semibold text-gray-700 mb-2">Focus Areas:</p>
-                <div className="flex flex-wrap gap-2">
-                  {program.focusAreas.map((item, i) => (
-                    <span
-                      key={i}
-                      className="bg-stone-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => navigate(`/programs/${program.slug}`)}
-              >
-                Learn More
-              </Button>
-            </Card>
-          );
-        })}
-      </StaggerGroup>
-    </Section>
+export function Programs() {
+  const rows = programRows.flatMap((row) => {
+    const program = programsData.find((p) => p.slug === row.slug);
+    return program ? [{ ...row, description: program.shortDescription }] : [];
+  });
+
+  return (
+    <section id="programs" className="bg-white py-20 md:py-28 scroll-mt-[5.5rem]">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
+        <Reveal>
+          <div className="flex items-end justify-between gap-6 mb-10 md:mb-14">
+            <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
+              Programs
+            </h2>
+            <Link
+              to={`/programs/${programRows[0].slug}`}
+              className="text-base font-semibold text-brand-navy underline underline-offset-[6px] hover:text-brand-navyDark"
+            >
+              All programs
+            </Link>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <ul>
+            {rows.map((row, index) => (
+              <li key={row.slug}>
+                <Link
+                  to={`/programs/${row.slug}`}
+                  className={`group grid grid-cols-[1fr_auto] md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)_auto] gap-x-6 md:gap-x-8 gap-y-1 items-center py-[26px] border-t ${
+                    index === 0 ? 'border-brand-ink' : 'border-brand-rule'
+                  } ${index === rows.length - 1 ? 'border-b border-b-brand-rule' : ''}`}
+                >
+                  <span className="col-start-1 md:col-start-auto text-base text-brand-muted">{row.years}</span>
+                  <span className="col-start-1 md:col-start-auto font-serif font-medium text-brand-navy text-2xl md:text-[30px] leading-tight tracking-tight underline-offset-[6px] decoration-1 group-hover:underline">
+                    {row.name}
+                  </span>
+                  <span className="col-start-1 md:col-start-auto text-[17px] leading-[1.6] text-brand-slate mt-1 md:mt-0">
+                    {row.description}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="col-start-2 row-start-1 row-span-3 md:col-start-auto md:row-start-auto md:row-span-1 text-2xl text-brand-navy transition-transform duration-200 group-hover:translate-x-1.5"
+                  >
+                    →
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </div>
+    </section>
   );
 }
