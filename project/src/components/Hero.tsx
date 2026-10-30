@@ -21,7 +21,7 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 mt-10 md:mt-14 lg:items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-6 mt-8 md:mt-14 lg:items-end">
             <p className="lg:col-span-5 text-lg md:text-[22px] leading-[1.6] text-brand-slate">
               Studywise has been teaching small groups of students since 2010, from their first years of school through
               to VCE. Many families have been with us for most of that time.
@@ -38,11 +38,11 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={0.3}>
-          <figure className="mt-14 md:mt-20">
+          <figure className="mt-10 md:mt-20">
             <img
               src="/1.jpeg"
               alt="The Studywise Clyde North centre at Balla Balla Community Centre"
-              className="w-full h-[260px] md:h-[420px] lg:h-[560px] object-cover rounded-t-[999px] border-[5px] border-brand-sky bg-brand-photo"
+              className="w-full h-[230px] md:h-[420px] lg:h-[560px] object-cover rounded-t-[999px] border-[5px] border-brand-sky bg-brand-photo"
             />
             <figcaption className="mt-4 text-sm text-brand-muted">Our Clyde North centre.</figcaption>
           </figure>

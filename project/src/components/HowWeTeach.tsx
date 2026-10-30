@@ -21,14 +21,14 @@ const points = [
 
 export function HowWeTeach() {
   return (
-    <section className="bg-brand-mist py-20 md:py-28">
+    <section className="bg-brand-mist py-14 md:py-28">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-6">
           <Reveal className="lg:col-span-4">
             <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
               How we teach.
             </h2>
-            <p className="mt-6 text-lg leading-[1.6] text-brand-slate max-w-sm">
+            <p className="mt-4 md:mt-6 text-lg leading-[1.6] text-brand-slate max-w-sm">
               A structured, in-centre approach designed to help every student succeed.
             </p>
           </Reveal>
@@ -38,7 +38,7 @@ export function HowWeTeach() {
               {points.map((point, index) => (
                 <li
                   key={point.label}
-                  className={`grid grid-cols-1 md:grid-cols-[200px_1fr] gap-2 md:gap-8 py-7 border-t ${
+                  className={`grid grid-cols-1 md:grid-cols-[200px_1fr] gap-2 md:gap-8 py-5 md:py-7 border-t ${
                     index === 0 ? 'border-brand-ink' : 'border-brand-rule'
                   } ${index === points.length - 1 ? 'border-b border-b-brand-rule' : ''}`}
                 >

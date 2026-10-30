@@ -39,8 +39,8 @@ export function Footer() {
 
   return (
     <footer className="bg-brand-navy border-t-[5px] border-brand-orange text-[#DCE6EF]">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20 pt-20 pb-10 md:pt-24">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 pb-12 md:pb-16">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20 pt-14 pb-10 md:pt-24">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-8 pb-10 md:pb-16">
           <p className="font-serif font-medium text-white text-3xl md:text-[36px] leading-[1.15] tracking-tight max-w-xl">
             Helping students grow since 2010.
           </p>
@@ -49,7 +49,7 @@ export function Footer() {
           </Button>
         </div>
 
-        <div className="border-t border-white/15 pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+        <div className="border-t border-white/15 pt-10 md:pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-8">
           <div>
             <Logo variant="dark" size={80} />
             <p className="mt-5 text-[15px] leading-[1.6] text-[#B9D7EE] max-w-xs">
@@ -104,7 +104,7 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="mt-16 pt-6 border-t border-white/15 text-sm text-[#B9D7EE]">
+        <p className="mt-10 md:mt-16 pt-6 border-t border-white/15 text-sm text-[#B9D7EE]">
           © {currentYear} Studywise Learning Centre Pty Ltd · ABN 27 648 842 773
         </p>
       </div>

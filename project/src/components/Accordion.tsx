@@ -38,13 +38,13 @@ export function Accordion({ items }: { items: AccordionEntry[] }) {
                 aria-expanded={isOpen}
                 aria-controls={`${id}-panel`}
                 id={`${id}-button`}
-                className="w-full py-6 flex items-center justify-between gap-6 text-left font-serif font-medium text-brand-navy text-xl md:text-[22px] leading-snug tracking-tight"
+                className="w-full py-5 md:py-6 flex items-center justify-between gap-6 text-left font-serif font-medium text-brand-navy text-xl md:text-[22px] leading-snug tracking-tight"
               >
                 <span>{item.question}</span>
                 <PlusMinus open={isOpen} />
               </button>
             </h3>
-            <div id={`${id}-panel`} role="region" aria-labelledby={`${id}-button`} hidden={!isOpen} className="pb-7">
+            <div id={`${id}-panel`} role="region" aria-labelledby={`${id}-button`} hidden={!isOpen} className="pb-6 md:pb-7">
               <p className="text-[17px] leading-[1.6] text-brand-slate max-w-[640px]">{item.answer}</p>
             </div>
           </div>

@@ -17,9 +17,9 @@ const reasons = [
 
 export function WhyStudywise() {
   return (
-    <section className="bg-white pt-20 pb-16 md:pt-28 md:pb-24">
+    <section className="bg-white py-14 md:pt-28 md:pb-24">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-6">
           <Reveal className="lg:col-span-4">
             <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
               Why families stay.
@@ -31,7 +31,7 @@ export function WhyStudywise() {
               {reasons.map((reason, index) => (
                 <li
                   key={reason.label}
-                  className={`grid grid-cols-1 md:grid-cols-[200px_1fr] gap-2 md:gap-8 py-7 border-t ${
+                  className={`grid grid-cols-1 md:grid-cols-[200px_1fr] gap-2 md:gap-8 py-5 md:py-7 border-t ${
                     index === 0 ? 'border-brand-ink' : 'border-brand-rule'
                   } ${index === reasons.length - 1 ? 'border-b border-b-brand-rule' : ''}`}
                 >

@@ -10,16 +10,16 @@ export function FAQPreview() {
     .slice(0, 5);
 
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-white py-14 md:py-28">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-6">
           <Reveal className="lg:col-span-4">
             <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
               Questions parents ask.
             </h2>
             <Link
               to="/faq"
-              className="inline-block mt-6 text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark"
+              className="inline-block mt-4 md:mt-6 text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark"
             >
               All FAQs
             </Link>

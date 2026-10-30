@@ -56,7 +56,7 @@ function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
 
   return (
     <div>
-      <div className="w-full aspect-[4/3] rounded overflow-hidden relative bg-brand-photo">
+      <div className="w-full aspect-[16/10] md:aspect-[4/3] rounded overflow-hidden relative bg-brand-photo">
         {images.map((image, index) => (
           <img
             key={image}
@@ -68,7 +68,7 @@ function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
           />
         ))}
       </div>
-      <div className="flex gap-2 mt-4">
+      <div className="flex gap-2 mt-3 md:mt-4">
         {images.map((_, index) => (
           <button
             key={index}
@@ -86,56 +86,98 @@ function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
   );
 }
 
+const mutedLink = 'hover:text-brand-navy hover:underline underline-offset-4';
+
 export function Locations({ id }: { id?: string }) {
+  // Phones show one centre at a time (tab switcher); md and up show both side by side
+  const [selected, setSelected] = useState(0);
+
   return (
-    <section id={id} className="bg-white py-20 md:py-28 scroll-mt-[var(--header-anchor)]">
+    <section id={id} className="bg-white py-14 md:py-28 scroll-mt-[var(--header-anchor)]">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
         <Reveal>
           <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
             Our centres
           </h2>
-          <p className="mt-4 text-lg leading-[1.6] text-brand-slate">Visit us in Cranbourne West or Clyde North.</p>
+          <p className="mt-3 md:mt-4 text-lg leading-[1.6] text-brand-slate">Visit us in Cranbourne West or Clyde North.</p>
         </Reveal>
 
-        <div id="contact" className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-10 lg:gap-16 mt-12 md:mt-16 scroll-mt-[var(--header-anchor)]">
-          {locations.map((location, index) => (
-            <Reveal key={location.name} delay={0.1 * (index + 1)}>
-              <ImageSlideshow images={location.images} name={location.name} />
-
-              <h3 className="mt-8 font-serif font-medium text-brand-navy text-[26px] md:text-[30px] leading-tight tracking-tight">
+        <div id="contact" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-16 mt-8 md:mt-16 scroll-mt-[var(--header-anchor)]">
+          <div className="grid grid-cols-2 md:hidden" role="group" aria-label="Choose a centre">
+            {locations.map((location, index) => (
+              <button
+                key={location.name}
+                type="button"
+                onClick={() => setSelected(index)}
+                aria-pressed={selected === index}
+                aria-controls={`centre-${index}`}
+                className={`h-12 px-3 text-base font-semibold border border-brand-navy ${
+                  index === 0 ? 'rounded-l' : 'rounded-r -ml-px'
+                } ${selected === index ? 'bg-brand-navy text-white' : 'bg-white text-brand-navy'}`}
+              >
                 {location.name}
-              </h3>
+              </button>
+            ))}
+          </div>
 
-              <ul className="mt-5 text-[17px] leading-[1.6] text-brand-slate">
-                <li className="py-3 border-t border-brand-ink">{location.address}</li>
-                {PHONES.map((phone) => (
-                  <li key={phone.tel} className="py-3 border-t border-brand-rule">
-                    <a href={`tel:${phone.tel}`} className="whitespace-nowrap hover:text-brand-navy hover:underline underline-offset-4">
-                      {phone.display}
+          {locations.map((location, index) => (
+            <div key={location.name} id={`centre-${index}`} className={selected === index ? '' : 'hidden md:block'}>
+              <Reveal delay={0.1 * (index + 1)}>
+                <ImageSlideshow images={location.images} name={location.name} />
+
+                <h3 className="mt-5 md:mt-8 font-serif font-medium text-brand-navy text-[26px] md:text-[30px] leading-tight tracking-tight">
+                  {location.name}
+                </h3>
+
+                {/* Phones: compact rows */}
+                <ul className="md:hidden mt-3 text-[17px] leading-[1.5] text-brand-slate">
+                  <li className="py-2.5 border-t border-brand-ink">{location.address}</li>
+                  <li className="py-2.5 border-t border-brand-rule flex flex-wrap gap-x-6 gap-y-1">
+                    {PHONES.map((phone) => (
+                      <a key={phone.tel} href={`tel:${phone.tel}`} className={`whitespace-nowrap ${mutedLink}`}>
+                        {phone.display}
+                      </a>
+                    ))}
+                  </li>
+                  <li className="py-2.5 border-y border-brand-rule">
+                    <a href={`mailto:${EMAIL}`} className={`${mutedLink} break-all`}>
+                      {EMAIL}
                     </a>
                   </li>
-                ))}
-                <li className="py-3 border-y border-brand-rule">
-                  <a href={`mailto:${EMAIL}`} className="hover:text-brand-navy hover:underline underline-offset-4 break-all">
-                    {EMAIL}
-                  </a>
-                </li>
-              </ul>
+                </ul>
 
-              <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
-                <a href={`tel:${PHONES[0].tel}`} className={actionLink}>Call</a>
-                <a href={`sms:${SMS}`} className={actionLink}>Text</a>
-                <a href={`mailto:${EMAIL}`} className={actionLink}>Email</a>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={actionLink}
-                >
-                  Directions
-                </a>
-              </div>
-            </Reveal>
+                {/* md and up: one row per line */}
+                <ul className="hidden md:block mt-5 text-[17px] leading-[1.6] text-brand-slate">
+                  <li className="py-3 border-t border-brand-ink">{location.address}</li>
+                  {PHONES.map((phone) => (
+                    <li key={phone.tel} className="py-3 border-t border-brand-rule">
+                      <a href={`tel:${phone.tel}`} className={`whitespace-nowrap ${mutedLink}`}>
+                        {phone.display}
+                      </a>
+                    </li>
+                  ))}
+                  <li className="py-3 border-y border-brand-rule">
+                    <a href={`mailto:${EMAIL}`} className={`${mutedLink} break-all`}>
+                      {EMAIL}
+                    </a>
+                  </li>
+                </ul>
+
+                <div className="mt-4 md:mt-6 flex flex-wrap gap-x-6 md:gap-x-8 gap-y-3">
+                  <a href={`tel:${PHONES[0].tel}`} className={actionLink}>Call</a>
+                  <a href={`sms:${SMS}`} className={actionLink}>Text</a>
+                  <a href={`mailto:${EMAIL}`} className={actionLink}>Email</a>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={actionLink}
+                  >
+                    Directions
+                  </a>
+                </div>
+              </Reveal>
+            </div>
           ))}
         </div>
       </div>

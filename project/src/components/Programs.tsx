@@ -5,10 +5,10 @@ import { programSummaries } from '../data/programData';
 
 export function Programs() {
   return (
-    <section id="programs" className="bg-white py-20 md:py-28 scroll-mt-[var(--header-anchor)]">
+    <section id="programs" className="bg-white py-14 md:py-28 scroll-mt-[var(--header-anchor)]">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
         <Reveal>
-          <div className="flex items-end justify-between gap-6 mb-10 md:mb-14">
+          <div className="flex items-end justify-between gap-6 mb-6 md:mb-14">
             <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
               Programs
             </h2>

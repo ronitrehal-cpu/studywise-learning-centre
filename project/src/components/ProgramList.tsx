@@ -16,7 +16,7 @@ export function ProgramList({ exclude }: { exclude?: string }) {
         <li key={row.slug}>
           <Link
             to={`/programs/${row.slug}`}
-            className={`group grid grid-cols-[1fr_auto] md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)_auto] gap-x-6 md:gap-x-8 gap-y-1 items-center py-[26px] border-t ${
+            className={`group grid grid-cols-[1fr_auto] md:grid-cols-[180px_minmax(0,1fr)_minmax(0,1fr)_auto] gap-x-6 md:gap-x-8 gap-y-1 items-center py-5 md:py-[26px] border-t ${
               index === 0 ? 'border-brand-ink' : 'border-brand-rule'
             } ${index === rows.length - 1 ? 'border-b border-b-brand-rule' : ''}`}
           >

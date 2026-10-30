@@ -104,7 +104,7 @@ export function EnrollmentForm() {
   ];
 
   return (
-    <section id="enrollment" className="bg-white py-20 md:py-28 scroll-mt-[var(--header-anchor)]">
+    <section id="enrollment" className="bg-white py-14 md:py-28 scroll-mt-[var(--header-anchor)]">
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
         <div className="max-w-[880px]">
           <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight">
@@ -114,7 +114,7 @@ export function EnrollmentForm() {
             Complete this short form and we'll email you the official enrolment form to fill out and return.
           </p>
 
-          <div className="mt-10">
+          <div className="mt-8 md:mt-10">
             {submitted ? (
               <div className="bg-brand-mist border-t border-brand-ink px-6 py-8" role="status">
                 <h3 className="font-serif font-medium text-brand-navy text-[26px] leading-snug tracking-tight mb-2">Thank you.</h3>
@@ -123,7 +123,7 @@ export function EnrollmentForm() {
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-10">
+              <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
                 {error && (
                   <div className="bg-brand-mist border-t-2 border-brand-orange px-5 py-4" role="alert">
                     <p className="font-semibold text-brand-orangeText mb-1">Your enquiry wasn't sent</p>
