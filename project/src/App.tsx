@@ -6,6 +6,7 @@ import { ProgramDetail } from "./pages/ProgramDetail";
 import { About } from "./pages/About";
 import { FAQ } from "./pages/FAQ";
 import { StudentPortal } from "./pages/StudentPortal";
+import { NotFound } from "./pages/NotFound";
 import { ScrollToTop } from "./components/ScrollToTop";
 
 function HashScroll() {
@@ -57,6 +58,8 @@ export default function App() {
         <Route path="/student-portal" element={<StudentPortal />} />
 
         <Route path="/programs/:slug" element={<ProgramDetail />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

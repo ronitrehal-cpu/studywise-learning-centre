@@ -144,3 +144,15 @@ export const programsData: ProgramData[] = [
 export const getProgramBySlug = (slug: string): ProgramData | undefined => {
   return programsData.find(program => program.slug === slug);
 };
+
+// Display order, short names and year ranges for program lists and page headers
+export const programSummaries: { slug: string; years: string; name: string }[] = [
+  { slug: 'primary', years: 'Years 1–6', name: 'Primary' },
+  { slug: 'secondary', years: 'Years 7–10', name: 'Secondary' },
+  { slug: 'selective-entry', years: 'Year 8', name: 'Selective Entry' },
+  { slug: 'scholarship-preparation', years: 'Scholarship exams', name: 'Scholarship Preparation' },
+  { slug: 'jmss', years: 'Year 9', name: 'John Monash Science School' },
+  { slug: 'vce', years: 'Years 11–12', name: 'VCE' }
+];
+
+export const getProgramSummary = (slug: string) => programSummaries.find((p) => p.slug === slug);

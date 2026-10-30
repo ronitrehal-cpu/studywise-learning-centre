@@ -18,12 +18,13 @@ const locations: Location[] = [
   {
     name: 'Cranbourne West',
     address: '5 Biara Court, Cranbourne West VIC 3977',
+    // Opens on an interior without the old signage; 6 and 11 show the old logo
     images: [
-      '/6.webp',
       '/7.webp',
       '/12.webp',
-      '/11.webp',
-      '/8.webp'
+      '/8.webp',
+      '/6.webp',
+      '/11.webp'
     ]
   },
   {

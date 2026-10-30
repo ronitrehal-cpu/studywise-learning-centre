@@ -6,11 +6,10 @@ interface CardProps {
   hover?: boolean;
 }
 
-export function Card({ children, className = '', hover = false }: CardProps) {
+// Flat, ruled block. `hover` is kept for API compatibility and no longer adds an effect.
+export function Card({ children, className = '' }: CardProps) {
   return (
-    <div
-      className={`bg-white rounded-2xl shadow-md p-6 ${hover ? 'hover:shadow-xl transition-shadow duration-300' : ''} ${className}`}
-    >
+    <div className={`bg-white border-t border-brand-rule pt-6 ${className}`}>
       {children}
     </div>
   );

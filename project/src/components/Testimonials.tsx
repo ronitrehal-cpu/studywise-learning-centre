@@ -1,8 +1,13 @@
 import { Reveal } from './Reveal';
 import { testimonials, Testimonial } from '../data/testimonialData';
 
-const FEATURED_NAME = 'Nitin Patel';
-const SUPPORTING_NAMES = ['Shehbaaz Sandhu', 'Himani Desai', 'Roop Brar'];
+interface TestimonialsProps {
+  featuredName?: string;
+  supportingNames?: string[];
+  image?: string;
+  imageAlt?: string;
+  imagePosition?: string;
+}
 
 const byName = (name: string) => testimonials.find((t) => t.name === name);
 
@@ -10,9 +15,15 @@ function attribution(testimonial: Testimonial) {
   return testimonial.descriptor ? `${testimonial.name}, ${testimonial.descriptor.toLowerCase()}` : `${testimonial.name}, parent`;
 }
 
-export function Testimonials() {
-  const featured = byName(FEATURED_NAME) ?? testimonials[0];
-  const supporting = SUPPORTING_NAMES.map(byName).filter((t): t is Testimonial => !!t && t !== featured).slice(0, 3);
+export function Testimonials({
+  featuredName = 'Nitin Patel',
+  supportingNames = ['Shehbaaz Sandhu', 'Himani Desai', 'Roop Brar'],
+  image = '/11.webp',
+  imageAlt = 'A classroom at the Studywise Cranbourne West centre',
+  imagePosition = 'object-right'
+}: TestimonialsProps) {
+  const featured = byName(featuredName) ?? testimonials[0];
+  const supporting = supportingNames.map(byName).filter((t): t is Testimonial => !!t && t !== featured).slice(0, 3);
 
   return (
     <section className="bg-white py-20 md:py-28">
@@ -20,9 +31,9 @@ export function Testimonials() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-6 lg:items-center">
           <Reveal className="lg:col-span-4">
             <img
-              src="/11.webp"
-              alt="A classroom at the Studywise Cranbourne West centre"
-              className="w-full h-[320px] md:h-[440px] object-cover object-right rounded-t-[999px] bg-brand-photo"
+              src={image}
+              alt={imageAlt}
+              className={`w-full h-[320px] md:h-[440px] object-cover ${imagePosition} rounded-t-[999px] bg-brand-photo`}
             />
           </Reveal>
 

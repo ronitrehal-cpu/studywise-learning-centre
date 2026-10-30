@@ -10,7 +10,12 @@ const benefits = [
 
 export function AssessmentCTA() {
   const scrollToEnrollment = () => {
-    document.getElementById('enrollment')?.scrollIntoView({ behavior: 'smooth' });
+    const form = document.getElementById('enrollment');
+    if (form) {
+      form.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = '/#enrollment';
+    }
   };
 
   return (

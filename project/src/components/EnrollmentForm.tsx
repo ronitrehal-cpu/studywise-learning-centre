@@ -270,7 +270,7 @@ export function EnrollmentForm() {
                         <option value="">Select location (optional)</option>
                         <option value="cranbourne">Cranbourne West</option>
                         <option value="clyde">Clyde North</option>
-                        <option value="either">Either Location</option>
+                        <option value="either">Either location</option>
                       </select>
                     </div>
                   </div>
@@ -298,7 +298,7 @@ export function EnrollmentForm() {
                     className="w-full md:w-auto"
                     disabled={submitting}
                   >
-                    {submitting ? 'Submitting...' : 'Submit Enrolment'}
+                    {submitting ? 'Sending…' : 'Send enquiry'}
                   </Button>
                   <div className="max-w-md">
                     <p className="text-sm font-semibold text-brand-ink mb-1">Next step</p>
