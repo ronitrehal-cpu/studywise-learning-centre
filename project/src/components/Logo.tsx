@@ -2,34 +2,33 @@ import { useNavigate } from 'react-router-dom';
 
 interface LogoProps {
   variant?: 'light' | 'dark';
+  /** Crest height in px */
   size?: number;
   subline?: string;
   className?: string;
 }
 
-function LightCrest({ size }: { size: number }) {
-  return (
-    <svg viewBox="0 0 100 116" aria-hidden="true" width={size} height={size * 1.16} className="flex-shrink-0">
-      <path d="M50 4 L92 16 V58 C92 86 72 104 50 112 C28 104 8 86 8 58 V16 Z" fill="#17325C" />
-      <circle cx="50" cy="44" r="19" fill="#6FB3E0" />
-      <circle cx="50" cy="44" r="7" fill="#E8692C" />
-      <path d="M50 96 V68 M50 75 L41 65 M50 73 L59 63" stroke="#FFFFFF" strokeWidth="8" strokeLinecap="round" fill="none" />
-    </svg>
+// Real crest, trimmed from public/final-studywise-logo.jpg by `npm run brand-assets` (211 x 224 px)
+const CREST_SRC = '/studywise-crest.png';
+const CREST_RATIO = 211 / 224;
+
+function Crest({ size, onDark }: { size: number; onDark: boolean }) {
+  const img = (
+    <img
+      src={CREST_SRC}
+      alt="Studywise Learning Centre crest"
+      width={Math.round(size * CREST_RATIO)}
+      height={size}
+      className="block flex-shrink-0"
+      style={{ width: Math.round(size * CREST_RATIO), height: size }}
+    />
   );
+
+  // The crest has a white background, so on navy it sits on a small white backing
+  return onDark ? <span className="flex-shrink-0 rounded-md bg-white p-1.5">{img}</span> : img;
 }
 
-function DarkCrest({ size }: { size: number }) {
-  return (
-    <svg viewBox="0 0 100 116" aria-hidden="true" width={size} height={size * 1.16} className="flex-shrink-0">
-      <path d="M50 4 L92 16 V58 C92 86 72 104 50 112 C28 104 8 86 8 58 V16 Z" fill="none" stroke="#FFFFFF" strokeWidth="5" />
-      <circle cx="50" cy="44" r="18" fill="none" stroke="#FFFFFF" strokeWidth="5" />
-      <circle cx="50" cy="44" r="7" fill="#E8692C" />
-      <path d="M50 96 V68 M50 75 L41 65 M50 73 L59 63" stroke="#FFFFFF" strokeWidth="6" strokeLinecap="round" fill="none" />
-    </svg>
-  );
-}
-
-export function Logo({ variant = 'light', size = 40, subline = 'Learning Centre', className = '' }: LogoProps) {
+export function Logo({ variant = 'light', size = 52, subline = 'Learning Centre', className = '' }: LogoProps) {
   const navigate = useNavigate();
   const isDark = variant === 'dark';
 
@@ -44,7 +43,7 @@ export function Logo({ variant = 'light', size = 40, subline = 'Learning Centre'
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }}
     >
-      {isDark ? <DarkCrest size={size} /> : <LightCrest size={size} />}
+      <Crest size={size} onDark={isDark} />
       <span className="flex flex-col justify-center leading-none">
         <span className={`font-serif font-semibold text-2xl tracking-tight ${isDark ? 'text-white' : 'text-brand-navy'}`}>
           Studywise

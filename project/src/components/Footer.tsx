@@ -51,7 +51,7 @@ export function Footer() {
 
         <div className="border-t border-white/15 pt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           <div>
-            <Logo variant="dark" size={40} />
+            <Logo variant="dark" size={56} />
             <p className="mt-5 text-[15px] leading-[1.6] text-[#B9D7EE] max-w-xs">
               Small-group tutoring from Year 1 to VCE in Melbourne's south-east.
             </p>

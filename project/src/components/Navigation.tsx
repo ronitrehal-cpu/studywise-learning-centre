@@ -94,7 +94,7 @@ export function Navigation() {
           </div>
 
           <div className="justify-self-start xl:justify-self-center">
-            <Logo variant="light" size={42} subline="Learning Centre · Est. 2010" />
+            <Logo variant="light" size={52} subline="Learning Centre · Est. 2010" />
           </div>
 
           <div className="hidden xl:flex items-center justify-end gap-8">
