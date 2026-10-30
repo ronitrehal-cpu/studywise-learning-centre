@@ -110,7 +110,7 @@ export function Locations({ id }: { id?: string }) {
                 <li className="py-3 border-t border-brand-ink">{location.address}</li>
                 {PHONES.map((phone) => (
                   <li key={phone.tel} className="py-3 border-t border-brand-rule">
-                    <a href={`tel:${phone.tel}`} className="hover:text-brand-navy hover:underline underline-offset-4">
+                    <a href={`tel:${phone.tel}`} className="whitespace-nowrap hover:text-brand-navy hover:underline underline-offset-4">
                       {phone.display}
                     </a>
                   </li>

@@ -150,7 +150,7 @@ export const programSummaries: { slug: string; years: string; name: string }[] =
   { slug: 'primary', years: 'Years 1–6', name: 'Primary' },
   { slug: 'secondary', years: 'Years 7–10', name: 'Secondary' },
   { slug: 'selective-entry', years: 'Year 8', name: 'Selective Entry' },
-  { slug: 'scholarship-preparation', years: 'Scholarship exams', name: 'Scholarship Preparation' },
+  { slug: 'scholarship-preparation', years: 'Up to Year 8', name: 'Scholarship Preparation' },
   { slug: 'jmss', years: 'Year 9', name: 'John Monash Science School' },
   { slug: 'vce', years: 'Years 11–12', name: 'VCE' }
 ];

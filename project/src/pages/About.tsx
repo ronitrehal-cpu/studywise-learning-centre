@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { Reveal } from '../components/Reveal';
-import { Timeline } from '../components/Timeline';
 import { WhyStudywise } from '../components/WhyStudywise';
 import { Testimonials } from '../components/Testimonials';
 import { AssessmentCTA } from '../components/AssessmentCTA';
@@ -59,6 +58,12 @@ const steps = [
     title: 'Confidence and results',
     description: 'Students develop both academic skills and the confidence to tackle new challenges.'
   }
+];
+
+const numbers = [
+  { figure: '2010', text: 'The year we opened our doors.' },
+  { figure: 'Thousands', text: 'Of students taught since then.' },
+  { figure: 'Year 1 to VCE', text: 'Every stage of school, under one roof.' }
 ];
 
 const values = [
@@ -176,10 +181,19 @@ export function About() {
         <section className="bg-brand-mist py-20 md:py-28 my-4">
           <div className={container}>
             <Reveal>
-              <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight mb-12 md:mb-16">
-                Our story so far
+              <h2 className="font-serif font-medium text-brand-navy text-4xl md:text-[46px] leading-[1.05] tracking-tight mb-10 md:mb-14">
+                By the numbers
               </h2>
-              <Timeline />
+              <dl className="grid grid-cols-1 md:grid-cols-3 border-t border-brand-ink divide-y md:divide-y-0 md:divide-x divide-brand-rule">
+                {numbers.map((item) => (
+                  <div key={item.figure} className="flex flex-col-reverse py-8 md:py-10 md:px-8 first:md:pl-0 last:md:pr-0">
+                    <dd className="mt-3 text-[17px] leading-[1.6] text-brand-slate">{item.text}</dd>
+                    <dt className="font-serif font-medium text-brand-navy text-[clamp(2.75rem,4.4vw,4rem)] leading-[1.02] tracking-[-0.02em]">
+                      {item.figure}
+                    </dt>
+                  </div>
+                ))}
+              </dl>
             </Reveal>
           </div>
         </section>

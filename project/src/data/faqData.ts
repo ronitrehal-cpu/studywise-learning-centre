@@ -8,7 +8,7 @@ export const faqs: FAQItem[] = [
   {
     category: 'Enrolment & Getting Started',
     question: 'How do I enrol my child?',
-    answer: `You can enrol by clicking "Book a free assessment" on our website, calling us at 03 8774 7303, or visiting one of our centres. We'll guide you through the process, discuss your child's needs, and help you choose the right program.`
+    answer: `You can enrol by clicking "Book a free assessment" on our website, calling us at 03\u00A08774\u00A07303, or visiting one of our centres. We'll guide you through the process, discuss your child's needs, and help you choose the right program.`
   },
   {
     category: 'Enrolment & Getting Started',
@@ -43,7 +43,7 @@ export const faqs: FAQItem[] = [
   {
     category: 'Selective Entry & Scholarship',
     question: 'What is the Selective Entry exam and who is it for?',
-    answer: `The Selective Entry exam is for Year 8 entry into Victoria's top selective high schools. It tests verbal reasoning, numerical reasoning, reading comprehension, and writing. Our program prepares Year 7 and 8 students for this competitive exam.`
+    answer: `The Selective Entry exam is sat in Year 8, for entry into Year 9 at Victoria's top selective high schools. It tests verbal reasoning, numerical reasoning, reading comprehension, and writing. Our program prepares Year 7 and 8 students for this competitive exam.`
   },
   {
     category: 'Selective Entry & Scholarship',
@@ -58,7 +58,7 @@ export const faqs: FAQItem[] = [
   {
     category: 'Fees & Payments',
     question: 'How much does it cost?',
-    answer: `Our fees vary depending on the program, year level, and session length. We offer competitive rates and flexible payment options. Please contact us at 03 8774 7303 or admin@studywiselearning.com.au for detailed pricing information.`
+    answer: `Our fees vary depending on the program, year level, and session length. We offer competitive rates and flexible payment options. Please contact us at 03\u00A08774\u00A07303 or admin@studywiselearning.com.au for detailed pricing information.`
   },
   {
     category: 'Fees & Payments',
@@ -83,7 +83,7 @@ export const faqs: FAQItem[] = [
   {
     category: 'Contact & Locations',
     question: 'How can I contact Studywise?',
-    answer: `You can call us at 03 8774 7303 or 0430 095 076, email us at admin@studywiselearning.com.au, or visit one of our centres. We're here to answer your questions and help you find the right program for your child.`
+    answer: `You can call us at 03\u00A08774\u00A07303 or 0430\u00A0095\u00A0076, email us at admin@studywiselearning.com.au, or visit one of our centres. We're here to answer your questions and help you find the right program for your child.`
   }
 ];
 

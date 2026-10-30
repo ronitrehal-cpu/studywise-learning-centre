@@ -64,7 +64,7 @@ export function Footer() {
                 <p>{centre.address}</p>
                 {phones.map((phone) => (
                   <p key={phone.tel}>
-                    <a href={`tel:${phone.tel}`} className={linkClass}>
+                    <a href={`tel:${phone.tel}`} className={`${linkClass} whitespace-nowrap`}>
                       {phone.display}
                     </a>
                   </p>

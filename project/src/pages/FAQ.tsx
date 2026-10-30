@@ -85,10 +85,10 @@ export function FAQ() {
               <div className="lg:col-start-6 lg:col-span-7">
                 <ul className="text-lg leading-[1.6] text-brand-slate">
                   <li className="py-3 border-t border-brand-rule">
-                    Call <a href="tel:0387747303" className={textLink}>03 8774 7303</a>
+                    Call <a href="tel:0387747303" className={`${textLink} whitespace-nowrap`}>03 8774 7303</a>
                   </li>
                   <li className="py-3 border-t border-brand-rule">
-                    Call or text <a href="tel:0430095076" className={textLink}>0430 095 076</a>
+                    Call or text <a href="tel:0430095076" className={`${textLink} whitespace-nowrap`}>0430 095 076</a>
                   </li>
                   <li className="py-3 border-y border-brand-rule">
                     Email{' '}

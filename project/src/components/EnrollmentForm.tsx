@@ -129,8 +129,8 @@ export function EnrollmentForm() {
                     <p className="font-semibold text-brand-orangeText mb-1">Your enquiry wasn't sent</p>
                     <p className="text-brand-slate text-[15px] leading-[1.6]">{error}</p>
                     <p className="text-brand-slate text-[15px] leading-[1.6] mt-2">
-                      Call <a href="tel:0387747303" className="text-brand-navy underline decoration-brand-orange underline-offset-4">03 8774 7303</a> or{' '}
-                      <a href="tel:0430095076" className="text-brand-navy underline decoration-brand-orange underline-offset-4">0430 095 076</a>, or email{' '}
+                      Call <a href="tel:0387747303" className="whitespace-nowrap text-brand-navy underline decoration-brand-orange underline-offset-4">03 8774 7303</a> or{' '}
+                      <a href="tel:0430095076" className="whitespace-nowrap text-brand-navy underline decoration-brand-orange underline-offset-4">0430 095 076</a>, or email{' '}
                       <a href="mailto:admin@studywiselearning.com.au" className="text-brand-navy underline decoration-brand-orange underline-offset-4 break-all">
                         admin@studywiselearning.com.au
                       </a>
