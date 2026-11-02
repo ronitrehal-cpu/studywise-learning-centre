@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from './Button';
 import { Logo } from './Logo';
 import { Menu, X } from 'lucide-react';
+import { STUDENT_PORTAL_URL } from '../data/siteLinks';
 
 interface NavLink {
   label: string;
@@ -70,20 +71,11 @@ export function Navigation() {
     setMobileMenuOpen(false);
   };
 
-  const handlePortalClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigate('/student-portal');
-    window.scrollTo(0, 0);
-    setMobileMenuOpen(false);
-  };
-
   const isLinkActive = (link: NavLink) => {
     if (link.path === '/about') return location.pathname === '/about' || location.pathname === '/about-us';
     if (link.path) return location.pathname === link.path;
     return false;
   };
-
-  const isPortalActive = location.pathname === '/student-portal';
 
   const getLinkHref = (link: NavLink) => {
     if (link.path) return link.path;
@@ -121,11 +113,8 @@ export function Navigation() {
           </div>
 
           <div className="hidden xl:flex items-center justify-end gap-8">
-            <a
-              href="/student-portal"
-              onClick={handlePortalClick}
-              className={`${linkStyles(isPortalActive)}`}
-            >
+            {/* The portal is a separate site, so this link is never "current" here */}
+            <a href={STUDENT_PORTAL_URL} className={linkStyles(false)}>
               Student portal
             </a>
             <Button variant="primary" onClick={handleEnrolClick}>
@@ -157,11 +146,7 @@ export function Navigation() {
                 {link.label}
               </a>
             ))}
-            <a
-              href="/student-portal"
-              onClick={handlePortalClick}
-              className={`block py-4 border-b border-brand-rule ${linkStyles(isPortalActive)}`}
-            >
+            <a href={STUDENT_PORTAL_URL} className={`block py-4 border-b border-brand-rule ${linkStyles(false)}`}>
               Student portal
             </a>
             <Button variant="primary" onClick={handleEnrolClick} className="w-full mt-6">
