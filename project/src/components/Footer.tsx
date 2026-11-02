@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from './Button';
 import { Logo } from './Logo';
+import { STUDENT_PORTAL_URL } from '../data/siteLinks';
 
 const centres = [
   { name: 'Cranbourne West', address: '5 Biara Court, Cranbourne West VIC 3977' },
@@ -111,11 +112,15 @@ export function Footer() {
                 { label: 'Programs', href: '/#programs', anchor: 'programs' },
                 { label: 'Our story', to: '/about' },
                 { label: 'FAQs', to: '/faq' },
-                { label: 'Student portal', to: '/student-portal' }
+                { label: 'Student portal', external: STUDENT_PORTAL_URL }
               ].map((item, index) => (
                 // Separator trails its item, so a wrapped line never starts with "·"
                 <li key={item.label} className="flex items-center">
-                  {item.to ? (
+                  {item.external ? (
+                    <a href={item.external} className={`${tapTarget} ${linkClass} whitespace-nowrap`}>
+                      {item.label}
+                    </a>
+                  ) : item.to ? (
                     <Link to={item.to} className={`${tapTarget} ${linkClass} whitespace-nowrap`}>
                       {item.label}
                     </Link>
@@ -171,7 +176,7 @@ export function Footer() {
                 <Link to="/faq" className={linkClass}>FAQs</Link>
               </li>
               <li>
-                <Link to="/student-portal" className={linkClass}>Student portal</Link>
+                <a href={STUDENT_PORTAL_URL} className={linkClass}>Student portal</a>
               </li>
               <li>
                 <a href="/#contact" onClick={(e) => handleAnchorClick(e, 'contact')} className={linkClass}>

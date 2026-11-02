@@ -13,6 +13,10 @@
 /programs                /#programs            301
 /locations               /#locations           301
 
+# --- Student portal: now its own site (old links and bookmarks still work) ---
+/student-portal          https://portal.studywiselearning.com.au/sign-in   301!
+/student-portal/*        https://portal.studywiselearning.com.au/sign-in   301!
+
 # --- Block old/probed paths ---
 /author/*                /                     301
 /studywise/*             /                     301
