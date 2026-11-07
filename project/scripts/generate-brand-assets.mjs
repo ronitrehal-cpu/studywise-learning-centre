@@ -148,6 +148,13 @@ const crest = await sharp(untrimmed).trim({ background: CLEAR, threshold: 1 }).p
 const crestFile = await sharp(crest).resize({ height: CREST_HEIGHT }).png({ compressionLevel: 9 }).toBuffer();
 await sharp(crestFile).toFile(join(publicDir, 'studywise-crest.png'));
 const crestMeta = await sharp(crestFile).metadata();
+
+// Small WebP crests for the site itself (the PNG stays as the fallback and for
+// anything that needs a PNG). Heights are 3x the largest display size of each:
+// 240 covers the header and footer (up to 80px), 540 the 180px crest on /about.
+for (const height of [240, 540]) {
+  await sharp(crestFile).resize({ height }).webp({ quality: 90, alphaQuality: 100 }).toFile(join(publicDir, `studywise-crest-${height}.webp`));
+}
 console.log(`wrote studywise-crest.png (${crestMeta.width} x ${crestMeta.height})`);
 
 // ---------- Favicons ----------

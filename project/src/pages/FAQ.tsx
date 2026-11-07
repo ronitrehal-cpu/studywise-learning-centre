@@ -5,6 +5,7 @@ import { Button } from '../components/Button';
 import { Reveal } from '../components/Reveal';
 import { Accordion } from '../components/Accordion';
 import { faqs } from '../data/faqData';
+import { EMAIL, MAIN_PHONE, MOBILE_PHONE } from '../data/business';
 
 const container = 'max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20';
 const textLink = 'text-brand-navy underline decoration-brand-orange underline-offset-4 decoration-1 hover:text-brand-navyDark';
@@ -34,7 +35,7 @@ export function FAQ() {
           <div className={container}>
             <Reveal delay={0.1}>
               <h1 className="font-serif font-medium text-brand-navy text-[clamp(2.75rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.025em]">
-                Questions parents ask
+                Tutoring questions parents ask
               </h1>
               <p className="mt-8 text-lg md:text-[22px] leading-[1.6] text-brand-slate max-w-[720px]">
                 Quick answers about enrolment, programs, fees, and more.
@@ -85,15 +86,15 @@ export function FAQ() {
               <div className="lg:col-start-6 lg:col-span-7">
                 <ul className="text-lg leading-[1.6] text-brand-slate">
                   <li className="py-3 border-t border-brand-rule">
-                    Call <a href="tel:0387747303" className={`${textLink} whitespace-nowrap`}>03 8774 7303</a>
+                    Call <a href={`tel:${MAIN_PHONE.tel}`} className={`${textLink} whitespace-nowrap`}>{MAIN_PHONE.display}</a>
                   </li>
                   <li className="py-3 border-t border-brand-rule">
-                    Call or text <a href="tel:0430095076" className={`${textLink} whitespace-nowrap`}>0430 095 076</a>
+                    Call or text <a href={`tel:${MOBILE_PHONE.tel}`} className={`${textLink} whitespace-nowrap`}>{MOBILE_PHONE.display}</a>
                   </li>
                   <li className="py-3 border-y border-brand-rule">
                     Email{' '}
-                    <a href="mailto:admin@studywiselearning.com.au" className={`${textLink} break-all`}>
-                      admin@studywiselearning.com.au
+                    <a href={`mailto:${EMAIL}`} className={`${textLink} break-all`}>
+                      {EMAIL}
                     </a>
                   </li>
                 </ul>

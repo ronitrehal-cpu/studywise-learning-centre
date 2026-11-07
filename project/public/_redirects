@@ -3,7 +3,6 @@
 /subjects-offered        /#programs            301
 /online-tutoring         /#programs            301
 
-/contact                 /#contact             301
 /enrollment-form         /#enrollment          301
 /enrolment-form          /#enrollment          301
 /enrol-now               /#enrollment          301
@@ -17,11 +16,16 @@
 /student-portal          https://portal.studywiselearning.com.au/sign-in   301!
 /student-portal/*        https://portal.studywiselearning.com.au/sign-in   301!
 
+# --- Old duplicate pages -> the one canonical page ---
+/about-us                /about                301
+/faqs                    /faq                  301
+
 # --- Block old/probed paths ---
 /author/*                /                     301
 /studywise/*             /                     301
 /*login*                 /                     301
 /*admin*                 /                     301
 
-# --- SPA fallback (keep LAST) ---
-/*                       /index.html           200
+# No catch-all rewrite: every real page is pre-rendered to its own HTML file
+# (scripts/prerender.mjs), robots.txt and sitemap.xml are real files, and any
+# other address gets dist/404.html with a real 404 status.

@@ -2,16 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from './Button';
 import { Logo } from './Logo';
 import { STUDENT_PORTAL_URL } from '../data/siteLinks';
-
-const centres = [
-  { name: 'Cranbourne West', address: '5 Biara Court, Cranbourne West VIC 3977' },
-  { name: 'Clyde North', address: 'Balla Balla Community Centre, Clyde North VIC 3978' }
-];
-
-const phones = [
-  { display: '03 8774 7303', tel: '0387747303' },
-  { display: '0430 095 076', tel: '0430095076' }
-];
+import { ABN, CAMPUSES, EMAIL, LEGAL_NAME, PHONES, SOCIAL, campusAddress, campusPath, directionsUrl } from '../data/business';
 
 const linkClass = 'text-[#DCE6EF] underline-offset-4 decoration-white hover:underline hover:text-white';
 const columnHeading = 'font-sans text-sm font-semibold uppercase tracking-[0.15em] text-[#B9D7EE] mb-4';
@@ -20,9 +11,6 @@ const columnHeading = 'font-sans text-sm font-semibold uppercase tracking-[0.15e
 const mobileLabel = 'font-sans text-xs font-semibold uppercase tracking-[0.12em] text-[#B9D7EE] mb-3';
 const mobileGroup = 'py-7 border-t border-white/15';
 const tapTarget = 'inline-flex items-center min-h-[44px]';
-
-const directionsUrl = (address: string) =>
-  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
 export function Footer() {
   const location = useLocation();
@@ -70,7 +58,7 @@ export function Footer() {
           <div className={mobileGroup}>
             <h3 className={mobileLabel}>Contact</h3>
             <div className="flex flex-wrap gap-x-8">
-              {phones.map((phone) => (
+              {PHONES.map((phone) => (
                 <a
                   key={phone.tel}
                   href={`tel:${phone.tel}`}
@@ -80,21 +68,23 @@ export function Footer() {
                 </a>
               ))}
             </div>
-            <a href="mailto:admin@studywiselearning.com.au" className={`${tapTarget} ${linkClass} text-[15px] break-all`}>
-              admin@studywiselearning.com.au
+            <a href={`mailto:${EMAIL}`} className={`${tapTarget} ${linkClass} text-[15px] break-all`}>
+              {EMAIL}
             </a>
           </div>
 
           <div className={mobileGroup}>
             <h3 className={mobileLabel}>Our centres</h3>
             <ul className="divide-y divide-white/15">
-              {centres.map((centre) => (
-                <li key={centre.name} className="py-4 first:pt-0 last:pb-0">
-                  <p className="text-base font-semibold text-white">{centre.name}</p>
+              {CAMPUSES.map((centre) => (
+                <li key={centre.slug} className="py-4 first:pt-0 last:pb-0">
+                  <Link to={campusPath(centre)} className="text-base font-semibold text-white underline-offset-4 hover:underline">
+                    {centre.name}
+                  </Link>
                   {/* Keep "VIC 3978" together so the postcode never sits alone on a line */}
-                  <p className="mt-1 text-[15px] leading-[1.5] text-[#DCE6EF]">{centre.address.replace(' VIC ', ' VIC\u00A0')}</p>
+                  <p className="mt-1 text-[15px] leading-[1.5] text-[#DCE6EF]">{campusAddress(centre).replace(' VIC ', ' VIC\u00A0')}</p>
                   <a
-                    href={directionsUrl(centre.address)}
+                    href={directionsUrl(centre)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`${tapTarget} text-[15px] font-semibold text-white underline decoration-brand-orange underline-offset-4`}
@@ -112,8 +102,10 @@ export function Footer() {
                 { label: 'Programs', href: '/#programs', anchor: 'programs' },
                 { label: 'Our story', to: '/about' },
                 { label: 'FAQs', to: '/faq' },
-                { label: 'Student portal', external: STUDENT_PORTAL_URL }
-              ].map((item, index) => (
+                { label: 'Contact', to: '/contact' },
+                { label: 'Student portal', external: STUDENT_PORTAL_URL },
+                ...SOCIAL.map((s) => ({ label: s.label, external: s.url }))
+              ].map((item, index, items) => (
                 // Separator trails its item, so a wrapped line never starts with "·"
                 <li key={item.label} className="flex items-center">
                   {item.external ? (
@@ -129,7 +121,7 @@ export function Footer() {
                       {item.label}
                     </a>
                   )}
-                  {index < 3 && <span aria-hidden="true" className="px-2.5 text-[#B9D7EE]">·</span>}
+                  {index < items.length - 1 && <span aria-hidden="true" className="px-2.5 text-[#B9D7EE]">·</span>}
                 </li>
               ))}
             </ul>
@@ -145,12 +137,16 @@ export function Footer() {
             </p>
           </div>
 
-          {centres.map((centre) => (
-            <div key={centre.name}>
-              <h3 className={columnHeading}>{centre.name}</h3>
+          {CAMPUSES.map((centre) => (
+            <div key={centre.slug}>
+              <h3 className={columnHeading}>
+                <Link to={campusPath(centre)} className="underline-offset-4 hover:underline hover:text-white">
+                  {centre.name}
+                </Link>
+              </h3>
               <address className="not-italic text-[15px] leading-[1.6] space-y-2">
-                <p>{centre.address}</p>
-                {phones.map((phone) => (
+                <p>{campusAddress(centre)}</p>
+                {PHONES.map((phone) => (
                   <p key={phone.tel}>
                     <a href={`tel:${phone.tel}`} className={`${linkClass} whitespace-nowrap`}>
                       {phone.display}
@@ -179,21 +175,24 @@ export function Footer() {
                 <a href={STUDENT_PORTAL_URL} className={linkClass}>Student portal</a>
               </li>
               <li>
-                <a href="/#contact" onClick={(e) => handleAnchorClick(e, 'contact')} className={linkClass}>
-                  Contact
-                </a>
+                <Link to="/contact" className={linkClass}>Contact</Link>
               </li>
               <li>
-                <a href="mailto:admin@studywiselearning.com.au" className={`${linkClass} break-all`}>
-                  admin@studywiselearning.com.au
+                <a href={`mailto:${EMAIL}`} className={`${linkClass} break-all`}>
+                  {EMAIL}
                 </a>
               </li>
+              {SOCIAL.map((s) => (
+                <li key={s.label}>
+                  <a href={s.url} className={linkClass}>{s.label}</a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         <p className="md:mt-16 pt-5 md:pt-6 border-t border-white/15 text-[13px] md:text-sm leading-[1.45] md:leading-5 text-[#B9D7EE]">
-          © {currentYear} Studywise Learning Centre Pty Ltd · <span className="whitespace-nowrap">ABN 27 648 842 773</span>
+          © {currentYear} {LEGAL_NAME} · <span className="whitespace-nowrap">ABN {ABN}</span>
         </p>
       </div>
     </footer>

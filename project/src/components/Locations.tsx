@@ -1,49 +1,21 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Reveal } from './Reveal';
-
-interface Location {
-  name: string;
-  address: string;
-  images: string[];
-}
-
-const PHONES = [
-  { display: '03 8774 7303', tel: '0387747303' },
-  { display: '0430 095 076', tel: '0430095076' }
-];
-const EMAIL = 'admin@studywiselearning.com.au';
-const SMS = '0430095076';
-
-const locations: Location[] = [
-  {
-    name: 'Cranbourne West',
-    address: '5 Biara Court, Cranbourne West VIC 3977',
-    // Opens on an interior without the old signage; 6 and 11 show the old logo
-    images: [
-      '/7.webp',
-      '/12.webp',
-      '/8.webp',
-      '/6.webp',
-      '/11.webp'
-    ]
-  },
-  {
-    name: 'Clyde North',
-    address: 'Balla Balla Community Centre, Clyde North VIC 3978',
-    // Opens on the hall rather than the exterior, which already leads the hero
-    images: [
-      '/2.jpeg',
-      '/1.jpeg',
-      '/3.jpg',
-      '/actual_4.jpg',
-      '/4.jpg'
-    ]
-  }
-];
+import {
+  CAMPUSES,
+  EMAIL,
+  MAIN_PHONE,
+  PHONES,
+  SMS_NUMBER,
+  campusAddress,
+  campusPath,
+  directionsUrl,
+  type CampusPhoto
+} from '../data/business';
 
 const actionLink = 'text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark';
 
-function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
+export function ImageSlideshow({ images, name }: { images: CampusPhoto[]; name: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -59,9 +31,13 @@ function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
       <div className="w-full aspect-[16/10] md:aspect-[4/3] rounded overflow-hidden relative bg-brand-photo">
         {images.map((image, index) => (
           <img
-            key={image}
-            src={image}
-            alt={`${name} centre, photo ${index + 1}`}
+            key={image.src}
+            src={image.src}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="lazy"
+            decoding="async"
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               index === currentIndex ? 'opacity-100' : 'opacity-0'
             }`}
@@ -104,7 +80,7 @@ export function Locations({ id }: { id?: string }) {
 
         <div id="contact" className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-16 mt-8 md:mt-16 scroll-mt-[var(--header-anchor)]">
           <div className="grid grid-cols-2 md:hidden" role="group" aria-label="Choose a centre">
-            {locations.map((location, index) => (
+            {CAMPUSES.map((location, index) => (
               <button
                 key={location.name}
                 type="button"
@@ -120,18 +96,20 @@ export function Locations({ id }: { id?: string }) {
             ))}
           </div>
 
-          {locations.map((location, index) => (
+          {CAMPUSES.map((location, index) => (
             <div key={location.name} id={`centre-${index}`} className={selected === index ? '' : 'hidden md:block'}>
               <Reveal delay={0.1 * (index + 1)}>
-                <ImageSlideshow images={location.images} name={location.name} />
+                <ImageSlideshow images={location.photos} name={location.name} />
 
                 <h3 className="mt-5 md:mt-8 font-serif font-medium text-brand-navy text-[26px] md:text-[30px] leading-tight tracking-tight">
-                  {location.name}
+                  <Link to={campusPath(location)} className="hover:underline underline-offset-4 decoration-2 decoration-brand-orange">
+                    {location.name}
+                  </Link>
                 </h3>
 
                 {/* Phones: compact rows */}
                 <ul className="md:hidden mt-3 text-[17px] leading-[1.5] text-brand-slate">
-                  <li className="py-2.5 border-t border-brand-ink">{location.address}</li>
+                  <li className="py-2.5 border-t border-brand-ink">{campusAddress(location)}</li>
                   <li className="py-2.5 border-t border-brand-rule flex flex-wrap gap-x-6 gap-y-1">
                     {PHONES.map((phone) => (
                       <a key={phone.tel} href={`tel:${phone.tel}`} className={`whitespace-nowrap ${mutedLink}`}>
@@ -148,7 +126,7 @@ export function Locations({ id }: { id?: string }) {
 
                 {/* md and up: one row per line */}
                 <ul className="hidden md:block mt-5 text-[17px] leading-[1.6] text-brand-slate">
-                  <li className="py-3 border-t border-brand-ink">{location.address}</li>
+                  <li className="py-3 border-t border-brand-ink">{campusAddress(location)}</li>
                   {PHONES.map((phone) => (
                     <li key={phone.tel} className="py-3 border-t border-brand-rule">
                       <a href={`tel:${phone.tel}`} className={`whitespace-nowrap ${mutedLink}`}>
@@ -164,17 +142,20 @@ export function Locations({ id }: { id?: string }) {
                 </ul>
 
                 <div className="mt-4 md:mt-6 flex flex-wrap gap-x-6 md:gap-x-8 gap-y-3">
-                  <a href={`tel:${PHONES[0].tel}`} className={actionLink}>Call</a>
-                  <a href={`sms:${SMS}`} className={actionLink}>Text</a>
+                  <a href={`tel:${MAIN_PHONE.tel}`} className={actionLink}>Call</a>
+                  <a href={`sms:${SMS_NUMBER}`} className={actionLink}>Text</a>
                   <a href={`mailto:${EMAIL}`} className={actionLink}>Email</a>
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
+                    href={directionsUrl(location)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={actionLink}
                   >
                     Directions
                   </a>
+                  <Link to={campusPath(location)} className={actionLink}>
+                    Campus details
+                  </Link>
                 </div>
               </Reveal>
             </div>

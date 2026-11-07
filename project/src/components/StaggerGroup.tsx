@@ -16,11 +16,16 @@ export function StaggerGroup({
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (prefersReducedMotion || !ref.current) {
+    if (!ref.current) return;
+    const childElements = ref.current.children;
+
+    if (prefersReducedMotion) {
+      Array.from(childElements).forEach((child) => {
+        (child as HTMLElement).style.transition = 'none';
+        child.classList.add('reveal-visible');
+      });
       return;
     }
-
-    const childElements = ref.current.children;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -46,10 +51,6 @@ export function StaggerGroup({
     return () => observer.disconnect();
   }, [staggerDelay]);
 
-  const prefersReducedMotion = typeof window !== 'undefined'
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    : false;
-
   return (
     <div ref={ref} className={className}>
       {Children.map(children, (child) => {
@@ -57,11 +58,11 @@ export function StaggerGroup({
           return cloneElement(child, {
             style: {
               ...((child.props as any).style || {}),
-              opacity: prefersReducedMotion ? 1 : 0,
-              transform: prefersReducedMotion ? 'none' : 'translateY(20px)',
-              transition: prefersReducedMotion
-                ? 'none'
-                : 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+              // The same at build time and in the browser, so the pre-rendered HTML matches.
+              // Reduced motion is applied by the effect above.
+              opacity: 0,
+              transform: 'translateY(20px)',
+              transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
             }
           } as any);
         }
