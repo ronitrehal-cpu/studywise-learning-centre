@@ -125,7 +125,7 @@ export function About() {
           <div className={container}>
             <Reveal delay={0.1}>
               <h1 className="font-serif font-medium text-brand-navy text-[clamp(2.75rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.025em]">
-                Our story: tutoring in Melbourne's south-east since 2010
+                Our story
               </h1>
               <p className="mt-8 text-lg md:text-[22px] leading-[1.6] text-brand-slate max-w-[720px]">
                 Studywise has been teaching small groups of students in Melbourne's south-east since 2010. Many of our
