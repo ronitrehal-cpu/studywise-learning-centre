@@ -34,7 +34,7 @@ function scrollToId(id: string) {
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [compact, setCompact] = useState(() => typeof window !== 'undefined' && window.scrollY > COMPACT_AFTER);
+  const [compact, setCompact] = useState(false); // set from the real scroll position once the page is running
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export function Navigation() {
   };
 
   const isLinkActive = (link: NavLink) => {
-    if (link.path === '/about') return location.pathname === '/about' || location.pathname === '/about-us';
+    if (link.path === '/about') return location.pathname === '/about';
     if (link.path) return location.pathname === link.path;
     return false;
   };

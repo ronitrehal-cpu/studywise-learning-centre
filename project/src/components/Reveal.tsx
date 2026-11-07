@@ -61,20 +61,16 @@ export function Reveal({
     }
   };
 
-  const prefersReducedMotion = typeof window !== 'undefined'
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    : false;
-
   return (
     <div
       ref={ref}
       className={`reveal ${className}`}
       style={{
-        opacity: prefersReducedMotion ? 1 : 0,
-        transform: prefersReducedMotion ? 'none' : getTransform(),
-        transition: prefersReducedMotion
-          ? 'none'
-          : `opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+        // The same at build time and in the browser, so the pre-rendered HTML matches.
+        // Reduced motion is handled by the .reveal rule in index.css.
+        opacity: 0,
+        transform: getTransform(),
+        transition: `opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
       }}
     >
       {children}

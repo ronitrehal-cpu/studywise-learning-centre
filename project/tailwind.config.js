@@ -20,7 +20,7 @@ export default {
         },
       },
       fontFamily: {
-        serif: ['Fraunces', 'Georgia', 'serif'],
+        serif: ['"Fraunces Variable"', 'Georgia', 'serif'],
         sans: ['"Hanken Grotesk"', 'system-ui', 'sans-serif'],
       },
     },

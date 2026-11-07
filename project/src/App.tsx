@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 import { Home } from "./pages/Home";
@@ -7,6 +7,7 @@ import { About } from "./pages/About";
 import { FAQ } from "./pages/FAQ";
 import { NotFound } from "./pages/NotFound";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { PageMeta } from "./components/PageMeta";
 
 function HashScroll() {
   const location = useLocation();
@@ -65,27 +66,24 @@ function HashScroll() {
   return null;
 }
 
+// The router is supplied by the caller: BrowserRouter in the browser (main.tsx),
+// StaticRouter when each page is pre-rendered at build time (entry-server.tsx)
 export default function App() {
   return (
-    <Router>
+    <>
+      <PageMeta />
       <ScrollToTop />
       <HashScroll />
 
       <Routes>
         <Route path="/" element={<Home />} />
-
-        {/* Support BOTH versions so Google/old links never break */}
         <Route path="/about" element={<About />} />
-        <Route path="/about-us" element={<About />} />
-
         <Route path="/faq" element={<FAQ />} />
-        <Route path="/faqs" element={<FAQ />} />
-
-
         <Route path="/programs/:slug" element={<ProgramDetail />} />
 
+        {/* Old addresses (/about-us, /faqs) are 301 redirects in public/_redirects */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </Router>
+    </>
   );
 }

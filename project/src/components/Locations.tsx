@@ -41,6 +41,20 @@ const locations: Location[] = [
   }
 ];
 
+// Intrinsic sizes, so the browser knows each photo's shape before it loads
+const IMAGE_SIZES: Record<string, [number, number]> = {
+  '/7.webp': [1360, 1020],
+  '/12.webp': [1360, 1020],
+  '/8.webp': [1360, 1020],
+  '/6.webp': [1360, 1020],
+  '/11.webp': [1360, 1020],
+  '/2.jpeg': [675, 450],
+  '/1.jpeg': [1200, 801],
+  '/3.jpg': [900, 600],
+  '/actual_4.jpg': [900, 600],
+  '/4.jpg': [900, 600]
+};
+
 const actionLink = 'text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark';
 
 function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
@@ -62,6 +76,10 @@ function ImageSlideshow({ images, name }: { images: string[]; name: string }) {
             key={image}
             src={image}
             alt={`${name} centre, photo ${index + 1}`}
+            width={IMAGE_SIZES[image]?.[0]}
+            height={IMAGE_SIZES[image]?.[1]}
+            loading="lazy"
+            decoding="async"
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
               index === currentIndex ? 'opacity-100' : 'opacity-0'
             }`}

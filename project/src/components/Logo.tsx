@@ -10,15 +10,18 @@ interface LogoProps {
   className?: string;
 }
 
-// Real crest with a transparent background, made from public/final-studywise-logo.jpg by `npm run brand-assets` (509 x 540 px)
-const CREST_SRC = '/studywise-crest.png';
+// Real crest with a transparent background, made from public/final-studywise-logo.jpg by `npm run brand-assets`.
+// The page uses small WebPs (240px tall up to an 80px display, 540px above that); every current browser
+// supports WebP. public/studywise-crest.png (509 x 540) stays for anything that needs a PNG, such as the
+// logo in structured data.
 const CREST_RATIO = 509 / 540;
+const crestWebp = (size: number) => (size <= 80 ? '/studywise-crest-240.webp' : '/studywise-crest-540.webp');
 
 export function Crest({ size, cssHeight, className = '' }: { size: number; cssHeight?: string; className?: string }) {
   const width = Math.round(size * CREST_RATIO);
   return (
     <img
-      src={CREST_SRC}
+      src={crestWebp(size)}
       alt="Studywise Learning Centre crest"
       width={width}
       height={size}
