@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { headTags, metaForPath } from '../data/seo';
+import { STRUCTURED_DATA_ID, headTags, metaForPath } from '../data/seo';
 
 function setMeta(attr: 'name' | 'property', key: string, content: string | null) {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);
@@ -38,6 +38,18 @@ export function PageMeta() {
         document.head.appendChild(canonical);
       }
       canonical.href = t.canonical;
+    }
+
+    let script = document.getElementById(STRUCTURED_DATA_ID);
+    if (!t.jsonLd) script?.remove();
+    else {
+      if (!script) {
+        script = document.createElement('script');
+        script.id = STRUCTURED_DATA_ID;
+        script.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(script);
+      }
+      if (script.textContent !== t.jsonLd) script.textContent = t.jsonLd;
     }
   }, [pathname]);
 

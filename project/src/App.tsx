@@ -6,6 +6,8 @@ import { ProgramDetail } from "./pages/ProgramDetail";
 import { About } from "./pages/About";
 import { FAQ } from "./pages/FAQ";
 import { NotFound } from "./pages/NotFound";
+import { CampusPage } from "./pages/CampusPage";
+import { Contact } from "./pages/Contact";
 import { ScrollToTop } from "./components/ScrollToTop";
 import { PageMeta } from "./components/PageMeta";
 
@@ -80,6 +82,8 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/programs/:slug" element={<ProgramDetail />} />
+        <Route path="/locations/:slug" element={<CampusPage />} />
+        <Route path="/contact" element={<Contact />} />
 
         {/* Old addresses (/about-us, /faqs) are 301 redirects in public/_redirects */}
         <Route path="*" element={<NotFound />} />

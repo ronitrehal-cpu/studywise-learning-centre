@@ -146,13 +146,14 @@ export const getProgramBySlug = (slug: string): ProgramData | undefined => {
 };
 
 // Display order, short names and year ranges for program lists and page headers
-export const programSummaries: { slug: string; years: string; name: string }[] = [
-  { slug: 'primary', years: 'Years 1–6', name: 'Primary' },
-  { slug: 'secondary', years: 'Years 7–10', name: 'Secondary' },
-  { slug: 'selective-entry', years: 'Year 8', name: 'Selective Entry' },
-  { slug: 'scholarship-preparation', years: 'Up to Year 8', name: 'Scholarship Preparation' },
-  { slug: 'jmss', years: 'Year 9', name: 'John Monash Science School' },
-  { slug: 'vce', years: 'Years 11–12', name: 'VCE' }
+// name: short label for lists. heading: the program page's H1, worded for search.
+export const programSummaries: { slug: string; years: string; name: string; heading: string }[] = [
+  { slug: 'primary', years: 'Years 1–6', name: 'Primary', heading: 'Primary school tutoring' },
+  { slug: 'secondary', years: 'Years 7–10', name: 'Secondary', heading: 'Secondary school tutoring' },
+  { slug: 'selective-entry', years: 'Year 8', name: 'Selective Entry', heading: 'Selective entry exam preparation' },
+  { slug: 'scholarship-preparation', years: 'Up to Year 8', name: 'Scholarship Preparation', heading: 'Scholarship exam preparation' },
+  { slug: 'jmss', years: 'Year 9', name: 'John Monash Science School', heading: 'John Monash Science School exam preparation' },
+  { slug: 'vce', years: 'Years 11–12', name: 'VCE', heading: 'VCE tutoring' }
 ];
 
 export const getProgramSummary = (slug: string) => programSummaries.find((p) => p.slug === slug);

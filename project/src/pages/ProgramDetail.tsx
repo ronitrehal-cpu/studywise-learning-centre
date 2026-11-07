@@ -8,6 +8,7 @@ import { Reveal } from '../components/Reveal';
 import { AssessmentCTA } from '../components/AssessmentCTA';
 import { ProgramList } from '../components/ProgramList';
 import { NotFound } from './NotFound';
+import { CAMPUSES, campusPath } from '../data/business';
 
 const container = 'max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20';
 const h2Class = 'font-serif font-medium text-brand-navy text-[28px] md:text-[34px] leading-tight tracking-tight mb-6';
@@ -50,7 +51,7 @@ export function ProgramDetail() {
     { label: 'Year levels', value: summary?.years ?? program.title },
     { label: 'Focus areas', value: program.focusAreas.join(', ') },
     { label: 'Class format', value: 'Small groups, in person' },
-    { label: 'Locations', value: 'Cranbourne West and Clyde North' }
+    { label: 'Locations', value: CAMPUSES.map((c) => c.name).join(' and ') }
   ];
 
   return (
@@ -69,7 +70,7 @@ export function ProgramDetail() {
               </Link>
               <p className="text-base text-brand-muted">{summary?.years}</p>
               <h1 className="mt-3 font-serif font-medium text-brand-navy text-[clamp(2.75rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.025em]">
-                {summary?.name ?? program.title}
+                {summary?.heading ?? program.title}
               </h1>
               <p className="mt-8 text-lg md:text-[22px] leading-[1.6] text-brand-slate max-w-[720px]">
                 {program.fullDescription}
@@ -102,12 +103,17 @@ export function ProgramDetail() {
                   We offer this program at both our Cranbourne West and Clyde North locations. Class times vary by
                   location and age group.
                 </p>
-                <Link
-                  to="/#locations"
-                  className="inline-block mt-6 text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark"
-                >
-                  See locations and contact details
-                </Link>
+                <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+                  {CAMPUSES.map((c) => (
+                    <Link
+                      key={c.slug}
+                      to={campusPath(c)}
+                      className="text-base font-semibold text-brand-navy underline decoration-brand-orange underline-offset-[6px] hover:text-brand-navyDark"
+                    >
+                      {c.name} campus
+                    </Link>
+                  ))}
+                </div>
               </Reveal>
             </div>
 

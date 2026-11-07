@@ -1,3 +1,8 @@
+import { CAMPUSES, EMAIL, MAIN_PHONE, MOBILE_PHONE, campusAddress } from './business';
+
+// Phone numbers keep non-breaking spaces so they never split across lines
+const nb = (t: string) => t.replace(/ /g, '\u00A0');
+
 export interface FAQItem {
   question: string;
   answer: string;
@@ -8,7 +13,7 @@ export const faqs: FAQItem[] = [
   {
     category: 'Enrolment & Getting Started',
     question: 'How do I enrol my child?',
-    answer: `You can enrol by clicking "Book a free assessment" on our website, calling us at 03\u00A08774\u00A07303, or visiting one of our centres. We'll guide you through the process, discuss your child's needs, and help you choose the right program.`
+    answer: `You can enrol by clicking "Book a free assessment" on our website, calling us at ${nb(MAIN_PHONE.display)}, or visiting one of our centres. We'll guide you through the process, discuss your child's needs, and help you choose the right program.`
   },
   {
     category: 'Enrolment & Getting Started',
@@ -58,7 +63,7 @@ export const faqs: FAQItem[] = [
   {
     category: 'Fees & Payments',
     question: 'How much does it cost?',
-    answer: `Our fees vary depending on the program, year level, and session length. We offer competitive rates and flexible payment options. Please contact us at 03\u00A08774\u00A07303 or admin@studywiselearning.com.au for detailed pricing information.`
+    answer: `Our fees vary depending on the program, year level, and session length. We offer competitive rates and flexible payment options. Please contact us at ${nb(MAIN_PHONE.display)} or ${EMAIL} for detailed pricing information.`
   },
   {
     category: 'Fees & Payments',
@@ -78,12 +83,12 @@ export const faqs: FAQItem[] = [
   {
     category: 'Contact & Locations',
     question: 'Where are your centres located?',
-    answer: `We have two convenient locations: Cranbourne West (5 Biara Court, Cranbourne West VIC 3977) and Clyde North (Balla Balla Community Centre, Clyde North VIC 3978).`
+    answer: `We have two convenient locations: ${CAMPUSES.map((c) => `${c.name} (${campusAddress(c)})`).join(' and ')}.`
   },
   {
     category: 'Contact & Locations',
     question: 'How can I contact Studywise?',
-    answer: `You can call us at 03\u00A08774\u00A07303 or 0430\u00A0095\u00A0076, email us at admin@studywiselearning.com.au, or visit one of our centres. We're here to answer your questions and help you find the right program for your child.`
+    answer: `You can call us at ${nb(MAIN_PHONE.display)} or ${nb(MOBILE_PHONE.display)}, email us at ${EMAIL}, or visit one of our centres. We're here to answer your questions and help you find the right program for your child.`
   }
 ];
 
