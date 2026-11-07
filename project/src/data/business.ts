@@ -61,8 +61,8 @@ export interface Campus {
   postcode: string;
   geo: { lat: number; lng: number };
   /**
-   * Opening hours. Empty until confirmed: the campus pages then say to call for
-   * class times, and the structured data leaves hours out rather than guessing.
+   * Opening hours, shown on the campus and contact pages and in structured data.
+   * If a campus ever has none listed, the pages say to call for class times instead.
    */
   hours: OpeningHours[];
   /** Suburbs families come from, mentioned in a sentence on the campus page */
@@ -80,7 +80,10 @@ export const CAMPUSES: Campus[] = [
     state: 'VIC',
     postcode: '3977',
     geo: { lat: -38.08002, lng: 145.24535 },
-    hours: [],
+    hours: [
+      { days: ['Tuesday', 'Wednesday'], opens: '17:00', closes: '20:30' },
+      { days: ['Saturday'], opens: '09:30', closes: '17:00' },
+    ],
     nearby: ['Cranbourne', 'Cranbourne North', 'Cranbourne East', 'Botanic Ridge', 'Narre Warren South'],
     about:
       'A dedicated Studywise tutoring centre on Biara Court, with its own classrooms.',
@@ -127,10 +130,10 @@ export const CAMPUSES: Campus[] = [
     state: 'VIC',
     postcode: '3978',
     geo: { lat: -38.10448, lng: 145.32564 },
-    hours: [],
+    hours: [{ days: ['Monday'], opens: '17:30', closes: '20:30' }],
     nearby: ['Clyde', 'Berwick', 'Officer', 'Cranbourne East'],
     about:
-      'Classes run in a room we hire at Balla Balla Community Centre, the community centre on Selandra Boulevard in Selandra Rise.',
+      'Classes run at Balla Balla Community Centre, the community centre on Selandra Boulevard in Selandra Rise.',
     // Opens on the hall rather than the exterior, which already leads the hero
     photos: [
       {
