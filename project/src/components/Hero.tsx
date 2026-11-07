@@ -16,7 +16,7 @@ export function Hero() {
       <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20">
         <Reveal delay={0.1}>
           <h1 className="font-serif font-medium text-brand-navy text-[clamp(3rem,8.6vw,7.75rem)] leading-[0.98] tracking-[-0.025em] max-w-[1220px]">
-            Sixteen years of tutoring in Cranbourne West & Clyde North.
+            Sixteen years of watching students grow.
           </h1>
         </Reveal>
 

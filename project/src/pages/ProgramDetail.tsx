@@ -70,7 +70,7 @@ export function ProgramDetail() {
               </Link>
               <p className="text-base text-brand-muted">{summary?.years}</p>
               <h1 className="mt-3 font-serif font-medium text-brand-navy text-[clamp(2.75rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.025em]">
-                {summary?.heading ?? program.title}
+                {summary?.name ?? program.title}
               </h1>
               <p className="mt-8 text-lg md:text-[22px] leading-[1.6] text-brand-slate max-w-[720px]">
                 {program.fullDescription}

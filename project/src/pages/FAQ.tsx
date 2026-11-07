@@ -35,7 +35,7 @@ export function FAQ() {
           <div className={container}>
             <Reveal delay={0.1}>
               <h1 className="font-serif font-medium text-brand-navy text-[clamp(2.75rem,6.2vw,5.5rem)] leading-[1] tracking-[-0.025em]">
-                Tutoring questions parents ask
+                Questions parents ask
               </h1>
               <p className="mt-8 text-lg md:text-[22px] leading-[1.6] text-brand-slate max-w-[720px]">
                 Quick answers about enrolment, programs, fees, and more.
